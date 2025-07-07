@@ -10,6 +10,9 @@ class OnyxDashbord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const DashBoardView());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const DashBoardView(),
+    );
   }
 }
