@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/views/widgets/dash_board_view.dart';
 
 void main() {
   runApp(const OnyxDashbord());
@@ -9,6 +10,6 @@ class OnyxDashbord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(home: const DashBoardView());
   }
 }
