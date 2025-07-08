@@ -45,7 +45,13 @@ class OrderTableHeader extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(width: 40),
+          Expanded(
+            flex: 2,
+            child: Text(
+              "Actions",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );

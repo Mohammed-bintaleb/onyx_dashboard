@@ -23,7 +23,10 @@ class OrderRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      padding: const EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: 16,
+      ), // خليه نفس padding الهيدر
       child: Row(
         children: [
           Expanded(
@@ -49,7 +52,13 @@ class OrderRow extends StatelessWidget {
             flex: 2,
             child: Text('\$${order.amount.toStringAsFixed(2)}'),
           ),
-          const Icon(Icons.more_vert),
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Icon(Icons.more_vert),
+            ),
+          ),
         ],
       ),
     );
