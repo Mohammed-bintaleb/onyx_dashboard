@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/utils/app_styles.dart';
 
 class CustomContainer extends StatelessWidget {
   final String title;
@@ -38,31 +39,14 @@ class CustomContainer extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[600],
-                  ),
-                ),
+                Text(title, style: AppStyles.styleMedium16(context)),
                 const Spacer(),
               ],
             ),
             const SizedBox(height: 12),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+            Text(value, style: AppStyles.styleBold32(context)),
             const SizedBox(height: 5),
-            Text(
-              trendText,
-              style: const TextStyle(fontSize: 14, color: Colors.green),
-            ),
+            Text(trendText, style: AppStyles.style14(context)),
           ],
         ),
       ),
