@@ -14,7 +14,7 @@ class DashboardTabletLayout extends StatefulWidget {
 class _DashboardTabletLayoutState extends State<DashboardTabletLayout> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [DashboardContent(), CustomerOrdersView()];
+  final List<Widget> _pages = [const DashboardContent(), CustomerOrdersView()];
   void _changePage(int index) {
     setState(() {
       _currentIndex = index;
