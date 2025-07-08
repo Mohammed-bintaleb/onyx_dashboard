@@ -24,7 +24,6 @@ class _DashboardTabletLayoutState extends State<DashboardTabletLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Row(
         children: [
           CustomDrawer(

@@ -1,17 +1,9 @@
-enum OrderStatus { pending, shipped, completed, canceled }
-
-class OrderModel {
+class Order {
   final String id;
   final String customer;
   final String date;
-  final OrderStatus status;
+  final String status;
   final double amount;
 
-  OrderModel({
-    required this.id,
-    required this.customer,
-    required this.date,
-    required this.status,
-    required this.amount,
-  });
+  Order(this.id, this.customer, this.date, this.status, this.amount);
 }

@@ -10,7 +10,7 @@ class WeeklyRevenueChart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 250,
+          height: 320,
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: LineChart(
