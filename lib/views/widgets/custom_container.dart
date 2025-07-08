@@ -41,6 +41,7 @@ class CustomContainer extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(title, style: AppStyles.styleMedium16(context)),
                 const Spacer(),
+                Icon(titleIcon, color: Colors.grey[600], size: 20),
               ],
             ),
             const SizedBox(height: 12),
