@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/views/widgets/custom_container.dart';
 import 'package:onyx_dashboard/views/widgets/custom_container_list_view.dart';
 import 'package:onyx_dashboard/views/widgets/custom_drawer.dart';
+import 'package:onyx_dashboard/views/widgets/weekly_revenue_chart.dart';
+import 'chart_custom_container.dart';
 import 'custom_app_bar.dart';
 
 class DashboardTabletLayout extends StatelessWidget {
@@ -24,9 +26,25 @@ class DashboardTabletLayout extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
+                          CustomContainerListView(),
+                          SizedBox(height: 40),
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [CustomContainerListView()],
+                            children: [
+                              Expanded(
+                                child: ChartCustomContainer(
+                                  title: 'Weekly Revenue',
+                                  subtitle: 'Last 7 days performance',
+                                  child: const WeeklyRevenueChart(),
+                                ),
+                              ),
+                              Expanded(
+                                child: ChartCustomContainer(
+                                  title: 'Weekly Revenue',
+                                  subtitle: 'Last 7 days performance',
+                                  child: const WeeklyRevenueChart(),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
