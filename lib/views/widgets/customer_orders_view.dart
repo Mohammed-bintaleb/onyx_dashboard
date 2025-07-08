@@ -3,17 +3,36 @@ import 'package:onyx_dashboard/utils/orders_data.dart.dart';
 import 'package:onyx_dashboard/views/widgets/custom_order_button.dart';
 import 'order_row.dart';
 import 'order_table_header.dart';
+import 'pagination_order_button.dart';
 import 'search_and_filter_bar.dart';
 
-class CustomerOrdersView extends StatelessWidget {
+class CustomerOrdersView extends StatefulWidget {
   const CustomerOrdersView({super.key});
 
   @override
+  State<CustomerOrdersView> createState() => _CustomerOrdersViewState();
+}
+
+class _CustomerOrdersViewState extends State<CustomerOrdersView> {
+  static const int itemsPerPage = 10;
+  int currentPage = 0;
+  bool isPreviousPressed = false;
+  bool isNextPressed = false;
+
+  @override
   Widget build(BuildContext context) {
+    final totalItems = OrdersData.orders.length;
+    final totalPages = (totalItems / itemsPerPage).ceil();
+
+    final startIndex = currentPage * itemsPerPage;
+    final endIndex = (startIndex + itemsPerPage).clamp(0, totalItems);
+    final visibleOrders = OrdersData.orders.sublist(startIndex, endIndex);
+
     return Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,14 +66,70 @@ class CustomerOrdersView extends StatelessWidget {
             const SearchAndFilterBar(),
             const SizedBox(height: 24),
             const OrderTableHeader(),
-            Expanded(
-              child: ListView.separated(
-                itemCount: OrdersData.orders.length,
-                separatorBuilder: (_, __) => const Divider(height: 1),
-                itemBuilder: (context, index) {
-                  return OrderRow(order: OrdersData.orders[index]);
-                },
+            const SizedBox(height: 8),
+            Column(
+              children: List.generate(
+                visibleOrders.length,
+                (index) => Column(
+                  children: [
+                    OrderRow(order: visibleOrders[index]),
+                    const Divider(height: 1),
+                  ],
+                ),
               ),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Page ${currentPage + 1} of $totalPages',
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                Row(
+                  children: [
+                    PaginationButton(
+                      isPressed: isPreviousPressed,
+                      onPressed: currentPage > 0
+                          ? () {
+                              setState(() => isPreviousPressed = true);
+                              Future.delayed(
+                                const Duration(milliseconds: 600),
+                                () {
+                                  setState(() {
+                                    currentPage--;
+                                    isPreviousPressed = false;
+                                  });
+                                },
+                              );
+                            }
+                          : null,
+                      icon: Icons.chevron_left,
+                      label: 'Previous',
+                    ),
+                    const SizedBox(width: 8),
+                    PaginationButton(
+                      isPressed: isNextPressed,
+                      onPressed: currentPage < totalPages - 1
+                          ? () {
+                              setState(() => isNextPressed = true);
+                              Future.delayed(
+                                const Duration(milliseconds: 600),
+                                () {
+                                  setState(() {
+                                    currentPage++;
+                                    isNextPressed = false;
+                                  });
+                                },
+                              );
+                            }
+                          : null,
+                      icon: Icons.chevron_right,
+                      label: 'Next',
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

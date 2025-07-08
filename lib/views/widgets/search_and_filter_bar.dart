@@ -20,18 +20,37 @@ class SearchAndFilterBar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 16),
-        DropdownButton<String>(
-          value: "All Statuses",
-          items: const [
-            DropdownMenuItem(
-              value: "All Statuses",
-              child: Text("All Statuses"),
+        SizedBox(
+          width: 200,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade400),
+              borderRadius: BorderRadius.circular(10),
             ),
-            DropdownMenuItem(value: "Completed", child: Text("Completed")),
-            DropdownMenuItem(value: "Shipped", child: Text("Shipped")),
-            DropdownMenuItem(value: "Canceled", child: Text("Canceled")),
-          ],
-          onChanged: (_) {},
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: "All Statuses",
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                isExpanded: true,
+                items: const [
+                  DropdownMenuItem(
+                    value: "All Statuses",
+                    child: Text("All Statuses"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Completed",
+                    child: Text("Completed"),
+                  ),
+                  DropdownMenuItem(value: "Shipped", child: Text("Shipped")),
+                  DropdownMenuItem(value: "Canceled", child: Text("Canceled")),
+                ],
+                onChanged: (_) {
+                  // التغيير
+                },
+              ),
+            ),
+          ),
         ),
       ],
     );
