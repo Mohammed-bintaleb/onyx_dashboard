@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/views/widgets/custom_card.dart';
+import 'package:onyx_dashboard/views/widgets/custom_container.dart';
 import 'package:onyx_dashboard/views/widgets/custom_drawer.dart';
 import 'custom_app_bar.dart';
 
