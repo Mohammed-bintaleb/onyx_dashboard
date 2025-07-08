@@ -5,6 +5,7 @@ import 'package:onyx_dashboard/views/widgets/custom_drawer.dart';
 import 'package:onyx_dashboard/views/widgets/weekly_revenue_chart.dart';
 import 'chart_custom_container.dart';
 import 'custom_app_bar.dart';
+import 'top_products_chart.dart';
 
 class DashboardTabletLayout extends StatelessWidget {
   const DashboardTabletLayout({super.key});
@@ -33,15 +34,17 @@ class DashboardTabletLayout extends StatelessWidget {
                               Expanded(
                                 child: ChartCustomContainer(
                                   title: 'Weekly Revenue',
-                                  subtitle: 'Last 7 days performance',
+                                  subtitle:
+                                      'A line chart showing revenue over the past week',
                                   child: const WeeklyRevenueChart(),
                                 ),
                               ),
                               Expanded(
                                 child: ChartCustomContainer(
-                                  title: 'Weekly Revenue',
-                                  subtitle: 'Last 7 days performance',
-                                  child: const WeeklyRevenueChart(),
+                                  title: 'Top Products by Orders',
+                                  subtitle:
+                                      'A bar chart showing the most ordered Products ',
+                                  child: TopProductsChart(),
                                 ),
                               ),
                             ],
