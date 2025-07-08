@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/views/widgets/custom_container.dart';
-import 'package:onyx_dashboard/views/widgets/custom_container_list_view.dart';
 import 'package:onyx_dashboard/views/widgets/custom_drawer.dart';
-import 'package:onyx_dashboard/views/widgets/weekly_revenue_chart.dart';
-import 'chart_custom_container.dart';
 import 'custom_app_bar.dart';
-import 'top_products_chart.dart';
+import 'customer_orders_view.dart';
+import 'dashboard_content.dart';
 
-class DashboardTabletLayout extends StatelessWidget {
+class DashboardTabletLayout extends StatefulWidget {
   const DashboardTabletLayout({super.key});
+
+  @override
+  State<DashboardTabletLayout> createState() => _DashboardTabletLayoutState();
+}
+
+class _DashboardTabletLayoutState extends State<DashboardTabletLayout> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = const [DashboardContent(), CustomerOrdersView()];
+  void _changePage(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,43 +27,16 @@ class DashboardTabletLayout extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          const CustomDrawer(),
+          CustomDrawer(
+            currentIndex: _currentIndex,
+            onItemSelected: _changePage,
+          ),
           Expanded(
             child: Column(
               children: [
                 const CustomAppBar(),
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          CustomContainerListView(),
-                          SizedBox(height: 40),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ChartCustomContainer(
-                                  title: 'Weekly Revenue',
-                                  subtitle:
-                                      'A line chart showing revenue over the past week',
-                                  child: const WeeklyRevenueChart(),
-                                ),
-                              ),
-                              Expanded(
-                                child: ChartCustomContainer(
-                                  title: 'Top Products by Orders',
-                                  subtitle:
-                                      'A bar chart showing the most ordered Products ',
-                                  child: TopProductsChart(),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  child: IndexedStack(index: _currentIndex, children: _pages),
                 ),
               ],
             ),

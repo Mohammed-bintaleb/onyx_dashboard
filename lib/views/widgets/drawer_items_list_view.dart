@@ -1,16 +1,17 @@
-// widgets/drawer_items_list_view.dart
 import 'package:flutter/material.dart';
 import '../../models/drawer_item_model.dart';
 import 'drawer_item.dart';
 
-class DrawerItemsListView extends StatefulWidget {
-  const DrawerItemsListView({super.key});
+class DrawerItemsListView extends StatelessWidget {
+  final int currentIndex;
+  final Function(int) onItemSelected;
 
-  @override
-  State<DrawerItemsListView> createState() => _DrawerItemsListViewState();
-}
+  const DrawerItemsListView({
+    super.key,
+    required this.currentIndex,
+    required this.onItemSelected,
+  });
 
-class _DrawerItemsListViewState extends State<DrawerItemsListView> {
   final List<DrawerItemModel> items = const [
     DrawerItemModel(title: 'Dashboard', icon: Icons.dashboard_outlined),
     DrawerItemModel(
@@ -22,27 +23,16 @@ class _DrawerItemsListViewState extends State<DrawerItemsListView> {
     DrawerItemModel(title: 'Settings', icon: Icons.settings),
   ];
 
-  int activeIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    return SliverList.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            if (activeIndex != index) {
-              setState(() {
-                activeIndex = index;
-              });
-            }
-          },
-          child: DrawerItem(
-            drawerItemModel: items[index],
-            isActive: activeIndex == index,
-          ),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((context, index) {
+        return DrawerItem(
+          drawerItemModel: items[index],
+          isActive: currentIndex == index,
+          onTap: () => onItemSelected(index),
         );
-      },
+      }, childCount: items.length),
     );
   }
 }

@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:onyx_dashboard/models/dashboard_ifo_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:onyx_dashboard/utils/app_styles.dart';
+
+import '../../models/dashboard_ifo_model.dart';
 
 class DashboardInfoListTile extends StatelessWidget {
-  const DashboardInfoListTile({super.key, required this.dashboardIfoModel});
+  final DashboardInfoModel dashboardInfoModel;
 
-  final DashboardIfoModel dashboardIfoModel;
+  const DashboardInfoListTile({super.key, required this.dashboardInfoModel});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: const Color(0xFF0A0E21),
-      elevation: 0,
-      child: Center(
-        child: ListTile(
-          leading: SvgPicture.asset(dashboardIfoModel.image),
-          title: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              dashboardIfoModel.title,
-              style: TextStyle(color: Colors.white, fontSize: 22),
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SvgPicture.asset(dashboardInfoModel.image, width: 40, height: 40),
+          const SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                dashboardInfoModel.title,
+                style: AppStyles.styleBold32(
+                  context,
+                ).copyWith(color: Colors.white),
+              ),
+              Text(
+                dashboardInfoModel.subTitle,
+                style: const TextStyle(color: Colors.grey, fontSize: 14),
+              ),
+            ],
           ),
-          subtitle: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              dashboardIfoModel.subTitle,
-              style: TextStyle(color: Colors.white54),
-            ),
-          ),
-        ),
+        ],
       ),
     );
   }
