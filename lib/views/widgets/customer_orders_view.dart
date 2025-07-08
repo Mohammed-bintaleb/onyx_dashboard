@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/views/widgets/chart_custom_container.dart';
+import 'package:onyx_dashboard/utils/orders_data.dart.dart';
 import 'package:onyx_dashboard/views/widgets/custom_order_button.dart';
-
-import '../../models/order_model.dart';
+import 'order_row.dart';
+import 'order_table_header.dart';
 import 'search_and_filter_bar.dart';
 
 class CustomerOrdersView extends StatelessWidget {
-  CustomerOrdersView({super.key});
-
-  final List<Order> orders = [
-    Order("ORD011", "Hannah White", "7/19/2024", "Completed", 180.00),
-    Order("ORD012", "Ian Green", "7/19/2024", "Completed", 95.20),
-    Order("ORD013", "Jack Black", "7/18/2024", "Shipped", 500.00),
-    Order("ORD014", "Karen Hill", "7/18/2024", "Canceled", 32.50),
-    Order("ORD015", "Leo King", "7/17/2024", "Completed", 175.00),
-  ];
+  const CustomerOrdersView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +38,7 @@ class CustomerOrdersView extends StatelessWidget {
                 ),
                 CustomOrderButton(
                   onPressed: () {
-                    // Add your button action here
+                    //! لا تنسى تحط الوظيفه
                   },
                 ),
               ],
@@ -54,16 +46,16 @@ class CustomerOrdersView extends StatelessWidget {
             const SizedBox(height: 24),
             const SearchAndFilterBar(),
             const SizedBox(height: 24),
-            // const _OrderTableHeader(),
-            // Expanded(
-            //   child: ListView.separated(
-            //     itemCount: orders.length,
-            //     separatorBuilder: (_, __) => const Divider(height: 1),
-            //     itemBuilder: (context, index) {
-            //       return _OrderRow(order: orders[index]);
-            //     },
-            //   ),
-            // ),
+            const OrderTableHeader(),
+            Expanded(
+              child: ListView.separated(
+                itemCount: OrdersData.orders.length,
+                separatorBuilder: (_, __) => const Divider(height: 1),
+                itemBuilder: (context, index) {
+                  return OrderRow(order: OrdersData.orders[index]);
+                },
+              ),
+            ),
           ],
         ),
       ),
