@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:onyx_dashboard/utils/app_styles.dart';
+import 'package:onyx_dashboard/views/widgets/chart_custom_container.dart';
+import 'package:onyx_dashboard/views/widgets/custom_container.dart';
 
 class CustomerDetailsForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
@@ -9,53 +12,71 @@ class CustomerDetailsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double fieldWidth = MediaQuery.sizeOf(context).width * .4;
     return FormBuilder(
       key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Customer Details",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          const Text("Enter the customer's information for the new order"),
-          const SizedBox(height: 16),
-          _buildField(
-            'customer_name',
-            "Customer Name",
-            required: true,
-            initialValue: "John Doe",
-          ),
-          _buildField(
-            'phone',
-            "Phone Number (Optional)",
-            initialValue: "(123) 456-7890",
-            keyboardType: TextInputType.phone,
-          ),
-          _buildField(
-            'address',
-            "Shipping Address",
-            required: true,
-            initialValue: "123 Main St",
-          ),
-          _buildField('city', "City", required: true, initialValue: "Anytown"),
-          _buildField(
-            'zip_code',
-            "ZIP Code",
-            required: true,
-            initialValue: "12345",
-            keyboardType: TextInputType.number,
-          ),
-          _buildField(
-            'email',
-            "Customer Email",
-            required: true,
-            email: true,
-            initialValue: "john.doe@example.com",
-          ),
-          _buildField('state', "State", initialValue: "CA"),
-        ],
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              // ignore: deprecated_member_use
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Customer Details", style: AppStyles.styleBold32(context)),
+            const SizedBox(height: 4),
+            Text(
+              "Enter the customer's information for the new order",
+              style: AppStyles.style16(context),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                SizedBox(
+                  width: fieldWidth,
+                  child: _buildField('customer_name', "John Doe"),
+                ),
+                const SizedBox(width: 16),
+                Expanded(child: _buildField('email', "john.doe@example.com")),
+              ],
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: fieldWidth,
+              child: _buildField(
+                'phone',
+                "(123) 456-7890",
+                keyboardType: TextInputType.phone,
+              ),
+            ),
+            const SizedBox(height: 24),
+            _buildField('address', "123 Main St"),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(child: _buildField('city', "AnyTown")),
+                const SizedBox(width: 16),
+                Expanded(child: _buildField('state', "CA")),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _buildField(
+              'zip_code',
+              "12345",
+              keyboardType: TextInputType.number,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -68,22 +89,23 @@ class CustomerDetailsForm extends StatelessWidget {
     String? initialValue,
     TextInputType? keyboardType,
   }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: FormBuilderTextField(
-        name: name,
-        initialValue: initialValue,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          labelText: label,
-          border: const OutlineInputBorder(),
+    return FormBuilderTextField(
+      name: name,
+      initialValue: initialValue,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        hintText: label,
+        border: const OutlineInputBorder(),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 10,
         ),
-        validator: FormBuilderValidators.compose([
-          if (required)
-            FormBuilderValidators.required(errorText: "This field is required"),
-          if (email) FormBuilderValidators.email(errorText: "Invalid email"),
-        ]),
       ),
+      validator: FormBuilderValidators.compose([
+        if (required)
+          FormBuilderValidators.required(errorText: "This field is required"),
+        if (email) FormBuilderValidators.email(errorText: "Invalid email"),
+      ]),
     );
   }
 }
