@@ -106,6 +106,7 @@ class TopProductsChart extends StatelessWidget {
       ),
       series: [
         BarSeries<ProductData, String>(
+          color: Colors.blue[500],
           dataSource: data,
           xValueMapper: (ProductData data, _) => data.productName,
           yValueMapper: (ProductData data, _) => data.orders,
