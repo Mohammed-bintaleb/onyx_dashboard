@@ -27,6 +27,7 @@ class DashboardContent extends StatelessWidget {
                     child: const WeeklyRevenueChart(),
                   ),
                 ),
+                SizedBox(width: 15),
                 Expanded(
                   child: ChartCustomContainer(
                     title: 'Top Products by Orders',

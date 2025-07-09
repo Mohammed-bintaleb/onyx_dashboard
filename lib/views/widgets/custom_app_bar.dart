@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx_dashboard/views/manger/theme_cubit/theme_cubit.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: const Color(0xFFF5F8FA),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Theme.of(context).scaffoldBackgroundColor
+            : const Color(0xFFF5F8FA),
+        border: Border(
+          bottom: isDark
+              ? BorderSide(color: Colors.white24, width: 1)
+              : BorderSide(color: Colors.grey.shade300, width: 1),
+        ),
+      ),
+
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,7 +53,9 @@ class CustomAppBar extends StatelessWidget {
             width: 220,
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).scaffoldBackgroundColor
+                  : Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade300),
             ),
@@ -66,7 +81,6 @@ class CustomAppBar extends StatelessWidget {
           ),
           const SizedBox(width: 24),
 
-          // أيقونات
           IconButton(
             icon: const Icon(Icons.notifications_none, size: 24),
             onPressed: () {},
@@ -75,9 +89,24 @@ class CustomAppBar extends StatelessWidget {
             icon: const Icon(Icons.language, size: 24),
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.brightness_6, size: 24),
-            onPressed: () {},
+          DropdownButton(
+            underline: const SizedBox(),
+            icon: Icon(Icons.wb_sunny_outlined, size: 24),
+            value: Theme.of(context).brightness == Brightness.dark
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            items: [
+              DropdownMenuItem(
+                value: ThemeMode.light,
+                child: Text("Light Mode"),
+              ),
+              DropdownMenuItem(value: ThemeMode.dark, child: Text("Dark Mode")),
+            ],
+            onChanged: (mode) {
+              if (mode != null) {
+                context.read<ThemeCubit>().toggleTheme(mode);
+              }
+            },
           ),
           const SizedBox(width: 16),
 
