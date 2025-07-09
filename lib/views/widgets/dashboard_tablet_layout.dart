@@ -21,8 +21,7 @@ class _DashboardTabletLayoutState extends State<DashboardTabletLayout> {
   void initState() {
     super.initState();
     _pages.addAll([
-      // const DashboardContent(),
-      const CreateOrderView(),
+      const DashboardContent(),
       CustomerOrdersView(onCreatePassed: () => _changePage(2)),
       const CreateOrderView(),
     ]);
