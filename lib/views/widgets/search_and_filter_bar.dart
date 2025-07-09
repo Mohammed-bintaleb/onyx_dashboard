@@ -52,6 +52,7 @@ class SearchAndFilterBar extends StatelessWidget {
             ),
           ),
         ),
+        Spacer(),
       ],
     );
   }

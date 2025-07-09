@@ -10,7 +10,7 @@ class CustomContainerListView extends StatelessWidget {
       title: 'Total Orders Today',
       value: '125',
       trendText: '+12% from last period',
-      titleIcon: Icons.shopping_cart,
+      titleIcon: Icons.shopping_cart_outlined,
     ),
     CustomContainerModel(
       title: 'Active Customers',
@@ -38,14 +38,15 @@ class CustomContainerListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items
             .map(
               (e) => Padding(
                 padding: const EdgeInsets.only(right: 16),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
-                    minWidth: 220,
-                    maxWidth: 280,
+                    minWidth: 300,
+                    maxWidth: 300,
                   ),
                   child: CustomContainer(model: e),
                 ),

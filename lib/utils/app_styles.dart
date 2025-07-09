@@ -11,6 +11,14 @@ abstract class AppStyles {
     );
   }
 
+  static TextStyle styleBold16(BuildContext context) {
+    return TextStyle(
+      color: Colors.black,
+      fontSize: getResponsiveFontSize(context, fontSize: 16),
+      fontWeight: FontWeight.w700,
+    );
+  }
+
   static TextStyle styleMedium16(BuildContext context) {
     return TextStyle(
       color: Colors.black,
@@ -24,6 +32,13 @@ abstract class AppStyles {
       color: const Color(0xFFAAAAAA),
       fontSize: getResponsiveFontSize(context, fontSize: 14),
       fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle style16(BuildContext context) {
+    return TextStyle(
+      color: Colors.grey[600],
+      fontSize: getResponsiveFontSize(context, fontSize: 16),
     );
   }
 

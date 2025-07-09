@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/utils/app_styles.dart';
 import 'package:onyx_dashboard/utils/orders_data.dart.dart';
 import 'package:onyx_dashboard/views/widgets/custom_order_button.dart';
 import 'order_row.dart';
@@ -40,18 +41,15 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'Customer Orders',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppStyles.styleBold32(context),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'View and manage all customer orders.',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                      style: AppStyles.style16(context),
                     ),
                   ],
                 ),

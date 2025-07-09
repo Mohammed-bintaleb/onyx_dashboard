@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/utils/app_styles.dart';
 
 class OrderTableHeader extends StatelessWidget {
   const OrderTableHeader({super.key});
@@ -9,48 +10,29 @@ class OrderTableHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       color: Colors.grey[200],
       child: Row(
-        children: const [
+        children: [
           Expanded(
-            flex: 2,
-            child: Text(
-              "Order ID",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text("Order ID", style: AppStyles.styleBold16(context)),
           ),
+          Spacer(),
           Expanded(
-            flex: 3,
-            child: Text(
-              "Customer Name",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text("Customer Name", style: AppStyles.styleBold16(context)),
           ),
+          Spacer(),
           Expanded(
-            flex: 2,
-            child: Text(
-              "Order Date",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text("Order Date", style: AppStyles.styleBold16(context)),
           ),
+          Spacer(),
           Expanded(
-            flex: 2,
-            child: Text(
-              "Status",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text("Status", style: AppStyles.styleBold16(context)),
           ),
+          Spacer(),
           Expanded(
-            flex: 2,
-            child: Text(
-              "Total Amount",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text("Total Amount", style: AppStyles.styleBold16(context)),
           ),
+          Spacer(),
           Expanded(
-            flex: 2,
-            child: Text(
-              "Actions",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text("Actions", style: AppStyles.styleBold16(context)),
           ),
         ],
       ),

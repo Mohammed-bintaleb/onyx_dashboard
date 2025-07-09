@@ -38,6 +38,7 @@ dependencies:
   flutter_charts: ^0.5.2
   fl_chart: ^1.0.0
   syncfusion_flutter_charts: ^30.1.38
+  data_table_2: ^2.6.0
 
 
 dev_dependencies:

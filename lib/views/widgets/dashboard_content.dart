@@ -14,6 +14,7 @@ class DashboardContent extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const CustomContainerListView(),
             const SizedBox(height: 40),
