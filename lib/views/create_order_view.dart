@@ -15,14 +15,13 @@ class CreateOrderView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Create Order', style: AppStyles.styleBold32(context)),
-            const SizedBox(height: 4),
-            Text(
-              'Fill out the form below to create a new customer order.',
-              style: AppStyles.style16(context),
+            ChartCustomContainer(
+              title: "Create Order",
+              subtitle:
+                  "Fill out the form below to create a new customer order.",
+              child: CustomerDetails(),
             ),
-            const SizedBox(height: 24),
-            const CustomerDetails(),
+            SizedBox(height: 25),
             ChartCustomContainer(
               title: "Add Products",
               subtitle: "Search for products and add them to the order.",

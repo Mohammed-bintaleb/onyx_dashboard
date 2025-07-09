@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
 
 class CustomerDetailsForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
@@ -10,100 +8,75 @@ class CustomerDetailsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fieldWidth = MediaQuery.sizeOf(context).width * .4;
-    return FormBuilder(
-      key: formKey,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Customer Details", style: AppStyles.styleBold32(context)),
-            const SizedBox(height: 4),
-            Text(
-              "Enter the customer's information for the new order",
-              style: AppStyles.style16(context),
-            ),
-            const SizedBox(height: 30),
-            Row(
-              children: [
-                SizedBox(
-                  width: fieldWidth,
-                  child: _buildField('customer_name', "John Doe"),
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(child: _buildTextField("Customer Name", "John Doe")),
+              const SizedBox(width: 24),
+              Expanded(
+                child: _buildTextField(
+                  "Customer Email",
+                  "john.doe@example.com",
                 ),
-                const SizedBox(width: 16),
-                Expanded(child: _buildField('email', "john.doe@example.com")),
-              ],
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: fieldWidth,
-              child: _buildField(
-                'phone',
-                "(123) 456-7890",
-                keyboardType: TextInputType.phone,
               ),
-            ),
-            const SizedBox(height: 24),
-            _buildField('address', "123 Main St"),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(child: _buildField('city', "AnyTown")),
-                const SizedBox(width: 16),
-                Expanded(child: _buildField('state', "CA")),
-              ],
-            ),
-            const SizedBox(height: 24),
-            _buildField(
-              'zip_code',
-              "12345",
-              keyboardType: TextInputType.number,
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          // Phone Number
+          _buildTextField("Phone Number (Optional)", "123456-7890"),
+          const SizedBox(height: 24),
+
+          // Shipping Address
+          _buildTextField("Shipping Address", "123 Main St"),
+          const SizedBox(height: 24),
+
+          // City and State Row
+          Row(
+            children: [
+              Expanded(child: _buildTextField("City", "Anytown")),
+              const SizedBox(width: 16),
+              Expanded(child: _buildTextField("State", "CA")),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // ZIP Code
+          _buildTextField("ZIP Code", "12345"),
+        ],
       ),
     );
   }
 
-  Widget _buildField(
-    String name,
-    String label, {
-    bool required = false,
-    bool email = false,
-    String? initialValue,
-    TextInputType? keyboardType,
-  }) {
-    return FormBuilderTextField(
-      name: name,
-      initialValue: initialValue,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        hintText: label,
-        border: const OutlineInputBorder(),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 10,
+  Widget _buildTextField(String label, String initialValue) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+        const SizedBox(height: 4),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[200], // خلفية رمادية للحقل
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.grey[400]!), // حدود رمادية
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: TextFormField(
+            initialValue: initialValue,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            decoration: const InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(vertical: 12),
+              border: InputBorder.none, // إزالة الحدود الداخلية
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+            ),
+          ),
         ),
-      ),
-      validator: FormBuilderValidators.compose([
-        if (required)
-          FormBuilderValidators.required(errorText: "This field is required"),
-        if (email) FormBuilderValidators.email(errorText: "Invalid email"),
-      ]),
+      ],
     );
   }
 }
