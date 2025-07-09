@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:onyx_dashboard/utils/app_styles.dart';
-import 'package:onyx_dashboard/views/widgets/chart_custom_container.dart';
-import 'package:onyx_dashboard/views/widgets/custom_container.dart';
 
 class CustomerDetailsForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
