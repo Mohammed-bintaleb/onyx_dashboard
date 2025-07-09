@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/views/create_order_view.dart';
 import 'package:onyx_dashboard/views/widgets/custom_drawer.dart';
 import 'custom_app_bar.dart';
-import 'customer_orders_view.dart';
+import '../customer_orders_view.dart';
 import 'dashboard_content.dart';
 
 class DashboardTabletLayout extends StatefulWidget {
@@ -14,7 +15,18 @@ class DashboardTabletLayout extends StatefulWidget {
 class _DashboardTabletLayoutState extends State<DashboardTabletLayout> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [const DashboardContent(), CustomerOrdersView()];
+  final List<Widget> _pages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _pages.addAll([
+      // const DashboardContent(),
+      const CreateOrderView(),
+      CustomerOrdersView(onCreatePassed: () => _changePage(2)),
+      const CreateOrderView(),
+    ]);
+  }
 
   void _changePage(int index) {
     setState(() {

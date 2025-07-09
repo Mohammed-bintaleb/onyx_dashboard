@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/utils/app_styles.dart';
 import 'package:onyx_dashboard/utils/orders_data.dart.dart';
 import 'package:onyx_dashboard/views/widgets/custom_order_button.dart';
-import 'order_row.dart';
-import 'order_table_header.dart';
-import 'pagination_order_button.dart';
-import 'search_and_filter_bar.dart';
+import 'widgets/order_row.dart';
+import 'widgets/order_table_header.dart';
+import 'widgets/pagination_order_button.dart';
+import 'widgets/search_and_filter_bar.dart';
 
 class CustomerOrdersView extends StatefulWidget {
-  const CustomerOrdersView({super.key});
+  const CustomerOrdersView({super.key, required this.onCreatePassed});
+  final VoidCallback onCreatePassed;
 
   @override
   State<CustomerOrdersView> createState() => _CustomerOrdersViewState();
@@ -39,25 +40,8 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Customer Orders',
-                      style: AppStyles.styleBold32(context),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'View and manage all customer orders.',
-                      style: AppStyles.style16(context),
-                    ),
-                  ],
-                ),
-                CustomOrderButton(
-                  onPressed: () {
-                    //! لا تنسى تحط الوظيفه
-                  },
-                ),
+                CustomTextTitle(),
+                CustomOrderButton(onPressed: widget.onCreatePassed),
               ],
             ),
             const SizedBox(height: 24),
@@ -132,6 +116,25 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomTextTitle extends StatelessWidget {
+  const CustomTextTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Customer Orders', style: AppStyles.styleBold32(context)),
+        SizedBox(height: 4),
+        Text(
+          'View and manage all customer orders.',
+          style: AppStyles.style16(context),
+        ),
+      ],
     );
   }
 }
