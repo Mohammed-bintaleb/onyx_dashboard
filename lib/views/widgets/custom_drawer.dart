@@ -16,9 +16,17 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: MediaQuery.sizeOf(context).width * 0.2,
-      color: const Color(0xFF0A0E21),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0A0E21),
+        border: Border(
+          right: isDark
+              ? BorderSide(color: Colors.white24, width: 1)
+              : BorderSide(color: Colors.grey.shade300, width: 1),
+        ),
+      ),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(

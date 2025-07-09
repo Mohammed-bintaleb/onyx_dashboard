@@ -24,7 +24,6 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // شعار Onyx Dashboard
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
@@ -47,15 +46,13 @@ class CustomAppBar extends StatelessWidget {
             ],
           ),
           const Spacer(),
-
-          // حقل البحث
           Container(
-            width: 220,
+            width: 300,
             height: 40,
             decoration: BoxDecoration(
               color: Theme.of(context).brightness == Brightness.dark
                   ? Theme.of(context).scaffoldBackgroundColor
-                  : Colors.white,
+                  : null,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade300),
             ),

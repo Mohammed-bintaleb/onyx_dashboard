@@ -15,6 +15,7 @@ class ChartCustomContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       // margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -23,6 +24,7 @@ class ChartCustomContainer extends StatelessWidget {
             ? Theme.of(context).scaffoldBackgroundColor
             : Colors.white,
         borderRadius: BorderRadius.circular(12),
+        border: isDark ? Border.all(color: Colors.white24, width: 1) : null,
         boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
         ],
