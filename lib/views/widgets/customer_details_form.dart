@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class CustomerDetailsForm extends StatelessWidget {
-  final GlobalKey<FormBuilderState> formKey;
-
-  const CustomerDetailsForm({super.key, required this.formKey});
+  const CustomerDetailsForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +23,12 @@ class CustomerDetailsForm extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          // Phone Number
           _buildTextField("Phone Number (Optional)", "123456-7890"),
           const SizedBox(height: 24),
 
-          // Shipping Address
           _buildTextField("Shipping Address", "123 Main St"),
           const SizedBox(height: 24),
 
-          // City and State Row
           Row(
             children: [
               Expanded(child: _buildTextField("City", "Anytown")),
@@ -44,7 +38,6 @@ class CustomerDetailsForm extends StatelessWidget {
           ),
           const SizedBox(height: 24),
 
-          // ZIP Code
           _buildTextField("ZIP Code", "12345"),
         ],
       ),
@@ -59,9 +52,9 @@ class CustomerDetailsForm extends StatelessWidget {
         const SizedBox(height: 4),
         Container(
           decoration: BoxDecoration(
-            color: Colors.grey[200], // خلفية رمادية للحقل
+            color: Colors.grey[200],
             borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: Colors.grey[400]!), // حدود رمادية
+            border: Border.all(color: Colors.grey[400]!),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: TextFormField(
@@ -70,7 +63,7 @@ class CustomerDetailsForm extends StatelessWidget {
             decoration: const InputDecoration(
               isDense: true,
               contentPadding: EdgeInsets.symmetric(vertical: 12),
-              border: InputBorder.none, // إزالة الحدود الداخلية
+              border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
             ),

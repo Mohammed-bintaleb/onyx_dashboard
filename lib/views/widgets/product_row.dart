@@ -30,7 +30,6 @@ class ProductRowWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Product Name Dropdown
           Expanded(
             flex: 3,
             child: DropdownButton<String>(
@@ -51,13 +50,8 @@ class ProductRowWidget extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10),
-          // Available
           Expanded(child: Text('${productData.available}')),
-
-          // Price
           Expanded(child: Text('\$${productData.price.toStringAsFixed(2)}')),
-
-          // Quantity Input
           Expanded(
             child: TextFormField(
               initialValue: product.quantity.toString(),
@@ -77,8 +71,6 @@ class ProductRowWidget extends StatelessWidget {
             ),
           ),
           SizedBox(width: 15),
-
-          // Total
           Expanded(
             child: Text(
               '\$${(productData.price * product.quantity).toStringAsFixed(2)}',
