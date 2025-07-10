@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/views/widgets/adaptive_layout_widget.dart';
-import 'package:onyx_dashboard/views/widgets/dashboard_tablet_layout.dart';
+import 'package:onyx_dashboard/features/home/presentation/views/widgets/adaptive_layout_widget.dart';
+import 'package:onyx_dashboard/features/home/presentation/views/widgets/dashboard_tablet_layout.dart';
 
 class DashBoardView extends StatelessWidget {
   const DashBoardView({super.key});

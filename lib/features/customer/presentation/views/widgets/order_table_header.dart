@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
+import 'package:onyx_dashboard/core/utils/app_styles.dart';
 
 class OrderTableHeader extends StatelessWidget {
   const OrderTableHeader({super.key});

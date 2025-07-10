@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'chart_custom_container.dart';
+import '../../../../../core/widgets/chart_custom_container.dart';
 import 'custom_container_list_view.dart';
 import 'top_products_chart.dart';
 import 'weekly_revenue_chart.dart';

@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
-import '../../models/order_model.dart';
+import 'package:onyx_dashboard/core/utils/app_styles.dart';
+import '../../../data/models/order_model.dart';
 
 class OrderRow extends StatefulWidget {
   final Order order;
@@ -34,7 +34,6 @@ class _OrderRowState extends State<OrderRow> {
   Color _getStatusTextColor(String status) {
     final bgColor = _getStatusBackgroundColor(status);
 
-    // حساب درجة لون الخلفية لتحديد إذا كان النص يجب أن يكون أبيض أو أسود
     return bgColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
   }
 

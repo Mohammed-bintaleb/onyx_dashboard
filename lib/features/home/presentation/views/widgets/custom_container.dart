@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
+import 'package:onyx_dashboard/core/utils/app_styles.dart';
 
-import '../../models/custom_container_model.dart';
+import '../../../../customer/data/models/custom_container_model.dart';
 
 class CustomContainer extends StatelessWidget {
   final CustomContainerModel model;

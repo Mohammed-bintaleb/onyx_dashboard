@@ -1,5 +1,5 @@
 // في مسار: lib/data/orders_data.dart
-import '../../models/order_model.dart';
+import '../../features/customer/data/models/order_model.dart';
 
 class OrdersData {
   static final List<Order> orders = [

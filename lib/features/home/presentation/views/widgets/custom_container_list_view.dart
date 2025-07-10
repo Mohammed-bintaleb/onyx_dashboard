@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/custom_container_model.dart';
+import '../../../../customer/data/models/custom_container_model.dart';
 import 'custom_container.dart';
 
 class CustomContainerListView extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/views/create_order_view.dart';
-import 'package:onyx_dashboard/views/widgets/custom_drawer.dart';
+import 'package:onyx_dashboard/features/customer/presentation/views/create_order_view.dart';
+import 'package:onyx_dashboard/features/home/presentation/views/widgets/custom_drawer.dart';
 import 'custom_app_bar.dart';
-import '../customer_orders_view.dart';
+import '../../../../customer/presentation/views/customer_orders_view.dart';
 import 'dashboard_content.dart';
 
 class DashboardTabletLayout extends StatefulWidget {

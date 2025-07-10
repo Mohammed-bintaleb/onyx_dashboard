@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
-import 'package:onyx_dashboard/views/widgets/add_products.dart';
-import 'widgets/chart_custom_container.dart';
+import 'package:onyx_dashboard/features/customer/presentation/views/widgets/add_products.dart';
+import '../../../../core/utils/app_styles.dart';
+import '../../../../core/widgets/chart_custom_container.dart';
 import 'widgets/customer_details_form.dart';
 import 'widgets/rectangular_stepper.dart';
 

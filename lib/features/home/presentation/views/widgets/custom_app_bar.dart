@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
-import 'package:onyx_dashboard/views/manger/theme_cubit/theme_cubit.dart';
+import 'package:onyx_dashboard/core/utils/app_styles.dart';
+import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});

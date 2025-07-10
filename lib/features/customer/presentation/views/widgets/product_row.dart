@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/product_data.dart';
-import '../../models/product_row.dart';
+import '../../../data/models/product_data.dart';
+import '../../../data/models/product_row.dart';
 
 class ProductRowWidget extends StatelessWidget {
   final ProductRow product;

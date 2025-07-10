@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
+import 'package:onyx_dashboard/core/utils/app_styles.dart';
 
-import '../../models/dashboard_ifo_model.dart';
+import '../../../data/models/dashboard_ifo_model.dart';
 
 class DashboardInfoListTile extends StatelessWidget {
   final DashboardInfoModel dashboardInfoModel;

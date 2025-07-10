@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/utils/app_styles.dart';
+
+import '../utils/app_styles.dart';
 
 class ChartCustomContainer extends StatelessWidget {
   final String title;

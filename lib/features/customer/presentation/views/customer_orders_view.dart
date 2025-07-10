@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/views/widgets/custom_order_button.dart';
-import '../utils/orders_data.dart.dart';
+import 'package:onyx_dashboard/features/customer/presentation/views/widgets/custom_order_button.dart';
+import '../../../../core/utils/orders_data.dart.dart';
 import 'widgets/customer_text_title.dart';
 import 'widgets/order_row.dart';
 import 'widgets/order_table_header.dart';
-import 'widgets/pagination_order_button.dart';
+import '../../../home/presentation/views/widgets/pagination_order_button.dart';
 import 'widgets/search_and_filter_bar.dart';
 
 class CustomerOrdersView extends StatefulWidget {

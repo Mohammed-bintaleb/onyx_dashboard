@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx_dashboard/views/dash_board_view.dart';
-import 'package:onyx_dashboard/views/manger/theme_cubit/theme_cubit.dart';
+import 'package:onyx_dashboard/features/home/presentation/views/dash_board_view.dart';
+import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 
 void main() {
   runApp(const OnyxDashbord());

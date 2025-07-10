@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/app_styles.dart';
+import '../../../../../core/utils/app_styles.dart';
 
 class CustomTextTitle extends StatelessWidget {
   const CustomTextTitle({super.key});
