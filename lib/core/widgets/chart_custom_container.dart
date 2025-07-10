@@ -33,9 +33,17 @@ class ChartCustomContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: AppStyles.styleBold32(context)),
+          FittedBox(
+            alignment: Alignment.centerLeft,
+            fit: BoxFit.scaleDown,
+            child: Text(title, style: AppStyles.styleBold32(context)),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle, style: AppStyles.styleRegular14(context)),
+          FittedBox(
+            alignment: Alignment.centerLeft,
+            fit: BoxFit.scaleDown,
+            child: Text(subtitle, style: AppStyles.styleRegular14(context)),
+          ),
 
           const SizedBox(height: 12),
           child,

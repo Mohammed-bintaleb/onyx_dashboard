@@ -6,10 +6,11 @@ class OrderTableHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: isDarkMode ? const Color(0xFF1D1E33) : Colors.white,
         border: Border(
           bottom: BorderSide(color: Colors.grey.shade300, width: 1),
         ),

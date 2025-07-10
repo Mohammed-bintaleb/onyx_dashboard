@@ -39,6 +39,7 @@ class _OrderRowState extends State<OrderRow> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -47,7 +48,9 @@ class _OrderRowState extends State<OrderRow> {
         decoration: BoxDecoration(
           color: _isHovered
               ? Colors.grey.withOpacity(0.1)
-              : Theme.of(context).cardColor,
+              : isDarkMode
+              ? const Color(0xFF1D1E33)
+              : Colors.white,
           border: Border(
             bottom: BorderSide(color: Colors.grey.shade200, width: 1),
           ),
