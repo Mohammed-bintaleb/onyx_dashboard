@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/features/customer/presentation/views/widgets/add_row_button.dart';
 import '../../../data/models/product_data.dart';
 import '../../../data/models/product_row.dart';
-import 'table_header.dart';
+import 'add_product_table_header.dart';
 import 'product_row.dart';
 import 'grand_total.dart';
 
