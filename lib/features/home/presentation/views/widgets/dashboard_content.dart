@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:onyx_dashboard/core/utils/app_localizations.dart';
 import '../../../../../core/widgets/chart_custom_container.dart';
 import 'custom_container_list_view.dart';
 import 'top_products_chart.dart';
@@ -10,6 +10,8 @@ class DashboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,17 +25,17 @@ class DashboardContent extends StatelessWidget {
                 Flexible(
                   fit: FlexFit.loose,
                   child: ChartCustomContainer(
-                    title: 'Weekly Revenue',
-                    subtitle: 'A line chart showing revenue over the past week',
+                    title: t.translate('weekly_revenue_title'),
+                    subtitle: t.translate('weekly_revenue_subtitle'),
                     child: const WeeklyRevenueChart(),
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Flexible(
                   fit: FlexFit.loose,
                   child: ChartCustomContainer(
-                    title: 'Top Products by Orders',
-                    subtitle: 'A bar chart showing the most ordered Products',
+                    title: t.translate('top_products_title'),
+                    subtitle: t.translate('top_products_subtitle'),
                     child: TopProductsChart(),
                   ),
                 ),

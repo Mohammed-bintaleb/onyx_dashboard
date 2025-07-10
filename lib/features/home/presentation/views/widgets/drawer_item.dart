@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import '../../../data/models/drawer_item_model.dart';
 
@@ -15,18 +17,27 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRTL = Directionality.of(context) == TextDirection.rtl;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        // ignore: deprecated_member_use
         color: isActive ? Colors.white.withOpacity(0.1) : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        leading: Icon(
-          drawerItemModel.icon,
-          color: isActive ? Colors.white : Colors.grey[400],
-        ),
+        leading: isRTL
+            ? null
+            : Icon(
+                drawerItemModel.icon,
+                color: isActive ? Colors.white : Colors.grey[400],
+              ),
+        trailing: isRTL
+            ? Icon(
+                drawerItemModel.icon,
+                color: isActive ? Colors.white : Colors.grey[400],
+              )
+            : null,
         title: FittedBox(
           alignment: Alignment.centerLeft,
           fit: BoxFit.scaleDown,

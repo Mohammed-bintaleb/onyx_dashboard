@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx_dashboard/core/utils/app_styles.dart';
 import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 
+import '../../../../../core/utils/app_localizations.dart';
 import '../../manger/language_cubit/language_cubit.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -12,7 +13,6 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final width = MediaQuery.of(context).size.width;
-    final isMobile = width < 600;
 
     return Container(
       decoration: BoxDecoration(
@@ -30,54 +30,66 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Onyx',
-                style: AppStyles.styleBold32(
-                  context,
-                ).copyWith(color: Colors.blue),
-              ),
-              if (!isMobile)
-                Text(
-                  'Dashboard',
-                  style: AppStyles.styleBold32(
-                    context,
-                  ).copyWith(color: Colors.blue),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'Onyx',
+                    style: AppStyles.styleBold32(
+                      context,
+                    ).copyWith(color: Colors.blue),
+                  ),
                 ),
-            ],
-          ),
-          const Spacer(),
-          Container(
-            width: 300,
-            height: 40,
-            decoration: BoxDecoration(
-              color: isDark ? Theme.of(context).scaffoldBackgroundColor : null,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey.shade300),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              children: const [
-                Icon(Icons.search, color: Colors.grey, size: 20),
-                SizedBox(width: 8),
-                Expanded(
-                  child: TextField(
-                    style: TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                      isCollapsed: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 10),
-                      border: InputBorder.none,
-                      hintText: 'Search...',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
+                FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'Dashboard',
+                    style: AppStyles.styleBold32(
+                      context,
+                    ).copyWith(color: Colors.blue),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 12),
+          const Spacer(),
+          Flexible(
+            child: Container(
+              height: 40,
+              width: 350,
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Theme.of(context).scaffoldBackgroundColor
+                    : null,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: const [
+                  Icon(Icons.search, color: Colors.grey, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      style: TextStyle(fontSize: 14),
+                      decoration: InputDecoration(
+                        isCollapsed: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 10),
+                        border: InputBorder.none,
+                        hintText: 'Search...',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.notifications_none, size: 24),
             onPressed: () {},
@@ -87,9 +99,40 @@ class CustomAppBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.language, size: 24),
             onPressed: () {
-              context.read<LanguageCubit>().toggleLanguage();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.translate('choose_language'),
+                    ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: const Text('English'),
+                          onTap: () {
+                            context.read<LanguageCubit>().changeLanguage('en');
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        ListTile(
+                          title: const Text('العربية'),
+                          onTap: () {
+                            context.read<LanguageCubit>().changeLanguage('ar');
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
             },
           ),
+
           const SizedBox(width: 12),
           SizedBox(
             width: 40,

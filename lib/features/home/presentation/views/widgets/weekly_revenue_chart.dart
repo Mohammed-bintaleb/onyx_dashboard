@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:onyx_dashboard/core/utils/app_localizations.dart'; // استيراد الترجمة
 
 class WeeklyRevenueChart extends StatelessWidget {
   const WeeklyRevenueChart({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    final days = [
+      t.translate('saturday'),
+      t.translate('sunday'),
+      t.translate('monday'),
+      t.translate('tuesday'),
+      t.translate('wednesday'),
+      t.translate('thursday'),
+      t.translate('friday'),
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,15 +36,6 @@ class WeeklyRevenueChart extends StatelessWidget {
                       interval: 1,
                       reservedSize: 30,
                       getTitlesWidget: (value, meta) {
-                        const days = [
-                          'Mon',
-                          'Tue',
-                          'Wed',
-                          'Thu',
-                          'Fri',
-                          'Sat',
-                          'Sun',
-                        ];
                         return SideTitleWidget(
                           space: 10,
                           meta: meta,
@@ -76,7 +80,6 @@ class WeeklyRevenueChart extends StatelessWidget {
                 borderData: FlBorderData(
                   show: true,
                   border: Border.all(
-                    // ignore: deprecated_member_use
                     color: Colors.grey.withOpacity(0.3),
                     width: 1,
                   ),

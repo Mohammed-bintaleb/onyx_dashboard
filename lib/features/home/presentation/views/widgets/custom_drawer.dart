@@ -17,33 +17,45 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      width: MediaQuery.sizeOf(context).width * 0.2,
-      decoration: BoxDecoration(
-        color: const Color(0xFF0A0E21),
-        border: Border(
-          right: isDark
-              ? BorderSide(color: Colors.white24, width: 1)
-              : BorderSide(color: Colors.grey.shade300, width: 1),
+    final isRTL = Directionality.of(context) == TextDirection.rtl;
+
+    return Align(
+      alignment: isRTL ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width * 0.2,
+        decoration: BoxDecoration(
+          color: const Color(0xFF0A0E21),
+          border: Border(
+            right: isRTL
+                ? BorderSide.none
+                : (isDark
+                      ? BorderSide(color: Colors.white24, width: 1)
+                      : BorderSide(color: Colors.grey.shade300, width: 1)),
+            left: isRTL
+                ? (isDark
+                      ? BorderSide(color: Colors.white24, width: 1)
+                      : BorderSide(color: Colors.grey.shade300, width: 1))
+                : BorderSide.none,
+          ),
         ),
-      ),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: DashboardInfoListTile(
-              dashboardInfoModel: DashboardInfoModel(
-                image: "assets/images/avatar_3.svg",
-                title: 'Onyx Dashboard',
-                subTitle: 'Business Platform',
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: DashboardInfoListTile(
+                dashboardInfoModel: DashboardInfoModel(
+                  image: "assets/images/avatar_3.svg",
+                  title: 'Onyx Dashboard',
+                  subTitle: 'Business Platform',
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 8)),
-          DrawerItemsListView(
-            currentIndex: currentIndex,
-            onItemSelected: onItemSelected,
-          ),
-        ],
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
+            DrawerItemsListView(
+              currentIndex: currentIndex,
+              onItemSelected: onItemSelected,
+            ),
+          ],
+        ),
       ),
     );
   }

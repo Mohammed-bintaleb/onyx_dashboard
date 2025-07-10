@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/drawer_item_model.dart';
 import 'drawer_item.dart';
+import '../../../../../core/utils/app_localizations.dart'; // استيراد الترجمة
 
 class DrawerItemsListView extends StatelessWidget {
   final int currentIndex;
@@ -12,19 +13,33 @@ class DrawerItemsListView extends StatelessWidget {
     required this.onItemSelected,
   });
 
-  final List<DrawerItemModel> items = const [
-    DrawerItemModel(title: 'Dashboard', icon: Icons.dashboard_outlined),
-    DrawerItemModel(
-      title: 'Customer Orders',
-      icon: Icons.shopping_cart_outlined,
-    ),
-    DrawerItemModel(title: 'Products', icon: Icons.inventory),
-    DrawerItemModel(title: 'Analytics', icon: Icons.analytics),
-    DrawerItemModel(title: 'Settings', icon: Icons.settings),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    final List<DrawerItemModel> items = [
+      DrawerItemModel(
+        title: t.translate('drawer_dashboard'),
+        icon: Icons.dashboard_outlined,
+      ),
+      DrawerItemModel(
+        title: t.translate('drawer_customer_orders'),
+        icon: Icons.shopping_cart_outlined,
+      ),
+      DrawerItemModel(
+        title: t.translate('drawer_products'),
+        icon: Icons.inventory,
+      ),
+      DrawerItemModel(
+        title: t.translate('drawer_analytics'),
+        icon: Icons.analytics,
+      ),
+      DrawerItemModel(
+        title: t.translate('drawer_settings'),
+        icon: Icons.settings,
+      ),
+    ];
+
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, index) {
         return DrawerItem(

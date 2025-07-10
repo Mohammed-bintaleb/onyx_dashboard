@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppLocalizations {
   final Locale locale;
+  Map<String, String> _localizedStrings = {}; // تمت إزالة late
 
   AppLocalizations(this.locale);
 
@@ -24,12 +25,10 @@ class AppLocalizations {
     delegate,
   ];
 
-  late Map<String, String> _localizedStrings;
-
   Future<bool> load() async {
     try {
       final jsonString = await rootBundle.loadString(
-        'assets/l10n/app_${locale.languageCode}.arb',
+        'lib/l10n/app_${locale.languageCode}.arb',
       );
       final jsonMap = json.decode(jsonString) as Map<String, dynamic>;
 
@@ -39,7 +38,8 @@ class AppLocalizations {
 
       return true;
     } catch (e) {
-      print('Error loading localization files: $e');
+      debugPrint('Error loading localization files: $e');
+      _localizedStrings = {};
       return false;
     }
   }
