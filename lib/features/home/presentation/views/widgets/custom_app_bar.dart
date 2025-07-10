@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx_dashboard/core/utils/app_styles.dart';
 import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 
+import '../../manger/language_cubit/language_cubit.dart';
+
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
 
@@ -84,7 +86,9 @@ class CustomAppBar extends StatelessWidget {
 
           IconButton(
             icon: const Icon(Icons.language, size: 24),
-            onPressed: () {},
+            onPressed: () {
+              context.read<LanguageCubit>().toggleLanguage();
+            },
           ),
           const SizedBox(width: 12),
           SizedBox(
