@@ -13,27 +13,28 @@ class DashboardInfoListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SvgPicture.asset(dashboardInfoModel.image, width: 40, height: 40),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                dashboardInfoModel.title,
-                style: AppStyles.styleBold32(
-                  context,
-                ).copyWith(color: Colors.white),
-              ),
-              Text(
-                dashboardInfoModel.subTitle,
-                style: const TextStyle(color: Colors.grey, fontSize: 14),
-              ),
-            ],
+      child: ListTile(
+        leading: SvgPicture.asset(
+          dashboardInfoModel.image,
+          width: 40,
+          height: 40,
+        ),
+        title: FittedBox(
+          alignment: Alignment.centerLeft,
+          fit: BoxFit.scaleDown,
+          child: Text(
+            dashboardInfoModel.title,
+            style: AppStyles.styleBold32(context).copyWith(color: Colors.white),
           ),
-        ],
+        ),
+        subtitle: FittedBox(
+          alignment: Alignment.centerLeft,
+          fit: BoxFit.scaleDown,
+          child: Text(
+            dashboardInfoModel.subTitle,
+            style: AppStyles.style14(context).copyWith(color: Colors.grey[600]),
+          ),
+        ),
       ),
     );
   }

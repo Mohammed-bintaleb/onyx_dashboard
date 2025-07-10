@@ -27,11 +27,15 @@ class DrawerItem extends StatelessWidget {
           drawerItemModel.icon,
           color: isActive ? Colors.white : Colors.grey[400],
         ),
-        title: Text(
-          drawerItemModel.title,
-          style: TextStyle(
-            color: isActive ? Colors.white : Colors.grey[400],
-            fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+        title: FittedBox(
+          alignment: Alignment.centerLeft,
+          fit: BoxFit.scaleDown,
+          child: Text(
+            drawerItemModel.title,
+            style: TextStyle(
+              color: isActive ? Colors.white : Colors.grey[400],
+              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
         ),
         onTap: onTap,

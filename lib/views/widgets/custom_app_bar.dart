@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx_dashboard/utils/app_styles.dart';
 import 'package:onyx_dashboard/views/manger/theme_cubit/theme_cubit.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -26,22 +27,18 @@ class CustomAppBar extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Onyx',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
+                style: AppStyles.styleBold32(
+                  context,
+                ).copyWith(color: Colors.blue),
               ),
               Text(
                 'Dashboard',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: AppStyles.styleBold32(
+                  context,
+                ).copyWith(color: Colors.blue),
               ),
             ],
           ),

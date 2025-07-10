@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/views/widgets/add_products.dart';
 import 'package:onyx_dashboard/views/widgets/customer_details.dart';
-import '../utils/app_styles.dart';
 import 'widgets/chart_custom_container.dart';
 
 class CreateOrderView extends StatelessWidget {
@@ -25,7 +24,7 @@ class CreateOrderView extends StatelessWidget {
             ChartCustomContainer(
               title: "Add Products",
               subtitle: "Search for products and add them to the order.",
-              child: AddProducts(),
+              child: ProductTable(),
             ),
           ],
         ),
