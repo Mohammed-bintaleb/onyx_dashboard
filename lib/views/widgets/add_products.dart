@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/views/widgets/add_row_button.dart';
+import '../../models/product_data.dart';
+import '../../models/product_row.dart';
+import 'table_header.dart';
+import 'product_row.dart';
+import 'grand_total.dart';
 
 class ProductTable extends StatefulWidget {
   const ProductTable({super.key});
@@ -25,150 +31,28 @@ class _ProductTableState extends State<ProductTable> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          _buildTableHeader(),
-          const SizedBox(height: 8),
-          ..._products.map((product) => _buildProductRow(product)),
-          _buildAddButton(),
-          const SizedBox(height: 16),
-          _buildGrandTotal(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTableHeader() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: const Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Text(
-              'Product Name',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              'Available',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Text('Price', style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          Expanded(
-            child: Text(
-              'Quantity',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProductRow(ProductRow product) {
-    final productData = _productDatabase[product.name]!;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: Row(
-        children: [
-          // Product Name Dropdown
-          Expanded(
-            flex: 3,
-            child: DropdownButton<String>(
-              value: product.name,
-              items: _productDatabase.keys.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (newValue) {
+          const TableHeader(),
+          ..._products.map(
+            (product) => ProductRowWidget(
+              product: product,
+              productDatabase: _productDatabase,
+              onNameChanged: (newName) {
                 setState(() {
-                  product.name = newValue!;
+                  product.name = newName;
                   _calculateTotal();
                 });
               },
-              isExpanded: true,
-              underline: Container(),
-            ),
-          ),
-
-          // Available
-          Expanded(child: Text('${productData.available}')),
-
-          // Price
-          Expanded(child: Text('\$${productData.price.toStringAsFixed(2)}')),
-
-          // Quantity Input
-          Expanded(
-            child: TextFormField(
-              initialValue: product.quantity.toString(),
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                final newQuantity = int.tryParse(value) ?? 0;
-                final maxAvailable = productData.available;
-
-                if (newQuantity <= maxAvailable) {
-                  setState(() {
-                    product.quantity = newQuantity;
-                    _calculateTotal();
-                  });
-                }
+              onQuantityChanged: (newQuantity) {
+                setState(() {
+                  product.quantity = newQuantity;
+                  _calculateTotal();
+                });
               },
-              decoration: const InputDecoration(
-                isDense: true,
-                border: OutlineInputBorder(),
-              ),
             ),
           ),
-
-          // Total
-          Expanded(
-            child: Text(
-              '\$${(productData.price * product.quantity).toStringAsFixed(2)}',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAddButton() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: TextButton.icon(
-        onPressed: _addProduct,
-        icon: const Icon(Icons.add),
-        label: const Text('Add Product'),
-      ),
-    );
-  }
-
-  Widget _buildGrandTotal() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Grand Total',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            '\$${_grandTotal.toStringAsFixed(2)}',
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
+          GrandTotal(grandTotal: _grandTotal),
+          const SizedBox(height: 16),
+          AddRowButton(onPressed: _addProduct),
         ],
       ),
     );
@@ -187,18 +71,4 @@ class _ProductTableState extends State<ProductTable> {
     });
     setState(() {});
   }
-}
-
-class ProductRow {
-  String name;
-  int quantity;
-
-  ProductRow({required this.name, this.quantity = 1});
-}
-
-class ProductData {
-  final int available;
-  final double price;
-
-  ProductData({required this.available, required this.price});
 }
