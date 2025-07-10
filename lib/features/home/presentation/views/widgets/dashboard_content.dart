@@ -20,7 +20,8 @@ class DashboardContent extends StatelessWidget {
             const SizedBox(height: 40),
             Row(
               children: [
-                Expanded(
+                Flexible(
+                  fit: FlexFit.loose,
                   child: ChartCustomContainer(
                     title: 'Weekly Revenue',
                     subtitle: 'A line chart showing revenue over the past week',
@@ -28,7 +29,8 @@ class DashboardContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 15),
-                Expanded(
+                Flexible(
+                  fit: FlexFit.loose,
                   child: ChartCustomContainer(
                     title: 'Top Products by Orders',
                     subtitle: 'A bar chart showing the most ordered Products',
