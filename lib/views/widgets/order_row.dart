@@ -1,6 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/utils/app_styles.dart';
-
 import '../../models/order_model.dart';
 
 class OrderRow extends StatefulWidget {
@@ -13,80 +14,97 @@ class OrderRow extends StatefulWidget {
 }
 
 class _OrderRowState extends State<OrderRow> {
-  bool isHovered = false;
+  bool _isHovered = false;
 
-  Color _statusColor(String status) {
+  Color _getStatusBackgroundColor(String status) {
     switch (status) {
-      case 'Peding':
-        return Colors.white;
       case 'Completed':
         return Colors.blue;
+      case 'Pending':
+        return Colors.white;
       case 'Shipped':
-        return Colors.grey;
+        return Colors.grey.shade300;
       case 'Canceled':
         return Colors.red;
       default:
-        return Colors.black;
+        return Colors.grey;
     }
+  }
+
+  Color _getStatusTextColor(String status) {
+    final bgColor = _getStatusBackgroundColor(status);
+
+    // حساب درجة لون الخلفية لتحديد إذا كان النص يجب أن يكون أبيض أو أسود
+    return bgColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
   }
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (_) => setState(() => isHovered = true),
-      onExit: (_) => setState(() => isHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: isHovered
-              ? [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ]
-              : [],
+          color: _isHovered
+              ? Colors.grey.withOpacity(0.1)
+              : Theme.of(context).cardColor,
+          border: Border(
+            bottom: BorderSide(color: Colors.grey.shade200, width: 1),
+          ),
         ),
         child: Row(
           children: [
             Expanded(
+              flex: 2,
               child: Text(
                 widget.order.id,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: AppStyles.styleMedium16(context),
               ),
             ),
-            Spacer(),
-            Expanded(child: Text(widget.order.customer)),
-            Spacer(),
-            Expanded(child: Text(widget.order.date)),
-            Spacer(),
             Expanded(
-              child: Chip(
-                label: Text(
-                  widget.order.status,
-                  style: AppStyles.style16(
-                    context,
-                  ).copyWith(color: Colors.black),
+              flex: 3,
+              child: Text(
+                widget.order.customer,
+                style: AppStyles.styleMedium16(context),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                widget.order.date,
+                style: AppStyles.styleMedium16(context),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                decoration: BoxDecoration(
+                  color: _getStatusBackgroundColor(widget.order.status),
+                  borderRadius: BorderRadius.circular(99),
+                  border: Border.all(
+                    color: _getStatusBackgroundColor(widget.order.status),
+                  ),
                 ),
-                backgroundColor: _statusColor(widget.order.status),
+                child: Text(
+                  widget.order.status,
+                  style: AppStyles.styleMedium16(
+                    context,
+                  ).copyWith(color: _getStatusTextColor(widget.order.status)),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-            Spacer(),
+            SizedBox(width: 90),
             Expanded(
-              child: Text('\$${widget.order.amount.toStringAsFixed(2)}'),
-            ),
-            Spacer(),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(Icons.more_vert),
+              flex: 2,
+              child: Text(
+                '\$${widget.order.amount.toStringAsFixed(2)}',
+                style: AppStyles.styleMedium16(context),
               ),
             ),
+            SizedBox(width: 30),
+            const Expanded(child: Icon(Icons.more_vert, color: Colors.grey)),
           ],
         ),
       ),
