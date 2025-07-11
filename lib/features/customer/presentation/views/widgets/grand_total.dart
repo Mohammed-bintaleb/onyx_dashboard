@@ -11,12 +11,14 @@ class GrandTotal extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Spacer(),
           const Text(
             'Grand Total',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          SizedBox(width: 50),
           Text(
             '\$${grandTotal.toStringAsFixed(2)}',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),

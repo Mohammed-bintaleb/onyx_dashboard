@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/core/utils/app_styles.dart';
 import '../../../data/models/order_model.dart';
@@ -104,7 +106,7 @@ class _OrderRowState extends State<OrderRow> {
 
             Flexible(
               flex: 2,
-              fit: FlexFit.loose, // loose علشان ما يتمدد
+              fit: FlexFit.loose,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IntrinsicWidth(

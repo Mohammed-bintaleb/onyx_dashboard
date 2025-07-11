@@ -8,6 +8,8 @@ class CustomerDetailsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: FormBuilder(
@@ -15,25 +17,35 @@ class CustomerDetailsForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: _buildFormField(
-                    "customer_name",
-                    "Customer Name",
-                    "John Doe",
+            if (isSmallScreen) ...[
+              _buildFormField("customer_name", "Customer Name", "John Doe"),
+              const SizedBox(height: 16),
+              _buildFormField(
+                "customer_email",
+                "Customer Email",
+                "john.doe@example.com",
+              ),
+            ] else ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildFormField(
+                      "customer_name",
+                      "Customer Name",
+                      "John Doe",
+                    ),
                   ),
-                ),
-                const SizedBox(width: 24),
-                Expanded(
-                  child: _buildFormField(
-                    "customer_email",
-                    "Customer Email",
-                    "john.doe@example.com",
+                  const SizedBox(width: 24),
+                  Expanded(
+                    child: _buildFormField(
+                      "customer_email",
+                      "Customer Email",
+                      "john.doe@example.com",
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
             const SizedBox(height: 24),
             _buildFormField(
               "phone",
@@ -44,13 +56,19 @@ class CustomerDetailsForm extends StatelessWidget {
             const SizedBox(height: 24),
             _buildFormField("address", "Shipping Address", "123 Main St"),
             const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(child: _buildFormField("city", "City", "Anytown")),
-                const SizedBox(width: 16),
-                Expanded(child: _buildFormField("state", "State", "CA")),
-              ],
-            ),
+            if (isSmallScreen) ...[
+              _buildFormField("city", "City", "Anytown"),
+              const SizedBox(height: 16),
+              _buildFormField("state", "State", "CA"),
+            ] else ...[
+              Row(
+                children: [
+                  Expanded(child: _buildFormField("city", "City", "Anytown")),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildFormField("state", "State", "CA")),
+                ],
+              ),
+            ],
             const SizedBox(height: 24),
             _buildFormField("zip", "ZIP Code", "12345"),
           ],

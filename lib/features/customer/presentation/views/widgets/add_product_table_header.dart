@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/core/utils/app_styles.dart';
 
 class TableHeader extends StatelessWidget {
   const TableHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double baseFontSize = 16;
+    if (screenWidth < 400) {
+      baseFontSize = 12;
+    } else if (screenWidth < 600) {
+      baseFontSize = 14;
+    }
+
+    final textStyle = AppStyles.styleBold16(
+      context,
+    ).copyWith(fontSize: baseFontSize);
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
@@ -15,33 +28,54 @@ class TableHeader extends StatelessWidget {
           right: BorderSide(color: Colors.grey),
         ),
       ),
-      child: const Row(
+      child: Row(
         children: [
           Expanded(
             flex: 3,
             child: Text(
               'Product Name',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: textStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+            ),
+          ),
+          SizedBox(width: 20),
+          Expanded(
+            child: Text(
+              'Available',
+              style: textStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
             ),
           ),
           Expanded(
             child: Text(
-              'Available',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Price',
+              style: textStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
             ),
-          ),
-          Expanded(
-            child: Text('Price', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           Expanded(
             child: Text(
               'Quantity',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: textStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
             ),
           ),
-
           Expanded(
-            child: Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(
+              'Total',
+              style: textStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+            ),
           ),
         ],
       ),
