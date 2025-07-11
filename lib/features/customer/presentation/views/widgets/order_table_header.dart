@@ -85,11 +85,7 @@ class OrderTableHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          const Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: SizedBox(), // For actions column (الأيقونة)
-          ),
+          const Flexible(flex: 1, fit: FlexFit.tight, child: SizedBox()),
         ],
       ),
     );

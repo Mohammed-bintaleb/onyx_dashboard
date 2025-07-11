@@ -6,6 +6,8 @@ class TableHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     final screenWidth = MediaQuery.of(context).size.width;
     double baseFontSize = 16;
     if (screenWidth < 400) {
@@ -14,24 +16,27 @@ class TableHeader extends StatelessWidget {
       baseFontSize = 14;
     }
 
-    final textStyle = AppStyles.styleBold16(
-      context,
-    ).copyWith(fontSize: baseFontSize);
+    final textStyle = AppStyles.styleBold16(context).copyWith(
+      fontSize: baseFontSize,
+      color: isDarkMode ? Colors.white : Colors.black,
+    );
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: isDarkMode ? const Color(0xFF1D1E33) : Colors.grey[100],
         border: Border(
-          top: BorderSide(color: Colors.grey),
-          left: BorderSide(color: Colors.grey),
-          right: BorderSide(color: Colors.grey),
+          top: BorderSide(color: isDarkMode ? Colors.grey[700]! : Colors.grey),
+          left: BorderSide(color: isDarkMode ? Colors.grey[700]! : Colors.grey),
+          right: BorderSide(
+            color: isDarkMode ? Colors.grey[700]! : Colors.grey,
+          ),
         ),
       ),
       child: Row(
         children: [
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Text(
               'Product Name',
               style: textStyle,
@@ -40,8 +45,9 @@ class TableHeader extends StatelessWidget {
               softWrap: false,
             ),
           ),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Expanded(
+            flex: 2,
             child: Text(
               'Available',
               style: textStyle,

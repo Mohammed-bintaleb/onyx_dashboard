@@ -32,22 +32,31 @@ class _CreateOrderViewState extends State<CreateOrderView> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+
+    final containerColor = isDarkMode ? Color(0xFF1D1E33) : Colors.grey[300];
+    final textColor = isDarkMode ? Colors.white : Colors.black87;
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Create Order", style: AppStyles.styleBold32(context)),
+            Text(
+              "Create Order",
+              style: AppStyles.styleBold32(context).copyWith(color: textColor),
+            ),
             const SizedBox(height: 10),
             Text(
               "Fill out the form below to create a new customer order",
-              style: AppStyles.style16(context),
+              style: AppStyles.style16(context).copyWith(color: textColor),
             ),
             const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                color: containerColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               padding: const EdgeInsets.all(5),
@@ -57,6 +66,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
                 onStepTapped: (step) {
                   setState(() => _currentStep = step);
                 },
+                // يمكنك تعديل RectangularStepper لدعم الثيم أو استقبال ألوان حسب الوضع
               ),
             ),
             const SizedBox(height: 10),
@@ -65,6 +75,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
                 title: "Customer Details",
                 subtitle: "Enter the customer's information for the new order.",
                 child: CustomerDetailsForm(formKey: _formKey),
+                // يمكن تعديل ChartCustomContainer ليأخذ لون خلفية بناءً على الوضع أيضاً
               ),
               const SizedBox(height: 25),
               ChartCustomContainer(
@@ -100,6 +111,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
                 children: [
                   OutlinedButton(
                     onPressed: () => setState(() => _currentStep--),
+                    style: OutlinedButton.styleFrom(foregroundColor: textColor),
                     child: const Text("Back"),
                   ),
                   const SizedBox(width: 12),

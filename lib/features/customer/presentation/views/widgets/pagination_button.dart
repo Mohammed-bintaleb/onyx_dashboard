@@ -25,7 +25,7 @@ class PaginationButton extends StatelessWidget {
       style: ButtonStyle(
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (isPressed) return Colors.white;
-          return isEnabled ? Colors.black : Colors.grey;
+          return isEnabled ? Colors.grey : Colors.grey;
         }),
         backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (isPressed) return Colors.green;
