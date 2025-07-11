@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx_dashboard/core/utils/app_styles.dart';
-import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 
-import '../../../../../core/utils/app_localizations.dart';
-import '../../manger/language_cubit/language_cubit.dart';
+import 'aearch_box.dart';
+import 'language_button.dart';
+import 'menu_button.dart';
+import 'notification_button.dart';
+import 'theme_switcher.dart';
+import 'title_section.dart';
+import 'user_avatar.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showMenuButton;
@@ -19,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       decoration: BoxDecoration(
         color: isDark
@@ -35,146 +38,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (showMenuButton) ...[
-            IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed:
-                  onMenuPressed ?? () => Scaffold.of(context).openDrawer(),
-            ),
-            const SizedBox(width: 8),
-          ],
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FittedBox(
-                  alignment: Alignment.centerLeft,
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    'Onyx',
-                    style: AppStyles.styleBold32(
-                      context,
-                    ).copyWith(color: Colors.blue),
-                  ),
-                ),
-                FittedBox(
-                  alignment: Alignment.centerLeft,
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    'Dashboard',
-                    style: AppStyles.styleBold32(
-                      context,
-                    ).copyWith(color: Colors.blue),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          if (showMenuButton) MenuButton(onPressed: onMenuPressed),
+          const SizedBox(width: 8),
+          const Expanded(child: TitleSection()),
           const Spacer(),
-          Flexible(
-            child: Container(
-              height: 40,
-              width: 400,
-              decoration: BoxDecoration(
-                color: isDark
-                    ? Theme.of(context).scaffoldBackgroundColor
-                    : null,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: const [
-                  Icon(Icons.search, color: Colors.grey, size: 20),
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(fontSize: 14),
-                      decoration: InputDecoration(
-                        isCollapsed: true,
-                        contentPadding: EdgeInsets.symmetric(vertical: 10),
-                        border: InputBorder.none,
-                        hintText: 'Search...',
-                        hintStyle: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications_none, size: 24),
-            onPressed: () {},
-          ),
+          Flexible(child: SearchBox(isDarkMode: isDark)),
+          NotificationButton(),
           const SizedBox(width: 12),
-          IconButton(
-            icon: const Icon(Icons.language, size: 24),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text(
-                      AppLocalizations.of(
-                        context,
-                      )!.translate('choose_language'),
-                    ),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ListTile(
-                          title: const Text('English'),
-                          onTap: () {
-                            context.read<LanguageCubit>().changeLanguage('en');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        ListTile(
-                          title: const Text('العربية'),
-                          onTap: () {
-                            context.read<LanguageCubit>().changeLanguage('ar');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+          LanguageButton(),
           const SizedBox(width: 12),
-          SizedBox(
-            width: 40,
-            child: DropdownButton<ThemeMode>(
-              underline: const SizedBox(),
-              isDense: true,
-              icon: const SizedBox.shrink(),
-              value: Theme.of(context).brightness == Brightness.dark
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-              items: const [
-                DropdownMenuItem(value: ThemeMode.light, child: Text("Light")),
-                DropdownMenuItem(value: ThemeMode.dark, child: Text("Dark")),
-              ],
-              selectedItemBuilder: (context) => [
-                const Icon(Icons.wb_sunny_outlined, size: 24),
-                const Icon(Icons.nightlight_round, size: 24),
-              ],
-              onChanged: (mode) {
-                if (mode != null) {
-                  context.read<ThemeCubit>().toggleTheme(mode);
-                }
-              },
-            ),
-          ),
+          ThemeSwitcher(),
           const SizedBox(width: 16),
-          CircleAvatar(
-            radius: MediaQuery.of(context).size.width < 600 ? 16 : 20,
-            backgroundImage: const NetworkImage(
-              'https://i.pravatar.cc/150?img=47',
-            ),
-          ),
+          UserAvatar(),
         ],
       ),
     );
