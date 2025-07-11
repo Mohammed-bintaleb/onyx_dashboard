@@ -18,11 +18,12 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isRTL = Directionality.of(context) == TextDirection.rtl;
-
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final double drawerWidth = (screenWidth * 0.2).clamp(250, 300);
     return Align(
       alignment: isRTL ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.2,
+        width: drawerWidth,
         decoration: BoxDecoration(
           color: const Color(0xFF0A0E21),
           border: Border(

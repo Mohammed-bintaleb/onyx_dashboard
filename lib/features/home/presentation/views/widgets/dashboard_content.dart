@@ -8,24 +8,36 @@ class DashboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const CustomContainerListView(),
-            const SizedBox(height: 40),
-            Row(
-              children: [
-                Expanded(child: const RevenueChartDetailsCard()),
-                SizedBox(width: 15),
-                Expanded(child: const ProductsChartDetailsCard()),
-              ],
-            ),
-          ],
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth >= 800;
+
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(16.0),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate([
+              const CustomContainerListView(),
+              const SizedBox(height: 40),
+              isLargeScreen
+                  ? Row(
+                      children: const [
+                        Expanded(child: RevenueChartDetailsCard()),
+                        SizedBox(width: 15),
+                        Expanded(child: ProductsChartDetailsCard()),
+                      ],
+                    )
+                  : Column(
+                      children: const [
+                        RevenueChartDetailsCard(),
+                        SizedBox(height: 15),
+                        ProductsChartDetailsCard(),
+                      ],
+                    ),
+            ]),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

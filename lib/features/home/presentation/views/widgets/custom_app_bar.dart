@@ -6,8 +6,15 @@ import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/the
 import '../../../../../core/utils/app_localizations.dart';
 import '../../manger/language_cubit/language_cubit.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final bool showMenuButton;
+  final VoidCallback? onMenuPressed;
+
+  const CustomAppBar({
+    super.key,
+    this.showMenuButton = false,
+    this.onMenuPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +31,18 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          if (showMenuButton) ...[
+            IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed:
+                  onMenuPressed ?? () => Scaffold.of(context).openDrawer(),
+            ),
+            const SizedBox(width: 8),
+          ],
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +74,7 @@ class CustomAppBar extends StatelessWidget {
           Flexible(
             child: Container(
               height: 40,
-              width: 350,
+              width: 400,
               decoration: BoxDecoration(
                 color: isDark
                     ? Theme.of(context).scaffoldBackgroundColor
@@ -71,7 +86,6 @@ class CustomAppBar extends StatelessWidget {
               child: Row(
                 children: const [
                   Icon(Icons.search, color: Colors.grey, size: 20),
-                  SizedBox(width: 8),
                   Expanded(
                     child: TextField(
                       style: TextStyle(fontSize: 14),
@@ -93,7 +107,6 @@ class CustomAppBar extends StatelessWidget {
             onPressed: () {},
           ),
           const SizedBox(width: 12),
-
           IconButton(
             icon: const Icon(Icons.language, size: 24),
             onPressed: () {
@@ -130,7 +143,6 @@ class CustomAppBar extends StatelessWidget {
               );
             },
           ),
-
           const SizedBox(width: 12),
           SizedBox(
             width: 40,
@@ -157,7 +169,6 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-
           CircleAvatar(
             radius: MediaQuery.of(context).size.width < 600 ? 16 : 20,
             backgroundImage: const NetworkImage(
@@ -168,4 +179,7 @@ class CustomAppBar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(72);
 }

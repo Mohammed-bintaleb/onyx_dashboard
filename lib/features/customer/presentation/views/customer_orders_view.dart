@@ -42,11 +42,9 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
             ),
             const SizedBox(height: 24),
 
-            // Order Table Section
             OrderTableSection(orders: visibleOrders),
             const SizedBox(height: 24),
 
-            // Pagination Controls
             PaginationControls(
               currentPage: currentPage,
               totalPages: totalPages,

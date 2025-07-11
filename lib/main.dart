@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx_dashboard/core/utils/app_localizations.dart';
-import 'package:onyx_dashboard/features/home/presentation/views/dash_board_view.dart';
 import 'package:onyx_dashboard/features/home/presentation/manger/language_cubit/language_cubit.dart';
 import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
+
+import 'core/utils/app_router.dart';
 
 void main() {
   runApp(const OnyxDashbord());
@@ -23,8 +24,9 @@ class OnyxDashbord extends StatelessWidget {
         builder: (context, locale) {
           return BlocBuilder<ThemeCubit, ThemeState>(
             builder: (context, state) {
-              return MaterialApp(
+              return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
+                routerConfig: router,
                 locale: locale,
                 supportedLocales: AppLocalizations.supportedLocales,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -43,7 +45,6 @@ class OnyxDashbord extends StatelessWidget {
                     displayColor: Colors.white,
                   ),
                 ),
-                home: const DashBoardView(),
               );
             },
           );

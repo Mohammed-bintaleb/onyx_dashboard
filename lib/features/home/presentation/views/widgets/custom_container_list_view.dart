@@ -34,24 +34,40 @@ class CustomContainerListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth >= 800;
+
+    if (isLargeScreen) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: items
+              .map(
+                (e) => Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 280,
+                      maxWidth: 320,
+                    ),
+                    child: CustomContainer(model: e),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      );
+    } else {
+      return Column(
         children: items
             .map(
               (e) => Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 300,
-                    maxWidth: 300,
-                  ),
-                  child: CustomContainer(model: e),
-                ),
+                padding: const EdgeInsets.only(bottom: 16),
+                child: CustomContainer(model: e),
               ),
             )
             .toList(),
-      ),
-    );
+      );
+    }
   }
 }
