@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/core/utils/app_styles.dart';
+
+import 'order_table_header_text.dart';
 
 class OrderTableHeader extends StatelessWidget {
   const OrderTableHeader({super.key});
@@ -7,18 +8,6 @@ class OrderTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    final screenWidth = MediaQuery.of(context).size.width;
-    double baseFontSize = 16;
-    if (screenWidth < 400) {
-      baseFontSize = 12;
-    } else if (screenWidth < 600) {
-      baseFontSize = 14;
-    }
-
-    final textStyle = AppStyles.styleBold16(
-      context,
-    ).copyWith(fontSize: baseFontSize);
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -29,63 +18,18 @@ class OrderTableHeader extends StatelessWidget {
         ),
       ),
       child: Row(
-        children: [
-          Flexible(
-            flex: 2,
-            fit: FlexFit.tight,
-            child: Text(
-              "Order ID",
-              style: textStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          const SizedBox(width: 14),
-          Flexible(
-            flex: 3,
-            fit: FlexFit.tight,
-            child: Text(
-              "Customer Name",
-              style: textStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          const SizedBox(width: 30),
-          Flexible(
-            flex: 2,
-            fit: FlexFit.tight,
-            child: Text(
-              "Order Date",
-              style: textStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          const SizedBox(width: 30),
-          Flexible(
-            flex: 2,
-            fit: FlexFit.tight,
-            child: Text(
-              "Status",
-              style: textStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Flexible(
-            flex: 2,
-            fit: FlexFit.tight,
-            child: Text(
-              "Total Amount",
-              style: textStyle,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          const SizedBox(width: 8),
-          const Flexible(flex: 1, fit: FlexFit.tight, child: SizedBox()),
+        children: const [
+          OrderTableHeaderText(text: "Order ID", flex: 2),
+          SizedBox(width: 14),
+          OrderTableHeaderText(text: "Customer Name", flex: 3),
+          SizedBox(width: 30),
+          OrderTableHeaderText(text: "Order Date", flex: 2),
+          SizedBox(width: 30),
+          OrderTableHeaderText(text: "Status", flex: 2),
+          SizedBox(width: 8),
+          OrderTableHeaderText(text: "Total Amount", flex: 2),
+          SizedBox(width: 8),
+          Flexible(flex: 1, fit: FlexFit.tight, child: SizedBox()),
         ],
       ),
     );

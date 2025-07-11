@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/features/customer/presentation/views/widgets/custom_order_button.dart';
-import '../../../../core/utils/orders_data.dart.dart';
+import '../../data/data_source/orders_data.dart.dart';
 import 'widgets/customer_text_title.dart';
 import 'widgets/order_table_section.dart';
 import 'widgets/pagination_controls.dart';

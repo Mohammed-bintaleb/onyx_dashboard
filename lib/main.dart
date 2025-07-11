@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx_dashboard/core/utils/app_localizations.dart';
-import 'package:onyx_dashboard/features/home/presentation/manger/language_cubit/language_cubit.dart';
-import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
-
-import 'core/utils/app_router.dart';
+import 'core/utils/app_view.dart';
+import 'features/home/presentation/manger/language_cubit/language_cubit.dart';
+import 'features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 import 'features/customer/presentation/manger/product_cubit/product_cubit.dart';
 
 void main() {
-  runApp(const OnyxDashbord());
+  runApp(const OnyxDashboard());
 }
 
-class OnyxDashbord extends StatelessWidget {
-  const OnyxDashbord({super.key});
+class OnyxDashboard extends StatelessWidget {
+  const OnyxDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,36 +20,7 @@ class OnyxDashbord extends StatelessWidget {
         BlocProvider(create: (_) => LanguageCubit()),
         BlocProvider(create: (_) => ProductCubit()),
       ],
-      child: BlocBuilder<LanguageCubit, Locale>(
-        builder: (context, locale) {
-          return BlocBuilder<ThemeCubit, ThemeState>(
-            builder: (context, state) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                routerConfig: router,
-                locale: locale,
-                supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                themeMode: state.mode,
-                theme: ThemeData.light(),
-                darkTheme: ThemeData.dark().copyWith(
-                  scaffoldBackgroundColor: const Color(0xFF0A0E21),
-                  appBarTheme: const AppBarTheme(
-                    backgroundColor: Color(0xFF0A0E21),
-                  ),
-                  cardColor: const Color(0xFF1D1E33),
-                  canvasColor: const Color(0xFF0A0E21),
-                  iconTheme: const IconThemeData(color: Colors.white),
-                  textTheme: ThemeData.dark().textTheme.apply(
-                    bodyColor: Colors.white,
-                    displayColor: Colors.white,
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
+      child: const AppView(),
     );
   }
 }

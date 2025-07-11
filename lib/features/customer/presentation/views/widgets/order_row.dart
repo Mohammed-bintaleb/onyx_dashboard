@@ -1,8 +1,9 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/core/utils/app_styles.dart';
+
+import '../../../../../core/utils/app_styles.dart';
 import '../../../domain/Entities/order_entity.dart';
+import 'order_info_text.dart';
+import 'status_badge.dart';
 
 class OrderRow extends StatefulWidget {
   final OrderEntity order;
@@ -16,32 +17,10 @@ class OrderRow extends StatefulWidget {
 class _OrderRowState extends State<OrderRow> {
   bool _isHovered = false;
 
-  Color _getStatusBackgroundColor(String status) {
-    switch (status) {
-      case 'Completed':
-        return Colors.blue;
-      case 'Pending':
-        return Colors.white;
-      case 'Shipped':
-        return Colors.grey.shade300;
-      case 'Canceled':
-        return Colors.red;
-      default:
-        return Colors.grey;
-    }
-  }
-
-  Color _getStatusTextColor(String status) {
-    final bgColor = _getStatusBackgroundColor(status);
-
-    return bgColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
-  }
-
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    // نحسب حجم الخط بناءً على عرض الشاشة
     final screenWidth = MediaQuery.of(context).size.width;
     double baseFontSize = 16;
     if (screenWidth < 400) {
@@ -71,86 +50,29 @@ class _OrderRowState extends State<OrderRow> {
         ),
         child: Row(
           children: [
-            Flexible(
-              flex: 2,
-              fit: FlexFit.tight,
-              child: Text(
-                widget.order.id,
-                style: textStyle,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-
-            Flexible(
+            OrderInfoText(text: widget.order.id, style: textStyle, flex: 2),
+            OrderInfoText(
+              text: widget.order.customer,
+              style: textStyle,
               flex: 3,
-              fit: FlexFit.tight,
-              child: Text(
-                widget.order.customer,
-                style: textStyle,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
             ),
-
-            Flexible(
-              flex: 2,
-              fit: FlexFit.tight,
-              child: Text(
-                widget.order.date,
-                style: textStyle,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-
+            OrderInfoText(text: widget.order.date, style: textStyle, flex: 2),
             Flexible(
               flex: 2,
               fit: FlexFit.loose,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: IntrinsicWidth(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 4,
-                      horizontal: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _getStatusBackgroundColor(widget.order.status),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: _getStatusBackgroundColor(widget.order.status),
-                      ),
-                    ),
-                    child: Text(
-                      widget.order.status,
-                      style: textStyle.copyWith(
-                        fontSize: textStyle.fontSize! - 2,
-                        color: _getStatusTextColor(widget.order.status),
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
+                child: StatusBadge(status: widget.order.status),
               ),
             ),
-
-            SizedBox(width: 30),
-
-            Flexible(
+            const SizedBox(width: 30),
+            OrderInfoText(
+              text: '\$${widget.order.amount.toStringAsFixed(2)}',
+              style: textStyle,
               flex: 2,
-              fit: FlexFit.tight,
-              child: Text(
-                '\$${widget.order.amount.toStringAsFixed(2)}',
-                style: textStyle,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
             ),
-
-            SizedBox(
+            const SizedBox(width: 30),
+            const SizedBox(
               width: 30,
               child: Icon(Icons.more_vert, color: Colors.grey),
             ),

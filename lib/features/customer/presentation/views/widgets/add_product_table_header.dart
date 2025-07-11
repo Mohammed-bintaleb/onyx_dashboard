@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:onyx_dashboard/core/utils/app_styles.dart';
 
-class TableHeader extends StatelessWidget {
-  const TableHeader({super.key});
+import 'table_header_cell.dart';
+
+class AddProductTableHeader extends StatelessWidget {
+  const AddProductTableHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +17,7 @@ class TableHeader extends StatelessWidget {
       baseFontSize = 14;
     }
 
-    final textStyle = AppStyles.styleBold16(context).copyWith(
-      fontSize: baseFontSize,
-      color: isDarkMode ? Colors.white : Colors.black,
-    );
+    final textColor = isDarkMode ? Colors.white : Colors.black;
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -35,53 +33,33 @@ class TableHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(
+          TableHeaderCell(
+            text: 'Product Name',
+            fontSize: baseFontSize,
+            color: textColor,
             flex: 2,
-            child: Text(
-              'Product Name',
-              style: textStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
           ),
           const SizedBox(width: 20),
-          Expanded(
+          TableHeaderCell(
+            text: 'Available',
+            fontSize: baseFontSize,
+            color: textColor,
             flex: 2,
-            child: Text(
-              'Available',
-              style: textStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
           ),
-          Expanded(
-            child: Text(
-              'Price',
-              style: textStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
+          TableHeaderCell(
+            text: 'Price',
+            fontSize: baseFontSize,
+            color: textColor,
           ),
-          Expanded(
-            child: Text(
-              'Quantity',
-              style: textStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
+          TableHeaderCell(
+            text: 'Quantity',
+            fontSize: baseFontSize,
+            color: textColor,
           ),
-          Expanded(
-            child: Text(
-              'Total',
-              style: textStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
+          TableHeaderCell(
+            text: 'Total',
+            fontSize: baseFontSize,
+            color: textColor,
           ),
         ],
       ),

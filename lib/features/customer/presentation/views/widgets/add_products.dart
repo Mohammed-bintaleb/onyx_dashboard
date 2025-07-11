@@ -33,7 +33,7 @@ class ProductTable extends StatelessWidget {
           builder: (context, state) {
             return Column(
               children: [
-                const TableHeader(),
+                const AddProductTableHeader(),
                 ...List.generate(
                   state.products.length,
                   (index) => ProductRowWidget(
