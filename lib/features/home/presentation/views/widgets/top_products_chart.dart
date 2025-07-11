@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../../../../../core/utils/app_localizations.dart';
-import '../../../data/models/product_data.dart';
+import '../../../data/models/product_data_mode.dart';
 
 class TopProductsChart extends StatelessWidget {
   const TopProductsChart({super.key});
@@ -12,17 +11,16 @@ class TopProductsChart extends StatelessWidget {
     final isRTL = Directionality.of(context) == TextDirection.rtl;
     final t = AppLocalizations.of(context)!;
 
-    // قائمة البيانات مترجمة
-    final List<ProductData> data = [
-      ProductData(t.translate('product_widget_a'), 400),
-      ProductData(t.translate('product_widget_b'), 300),
-      ProductData(t.translate('product_gadget_pro'), 500),
-      ProductData(t.translate('product_super_thing'), 100),
-      ProductData(t.translate('product_mega_gear'), 200),
+    final List<ProductDataMode> data = [
+      ProductDataMode(t.translate('product_widget_a'), 400),
+      ProductDataMode(t.translate('product_widget_b'), 300),
+      ProductDataMode(t.translate('product_gadget_pro'), 500),
+      ProductDataMode(t.translate('product_super_thing'), 100),
+      ProductDataMode(t.translate('product_mega_gear'), 200),
     ];
 
     // نعكس ترتيب البيانات لو كانت اللغة RTL
-    final List<ProductData> displayedData = isRTL
+    final List<ProductDataMode> displayedData = isRTL
         ? data.reversed.toList()
         : data;
 
@@ -47,7 +45,7 @@ class TopProductsChart extends StatelessWidget {
                 int pointIndex,
                 int seriesIndex,
               ) {
-                final product = data as ProductData;
+                final product = data as ProductDataMode;
                 return Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -114,11 +112,11 @@ class TopProductsChart extends StatelessWidget {
           labelStyle: const TextStyle(color: Colors.transparent),
         ),
         series: [
-          BarSeries<ProductData, String>(
+          BarSeries<ProductDataMode, String>(
             color: Colors.blue[500],
             dataSource: displayedData,
-            xValueMapper: (ProductData data, _) => data.productName,
-            yValueMapper: (ProductData data, _) => data.orders,
+            xValueMapper: (ProductDataMode data, _) => data.productName,
+            yValueMapper: (ProductDataMode data, _) => data.orders,
             name: t.translate('orders'),
             dataLabelSettings: const DataLabelSettings(isVisible: false),
             enableTooltip: true,

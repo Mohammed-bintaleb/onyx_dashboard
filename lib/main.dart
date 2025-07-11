@@ -5,6 +5,7 @@ import 'package:onyx_dashboard/features/home/presentation/manger/language_cubit/
 import 'package:onyx_dashboard/features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 
 import 'core/utils/app_router.dart';
+import 'features/customer/presentation/manger/product_cubit/product_cubit.dart';
 
 void main() {
   runApp(const OnyxDashbord());
@@ -19,6 +20,7 @@ class OnyxDashbord extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LanguageCubit()),
+        BlocProvider(create: (_) => ProductCubit()),
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
         builder: (context, locale) {

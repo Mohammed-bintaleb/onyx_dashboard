@@ -10,7 +10,6 @@ class CustomerDetailsForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    // ألوان حسب الوضع
     final fieldBackgroundColor = isDarkMode
         ? const Color(0xFF2C2F4A)
         : Colors.grey[200]!;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../data/models/product_data.dart';
 import '../../../data/models/product_row.dart';
 
