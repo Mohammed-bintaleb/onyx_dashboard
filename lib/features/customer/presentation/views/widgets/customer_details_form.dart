@@ -1,50 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class CustomerDetailsForm extends StatelessWidget {
-  const CustomerDetailsForm({super.key});
+  final GlobalKey<FormBuilderState> formKey;
+
+  const CustomerDetailsForm({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(child: _buildTextField("Customer Name", "John Doe")),
-              const SizedBox(width: 24),
-              Expanded(
-                child: _buildTextField(
-                  "Customer Email",
-                  "john.doe@example.com",
+      child: FormBuilder(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFormField(
+                    "customer_name",
+                    "Customer Name",
+                    "John Doe",
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          _buildTextField("Phone Number (Optional)", "123456-7890"),
-          const SizedBox(height: 24),
-
-          _buildTextField("Shipping Address", "123 Main St"),
-          const SizedBox(height: 24),
-
-          Row(
-            children: [
-              Expanded(child: _buildTextField("City", "Anytown")),
-              const SizedBox(width: 16),
-              Expanded(child: _buildTextField("State", "CA")),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          _buildTextField("ZIP Code", "12345"),
-        ],
+                const SizedBox(width: 24),
+                Expanded(
+                  child: _buildFormField(
+                    "customer_email",
+                    "Customer Email",
+                    "john.doe@example.com",
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _buildFormField(
+              "phone",
+              "Phone Number (Optional)",
+              "123456-7890",
+              required: false,
+            ),
+            const SizedBox(height: 24),
+            _buildFormField("address", "Shipping Address", "123 Main St"),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(child: _buildFormField("city", "City", "Anytown")),
+                const SizedBox(width: 16),
+                Expanded(child: _buildFormField("state", "State", "CA")),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _buildFormField("zip", "ZIP Code", "12345"),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildTextField(String label, String initialValue) {
+  Widget _buildFormField(
+    String name,
+    String label,
+    String initialValue, {
+    bool required = true,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,7 +77,8 @@ class CustomerDetailsForm extends StatelessWidget {
             border: Border.all(color: Colors.grey[400]!),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: TextFormField(
+          child: FormBuilderTextField(
+            name: name,
             initialValue: initialValue,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             decoration: const InputDecoration(
@@ -67,6 +88,14 @@ class CustomerDetailsForm extends StatelessWidget {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
             ),
+            validator: required
+                ? (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'This field is required';
+                    }
+                    return null;
+                  }
+                : null,
           ),
         ),
       ],

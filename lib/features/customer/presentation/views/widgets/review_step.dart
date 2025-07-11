@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/models/product_row.dart';
+
 class ReviewStep extends StatelessWidget {
   final Map<String, dynamic> formData;
+  final List<ProductRow> products;
+  final double grandTotal;
 
-  const ReviewStep({super.key, required this.formData});
+  const ReviewStep({
+    super.key,
+    required this.formData,
+    required this.products,
+    required this.grandTotal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,30 +20,58 @@ class ReviewStep extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Review Information",
+          "Review Order",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        _buildReviewItem("Customer name", formData['customer_name']),
-        _buildReviewItem(
-          "Phone number",
-          formData['phone'],
-          fallback: "Not provided",
+        _buildReviewItem("Customer", formData['customer_name'] ?? ''),
+        _buildReviewItem("Shipping Address", formData['address'] ?? ''),
+        const Divider(height: 32),
+        const Text("Products", style: TextStyle(fontWeight: FontWeight.bold)),
+        ...products.map(
+          (product) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("${product.quantity} x ${product.name}"),
+                Text(
+                  "\$${(product.quantity * _getPrice(product.name)).toStringAsFixed(2)}",
+                ),
+              ],
+            ),
+          ),
         ),
-        _buildReviewItem("Shipping address", formData['address']),
-        _buildReviewItem("City", formData['city']),
-        _buildReviewItem("ZIP Code", formData['zip_code']),
-        _buildReviewItem("Email", formData['email']),
-        _buildReviewItem("State", formData['state']),
+        const Divider(height: 32),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("Total", style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              "\$${grandTotal.toStringAsFixed(2)}",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _buildReviewItem(String label, dynamic value, {String fallback = ''}) {
+  double _getPrice(String name) {
+    final prices = {
+      'Super Thing': 29.99,
+      'Gadget Pro': 49.99,
+      'Widget A': 9.99,
+      'Widget B': 14.99,
+      'Ultra Gizmo': 99.99,
+    };
+    return prices[name] ?? 0.0;
+  }
+
+  Widget _buildReviewItem(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 120,
@@ -43,11 +80,7 @@ class ReviewStep extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Expanded(
-            child: Text(
-              value?.toString().isNotEmpty == true ? value : fallback,
-            ),
-          ),
+          Expanded(child: Text(value)),
         ],
       ),
     );

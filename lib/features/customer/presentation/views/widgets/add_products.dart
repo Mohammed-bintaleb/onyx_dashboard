@@ -7,7 +7,14 @@ import 'product_row.dart';
 import 'grand_total.dart';
 
 class ProductTable extends StatefulWidget {
-  const ProductTable({super.key});
+  const ProductTable({
+    super.key,
+    required this.onContinue,
+    required this.onProductsUpdated,
+  });
+  final VoidCallback onContinue;
+  final Function(List<ProductRow> products, double grandTotal)
+  onProductsUpdated;
 
   @override
   State<ProductTable> createState() => _ProductTableState();
@@ -53,6 +60,14 @@ class _ProductTableState extends State<ProductTable> {
           GrandTotal(grandTotal: _grandTotal),
           const SizedBox(height: 16),
           AddRowButton(onPressed: _addProduct),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              _calculateTotal();
+              widget.onContinue();
+            },
+            child: const Text('Continue'),
+          ),
         ],
       ),
     );
@@ -69,6 +84,8 @@ class _ProductTableState extends State<ProductTable> {
       final productData = _productDatabase[product.name]!;
       return sum + (productData.price * product.quantity);
     });
-    setState(() {});
+    setState(() {
+      widget.onProductsUpdated(_products, _grandTotal);
+    });
   }
 }
