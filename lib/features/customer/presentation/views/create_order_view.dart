@@ -4,7 +4,7 @@ import 'package:onyx_dashboard/features/customer/presentation/views/widgets/add_
 import 'package:onyx_dashboard/features/customer/presentation/views/widgets/review_step.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/widgets/chart_custom_container.dart';
-import '../../data/models/product_row.dart';
+import '../../domain/Entities/product_row_entity.dart';
 import 'widgets/customer_details_form.dart';
 import 'widgets/rectangular_stepper.dart';
 
@@ -19,7 +19,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
   final _formKey = GlobalKey<FormBuilderState>();
   int _currentStep = 0;
   final _stepTitles = ["Order Details", "Review"];
-  List<ProductRow> _reviewProducts = [];
+  List<ProductRowEntity> _reviewProducts = [];
   double _reviewGrandTotal = 0.0;
 
   void _submitForm() {

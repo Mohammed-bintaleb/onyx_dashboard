@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/product_data.dart';
-import '../../../data/models/product_row.dart';
+import '../../../domain/Entities/product_data_entity.dart';
+import '../../../domain/Entities/product_row_entity.dart';
 
 class ProductRowWidget extends StatelessWidget {
-  final ProductRow product;
-  final Map<String, ProductData> productDatabase;
+  final ProductRowEntity product;
+  final Map<String, ProductDataEntity> productDatabase;
   final Function(String) onNameChanged;
   final Function(int) onQuantityChanged;
 

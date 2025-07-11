@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/product_row.dart';
+import '../../../domain/Entities/product_row_entity.dart';
 
 class ReviewStep extends StatelessWidget {
   final Map<String, dynamic> formData;
-  final List<ProductRow> products;
+  final List<ProductRowEntity> products;
   final double grandTotal;
 
   const ReviewStep({

@@ -1,12 +1,15 @@
-import '../../../data/models/product_row.dart';
+import '../../../domain/Entities/product_row_entity.dart';
 
 class ProductState {
-  final List<ProductRow> products;
+  final List<ProductRowEntity> products;
   final double grandTotal;
 
   ProductState({required this.products, required this.grandTotal});
 
-  ProductState copyWith({List<ProductRow>? products, double? grandTotal}) {
+  ProductState copyWith({
+    List<ProductRowEntity>? products,
+    double? grandTotal,
+  }) {
     return ProductState(
       products: products ?? this.products,
       grandTotal: grandTotal ?? this.grandTotal,

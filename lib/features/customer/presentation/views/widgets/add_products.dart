@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/product_row.dart';
+import '../../../domain/Entities/product_row_entity.dart';
 import '../../manger/product_cubit/product_cubit.dart';
 import '../../manger/product_cubit/product_state.dart';
 import 'add_product_table_header.dart';
@@ -10,7 +10,7 @@ import 'product_row_widget.dart';
 
 class ProductTable extends StatelessWidget {
   final VoidCallback onContinue;
-  final Function(List<ProductRow> products, double grandTotal)
+  final Function(List<ProductRowEntity> products, double grandTotal)
   onProductsUpdated;
 
   const ProductTable({

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/core/widgets/chart_custom_container.dart';
 import 'package:onyx_dashboard/features/customer/presentation/views/widgets/search_and_filter_bar.dart';
-import '../../../data/models/order_model.dart';
+import '../../../domain/Entities/order_entity.dart';
 import 'order_table_header.dart';
 import 'order_row.dart';
 
 class OrderTableSection extends StatelessWidget {
-  final List<Order> orders;
+  final List<OrderEntity> orders;
 
   const OrderTableSection({super.key, required this.orders});
 

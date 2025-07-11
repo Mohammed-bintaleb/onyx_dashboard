@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/core/utils/app_styles.dart';
-import '../../../data/models/order_model.dart';
+import '../../../domain/Entities/order_entity.dart';
 
 class OrderRow extends StatefulWidget {
-  final Order order;
+  final OrderEntity order;
 
   const OrderRow({super.key, required this.order});
 

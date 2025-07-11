@@ -1,0 +1,13 @@
+import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
+
+import '../Entities/order_entity.dart';
+
+class AddOrderUseCase {
+  final CustomerRepo repository;
+
+  AddOrderUseCase(this.repository);
+
+  Future<void> execute(OrderEntity order) {
+    return repository.addOrder(order);
+  }
+}
