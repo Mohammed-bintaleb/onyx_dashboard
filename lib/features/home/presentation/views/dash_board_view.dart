@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/features/home/presentation/views/widgets/adaptive_layout_widget.dart';
+import 'package:onyx_dashboard/features/home/presentation/views/widgets/dashboard_mobile_layout.dart';
 import 'package:onyx_dashboard/features/home/presentation/views/widgets/dashboard_tablet_layout.dart';
 
 class DashBoardView extends StatelessWidget {
@@ -9,7 +10,7 @@ class DashBoardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AdaptiveLayout(
-        mobileLayout: (context) => SizedBox(),
+        mobileLayout: (context) => DashboardMobileLayout(),
         tabletLayout: (context) => DashboardTabletLayout(),
       ),
     );
