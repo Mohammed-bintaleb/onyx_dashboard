@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/core/utils/app_styles.dart';
 import '../../../data/models/order_model.dart';
@@ -40,6 +38,20 @@ class _OrderRowState extends State<OrderRow> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    // نحسب حجم الخط بناءً على عرض الشاشة
+    final screenWidth = MediaQuery.of(context).size.width;
+    double baseFontSize = 16;
+    if (screenWidth < 400) {
+      baseFontSize = 12;
+    } else if (screenWidth < 600) {
+      baseFontSize = 14;
+    }
+
+    final textStyle = AppStyles.styleMedium16(
+      context,
+    ).copyWith(fontSize: baseFontSize);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -57,56 +69,89 @@ class _OrderRowState extends State<OrderRow> {
         ),
         child: Row(
           children: [
-            Expanded(
+            Flexible(
               flex: 2,
+              fit: FlexFit.tight,
               child: Text(
                 widget.order.id,
-                style: AppStyles.styleMedium16(context),
+                style: textStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
-            Expanded(
+
+            Flexible(
               flex: 3,
+              fit: FlexFit.tight,
               child: Text(
                 widget.order.customer,
-                style: AppStyles.styleMedium16(context),
+                style: textStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
-            Expanded(
+
+            Flexible(
               flex: 2,
+              fit: FlexFit.tight,
               child: Text(
                 widget.order.date,
-                style: AppStyles.styleMedium16(context),
+                style: textStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                decoration: BoxDecoration(
-                  color: _getStatusBackgroundColor(widget.order.status),
-                  borderRadius: BorderRadius.circular(99),
-                  border: Border.all(
-                    color: _getStatusBackgroundColor(widget.order.status),
+
+            Flexible(
+              flex: 2,
+              fit: FlexFit.loose, // loose علشان ما يتمدد
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: IntrinsicWidth(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _getStatusBackgroundColor(widget.order.status),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: _getStatusBackgroundColor(widget.order.status),
+                      ),
+                    ),
+                    child: Text(
+                      widget.order.status,
+                      style: textStyle.copyWith(
+                        fontSize: textStyle.fontSize! - 2,
+                        color: _getStatusTextColor(widget.order.status),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-                child: Text(
-                  widget.order.status,
-                  style: AppStyles.styleMedium16(
-                    context,
-                  ).copyWith(color: _getStatusTextColor(widget.order.status)),
-                  textAlign: TextAlign.center,
-                ),
               ),
             ),
-            SizedBox(width: 90),
-            Expanded(
+
+            SizedBox(width: 30),
+
+            Flexible(
               flex: 2,
+              fit: FlexFit.tight,
               child: Text(
                 '\$${widget.order.amount.toStringAsFixed(2)}',
-                style: AppStyles.styleMedium16(context),
+                style: textStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
-            SizedBox(width: 30),
-            const Expanded(child: Icon(Icons.more_vert, color: Colors.grey)),
+
+            SizedBox(
+              width: 30,
+              child: Icon(Icons.more_vert, color: Colors.grey),
+            ),
           ],
         ),
       ),

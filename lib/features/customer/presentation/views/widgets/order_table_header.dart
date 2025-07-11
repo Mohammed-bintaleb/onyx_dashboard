@@ -7,6 +7,19 @@ class OrderTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    double baseFontSize = 16;
+    if (screenWidth < 400) {
+      baseFontSize = 12;
+    } else if (screenWidth < 600) {
+      baseFontSize = 14;
+    }
+
+    final textStyle = AppStyles.styleBold16(
+      context,
+    ).copyWith(fontSize: baseFontSize);
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
@@ -17,29 +30,65 @@ class OrderTableHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(
+          Flexible(
             flex: 2,
-            child: Text("Order ID", style: AppStyles.styleBold16(context)),
+            fit: FlexFit.tight,
+            child: Text(
+              "Order ID",
+              style: textStyle,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
-          Expanded(
+          const SizedBox(width: 14),
+          Flexible(
             flex: 3,
-            child: Text("Customer Name", style: AppStyles.styleBold16(context)),
+            fit: FlexFit.tight,
+            child: Text(
+              "Customer Name",
+              style: textStyle,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
-          Expanded(
+          const SizedBox(width: 30),
+          Flexible(
             flex: 2,
-            child: Text("Order Date", style: AppStyles.styleBold16(context)),
+            fit: FlexFit.tight,
+            child: Text(
+              "Order Date",
+              style: textStyle,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
-          Expanded(
+          const SizedBox(width: 30),
+          Flexible(
             flex: 2,
-            child: Text("Status", style: AppStyles.styleBold16(context)),
+            fit: FlexFit.tight,
+            child: Text(
+              "Status",
+              style: textStyle,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
-          Expanded(
+          const SizedBox(width: 8),
+          Flexible(
             flex: 2,
-            child: Text("Total Amount", style: AppStyles.styleBold16(context)),
+            fit: FlexFit.tight,
+            child: Text(
+              "Total Amount",
+              style: textStyle,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
-          const Expanded(
+          const SizedBox(width: 8),
+          const Flexible(
             flex: 1,
-            child: SizedBox(), // For actions column
+            fit: FlexFit.tight,
+            child: SizedBox(), // For actions column (الأيقونة)
           ),
         ],
       ),
