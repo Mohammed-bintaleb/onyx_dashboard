@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'filter_dropdown.dart';
+import 'search_field.dart';
+
 class SearchAndFilterBar extends StatelessWidget {
-  const SearchAndFilterBar({super.key});
+  final TextEditingController? searchController;
+  final ValueChanged<String>? onSearchChanged;
+  final String selectedFilter;
+  final ValueChanged<String?> onFilterChanged;
+
+  const SearchAndFilterBar({
+    super.key,
+    this.searchController,
+    this.onSearchChanged,
+    required this.selectedFilter,
+    required this.onFilterChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,54 +27,17 @@ class SearchAndFilterBar extends StatelessWidget {
           return Row(
             children: [
               Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search by name or order ID...',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  ),
+                child: SearchField(
+                  controller: searchController,
+                  onChanged: onSearchChanged,
                 ),
               ),
               const SizedBox(width: 16),
               SizedBox(
                 width: 200,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade400),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: "All Statuses",
-                      icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                      isExpanded: true,
-                      items: const [
-                        DropdownMenuItem(
-                          value: "All Statuses",
-                          child: Text("All Statuses"),
-                        ),
-                        DropdownMenuItem(
-                          value: "Completed",
-                          child: Text("Completed"),
-                        ),
-                        DropdownMenuItem(
-                          value: "Shipped",
-                          child: Text("Shipped"),
-                        ),
-                        DropdownMenuItem(
-                          value: "Canceled",
-                          child: Text("Canceled"),
-                        ),
-                      ],
-                      onChanged: (_) {
-                        // التغيير
-                      },
-                    ),
-                  ),
+                child: FilterDropdown(
+                  selectedValue: selectedFilter,
+                  onChanged: onFilterChanged,
                 ),
               ),
               const Spacer(),
@@ -70,51 +47,14 @@ class SearchAndFilterBar extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search by name or order ID...',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                ),
+              SearchField(
+                controller: searchController,
+                onChanged: onSearchChanged,
               ),
               const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: "All Statuses",
-                    icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                    isExpanded: true,
-                    items: const [
-                      DropdownMenuItem(
-                        value: "All Statuses",
-                        child: Text("All Statuses"),
-                      ),
-                      DropdownMenuItem(
-                        value: "Completed",
-                        child: Text("Completed"),
-                      ),
-                      DropdownMenuItem(
-                        value: "Shipped",
-                        child: Text("Shipped"),
-                      ),
-                      DropdownMenuItem(
-                        value: "Canceled",
-                        child: Text("Canceled"),
-                      ),
-                    ],
-                    onChanged: (_) {
-                      // التغيير
-                    },
-                  ),
-                ),
+              FilterDropdown(
+                selectedValue: selectedFilter,
+                onChanged: onFilterChanged,
               ),
             ],
           );
