@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/home/presentation/manger/language_cubit/language_cubit.dart';
@@ -15,6 +16,7 @@ class AppView extends StatelessWidget {
         return BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
             return MaterialApp.router(
+              builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner: false,
               routerConfig: router,
               locale: locale,
