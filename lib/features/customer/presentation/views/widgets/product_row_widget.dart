@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../../domain/Entities/product_data_entity.dart';
 import '../../../domain/Entities/product_row_entity.dart';
+import 'product_available_text.dart';
+import 'product_name_dropdown.dart';
+import 'product_price_text.dart';
+import 'product_quantity_input.dart';
+import 'product_total_price_text.dart';
 
 class ProductRowWidget extends StatelessWidget {
   final ProductRowEntity product;
@@ -31,84 +37,40 @@ class ProductRowWidget extends StatelessWidget {
         children: [
           Expanded(
             flex: 2,
-            child: DropdownButton<String>(
-              value: product.name,
-              items: productDatabase.keys.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                      color: isDarkMode ? Colors.white : Colors.black,
-                    ),
-                  ),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                if (newValue != null) {
-                  onNameChanged(newValue);
-                }
-              },
-              isExpanded: true,
-              underline: Container(),
-              dropdownColor: isDarkMode
-                  ? const Color(0xFF1D1E33)
-                  : Colors.white,
+            child: ProductNameDropdown(
+              selectedName: product.name,
+              productDatabase: productDatabase,
+              onNameChanged: onNameChanged,
+              isDarkMode: isDarkMode,
             ),
           ),
           const SizedBox(width: 10),
           Expanded(
             flex: 2,
-            child: Text(
-              '${productData.available}',
-              style: TextStyle(
-                color: isDarkMode ? Colors.white70 : Colors.black87,
-              ),
+            child: ProductAvailableText(
+              available: productData.available,
+              isDarkMode: isDarkMode,
             ),
           ),
           Expanded(
-            child: Text(
-              '\$${productData.price.toStringAsFixed(2)}',
-              style: TextStyle(
-                color: isDarkMode ? Colors.white70 : Colors.black87,
-              ),
+            child: ProductPriceText(
+              price: productData.price,
+              isDarkMode: isDarkMode,
             ),
           ),
           Expanded(
-            child: TextFormField(
-              initialValue: product.quantity.toString(),
-              keyboardType: TextInputType.number,
-              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
-              onChanged: (value) {
-                final newQuantity = int.tryParse(value) ?? 0;
-                final maxAvailable = productData.available;
-
-                if (newQuantity <= maxAvailable) {
-                  onQuantityChanged(newQuantity);
-                }
-              },
-              decoration: InputDecoration(
-                isDense: true,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: isDarkMode ? Colors.grey[700]! : Colors.grey,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: isDarkMode ? Colors.blue[300]! : Colors.blue,
-                  ),
-                ),
-                fillColor: isDarkMode ? const Color(0xFF2A2D43) : Colors.white,
-                filled: true,
-              ),
+            child: ProductQuantityInput(
+              quantity: product.quantity,
+              maxAvailable: productData.available,
+              onQuantityChanged: onQuantityChanged,
+              isDarkMode: isDarkMode,
             ),
           ),
           const SizedBox(width: 15),
           Expanded(
-            child: Text(
-              '\$${(productData.price * product.quantity).toStringAsFixed(2)}',
-              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            child: ProductTotalPriceText(
+              totalPrice: productData.price * product.quantity,
+              isDarkMode: isDarkMode,
             ),
           ),
         ],
