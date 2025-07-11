@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:onyx_dashboard/features/customer/presentation/views/widgets/add_products.dart';
-import 'package:onyx_dashboard/features/customer/presentation/views/widgets/review_step.dart';
-import '../../../../core/utils/app_styles.dart';
-import '../../../../core/widgets/chart_custom_container.dart';
+
 import '../../domain/Entities/product_row_entity.dart';
-import 'widgets/customer_details_form.dart';
-import 'widgets/rectangular_stepper.dart';
+import 'widgets/order_details_step.dart';
+import 'widgets/review_step_section.dart';
+import 'widgets/stepper_section.dart';
+import 'widgets/title_section.dart';
 
 class CreateOrderView extends StatefulWidget {
   const CreateOrderView({super.key});
@@ -26,8 +25,24 @@ class _CreateOrderViewState extends State<CreateOrderView> {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final formData = _formKey.currentState?.value ?? {};
       print("Order Submitted: $formData");
-      // يمكنك إضافة منطق إرسال الطلب هنا
     }
+  }
+
+  void _onContinue() {
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      setState(() => _currentStep++);
+    }
+  }
+
+  void _onProductsUpdated(List<ProductRowEntity> products, double grandTotal) {
+    setState(() {
+      _reviewProducts = products;
+      _reviewGrandTotal = grandTotal;
+    });
+  }
+
+  void _onStepTapped(int step) {
+    setState(() => _currentStep = step);
   }
 
   @override
@@ -35,7 +50,9 @@ class _CreateOrderViewState extends State<CreateOrderView> {
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
 
-    final containerColor = isDarkMode ? Color(0xFF1D1E33) : Colors.grey[300];
+    final containerColor = isDarkMode
+        ? const Color(0xFF1D1E33)
+        : (Colors.grey[300] ?? Colors.grey);
     final textColor = isDarkMode ? Colors.white : Colors.black87;
 
     return Scaffold(
@@ -44,84 +61,30 @@ class _CreateOrderViewState extends State<CreateOrderView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Create Order",
-              style: AppStyles.styleBold32(context).copyWith(color: textColor),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Fill out the form below to create a new customer order",
-              style: AppStyles.style16(context).copyWith(color: textColor),
-            ),
+            TitleSection(textColor: textColor),
             const SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                color: containerColor,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.all(5),
-              child: RectangularStepper(
-                stepTitles: _stepTitles,
-                currentStep: _currentStep,
-                onStepTapped: (step) {
-                  setState(() => _currentStep = step);
-                },
-                // يمكنك تعديل RectangularStepper لدعم الثيم أو استقبال ألوان حسب الوضع
-              ),
+            StepperSection(
+              containerColor: containerColor,
+              stepTitles: _stepTitles,
+              currentStep: _currentStep,
+              onStepTapped: _onStepTapped,
             ),
             const SizedBox(height: 10),
-            if (_currentStep == 0) ...[
-              ChartCustomContainer(
-                title: "Customer Details",
-                subtitle: "Enter the customer's information for the new order.",
-                child: CustomerDetailsForm(formKey: _formKey),
-                // يمكن تعديل ChartCustomContainer ليأخذ لون خلفية بناءً على الوضع أيضاً
+            if (_currentStep == 0)
+              OrderDetailsStep(
+                formKey: _formKey,
+                onContinue: _onContinue,
+                onProductsUpdated: _onProductsUpdated,
+              )
+            else
+              ReviewStepSection(
+                formData: _formKey.currentState?.value ?? {},
+                products: _reviewProducts,
+                grandTotal: _reviewGrandTotal,
+                onBack: () => setState(() => _currentStep--),
+                onSubmit: _submitForm,
+                textColor: textColor,
               ),
-              const SizedBox(height: 25),
-              ChartCustomContainer(
-                title: "Add Products",
-                subtitle: "Search for products and add them to the order.",
-                child: ProductTable(
-                  onContinue: () {
-                    if (_formKey.currentState?.saveAndValidate() ?? false) {
-                      setState(() => _currentStep++);
-                    }
-                  },
-                  onProductsUpdated: (products, grandTotal) {
-                    setState(() {
-                      _reviewProducts = products;
-                      _reviewGrandTotal = grandTotal;
-                    });
-                  },
-                ),
-              ),
-            ] else ...[
-              ChartCustomContainer(
-                title: "Review Order",
-                subtitle: "Review the details below and submit the order.",
-                child: ReviewStep(
-                  formData: _formKey.currentState?.value ?? {},
-                  products: _reviewProducts,
-                  grandTotal: _reviewGrandTotal,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(
-                    onPressed: () => setState(() => _currentStep--),
-                    style: OutlinedButton.styleFrom(foregroundColor: textColor),
-                    child: const Text("Back"),
-                  ),
-                  const SizedBox(width: 12),
-                  ElevatedButton(
-                    onPressed: _submitForm,
-                    child: const Text("Create Order"),
-                  ),
-                ],
-              ),
-            ],
           ],
         ),
       ),
