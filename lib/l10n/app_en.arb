@@ -38,5 +38,14 @@
   "available": "Available",
   "price": "Price",
   "quantity": "Quantity",
-  "total": "Total"
+  "total": "Total",
+  "continue": "Continue",
+  "grand_total": "Grand Total",
+  "@grand_total": {
+    "description": "Label for grand total amount"
+  },
+  "add_product": "Add Product",
+  "@add_product": {
+    "description": "Label for the button to add a product"
+  }
 }

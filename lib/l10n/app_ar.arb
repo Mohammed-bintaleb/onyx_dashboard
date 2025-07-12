@@ -38,5 +38,14 @@
   "available": "المتوفر",
   "price": "السعر",
   "quantity": "الكمية",
-  "total": "الإجمالي"
+  "total": "الإجمالي",
+  "continue": "متابعة",
+  "grand_total": "الإجمالي الكلي",
+  "@grand_total": {
+    "description": "علامة الإجمالي الكلي"
+  },
+  "add_product": "إضافة منتج",
+  "@add_product": {
+    "description": "علامة زر لإضافة منتج"
+  }
 }

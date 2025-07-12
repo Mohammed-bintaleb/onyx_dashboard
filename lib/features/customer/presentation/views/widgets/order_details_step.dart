@@ -3,7 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/product_row_entity.dart';
-import 'add_products.dart';
+import 'add_products_row.dart';
 import 'customer_details_form.dart';
 
 class OrderDetailsStep extends StatelessWidget {
@@ -36,7 +36,7 @@ class OrderDetailsStep extends StatelessWidget {
         ChartCustomContainer(
           title: "Add Products",
           subtitle: "Search for products and add them to the order.",
-          child: ProductTable(
+          child: AddProductsRow(
             onContinue: onContinue,
             onProductsUpdated: onProductsUpdated,
           ),

@@ -9,12 +9,12 @@ import 'add_row_button.dart';
 import 'grand_total.dart';
 import 'product_row_widget.dart';
 
-class ProductTable extends StatelessWidget {
+class AddProductsRow extends StatelessWidget {
   final VoidCallback onContinue;
   final Function(List<ProductRowEntity> products, double grandTotal)
   onProductsUpdated;
 
-  const ProductTable({
+  const AddProductsRow({
     super.key,
     required this.onContinue,
     required this.onProductsUpdated,

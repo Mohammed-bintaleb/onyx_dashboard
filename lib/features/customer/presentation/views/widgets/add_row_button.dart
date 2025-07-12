@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/utils/app_localizations.dart';
 
 class AddRowButton extends StatelessWidget {
   const AddRowButton({super.key, required this.onPressed});
@@ -7,12 +8,14 @@ class AddRowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Align(
       alignment: Alignment.centerLeft,
       child: TextButton.icon(
         onPressed: onPressed,
         icon: const Icon(Icons.add),
-        label: const Text('Add Product'),
+        label: Text(t.translate('add_product')),
       ),
     );
   }
