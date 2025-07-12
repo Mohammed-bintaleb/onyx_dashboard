@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../domain/Entities/product_row_entity.dart';
 
 class ReviewStep extends StatelessWidget {
@@ -16,18 +16,29 @@ class ReviewStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Review Order",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        Text(
+          t.translate("review_order"),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        _buildReviewItem("Customer", formData['customer_name'] ?? ''),
-        _buildReviewItem("Shipping Address", formData['address'] ?? ''),
+        _buildReviewItem(
+          t.translate("customer"),
+          formData['customer_name'] ?? '',
+        ),
+        _buildReviewItem(
+          t.translate("shipping_address"),
+          formData['address'] ?? '',
+        ),
         const Divider(height: 32),
-        const Text("Products", style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          t.translate("products"),
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         ...products.map(
           (product) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -46,7 +57,10 @@ class ReviewStep extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Total", style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              t.translate("total"),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text(
               "\$${grandTotal.toStringAsFixed(2)}",
               style: const TextStyle(fontWeight: FontWeight.bold),

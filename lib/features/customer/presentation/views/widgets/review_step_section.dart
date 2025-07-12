@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../../../core/utils/app_localizations.dart'; // استيراد الترجمة
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/product_row_entity.dart';
 import 'review_step.dart';
@@ -13,6 +13,7 @@ class ReviewStepSection extends StatelessWidget {
   final Color textColor;
 
   const ReviewStepSection({
+    super.key,
     required this.formData,
     required this.products,
     required this.grandTotal,
@@ -23,12 +24,14 @@ class ReviewStepSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ChartCustomContainer(
-          title: "Review Order",
-          subtitle: "Review the details below and submit the order.",
+          title: t.translate("review_order"),
+          subtitle: t.translate("review_details_submit"),
           child: ReviewStep(
             formData: formData,
             products: products,
@@ -37,17 +40,17 @@ class ReviewStepSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             OutlinedButton(
               onPressed: onBack,
               style: OutlinedButton.styleFrom(foregroundColor: textColor),
-              child: const Text("Back"),
+              child: Text(t.translate("back")),
             ),
-            const SizedBox(width: 12),
+            Spacer(),
             ElevatedButton(
               onPressed: onSubmit,
-              child: const Text("Create Order"),
+              child: Text(t.translate("create_order")),
             ),
           ],
         ),

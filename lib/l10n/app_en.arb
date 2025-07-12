@@ -80,5 +80,14 @@
   "previous": "Previous",
   "next": "Next",
   "page_of": "Page {0} of {1}",
-  "search_hint": "Search by name or order ID..."
+  "search_hint": "Search by name or order ID...",
+  "review_order": "Review Order",
+  "review_details_submit": "Review the details below and submit the order.",
+  "back": "Back",
+  "create_order": "Create Order",
+  "review_order": "Review Order",
+  "customer": "Customer",
+  "shipping_address": "Shipping Address",
+  "products": "Products",
+  "total": "Total"
 }

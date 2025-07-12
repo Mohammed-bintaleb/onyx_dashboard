@@ -80,5 +80,14 @@
   "previous": "السابق",
   "next": "التالي",
   "page_of": "الصفحة {0} من {1}",
-  "search_hint": "ابحث بالاسم أو رقم الطلب..."
+  "search_hint": "ابحث بالاسم أو رقم الطلب...",
+  "review_order": "مراجعة الطلب",
+  "review_details_submit": "راجع التفاصيل أدناه وقم بإرسال الطلب.",
+  "back": "رجوع",
+  "create_order": "إنشاء طلب",
+  "review_order": "مراجعة الطلب",
+  "customer": "الزبون",
+  "shipping_address": "عنوان الشحن",
+  "products": "المنتجات",
+  "total": "الإجمالي"
 }
