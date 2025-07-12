@@ -25,5 +25,13 @@
   "drawer_customer_orders": "طلبات العملاء",
   "drawer_products": "المنتجات",
   "drawer_analytics": "التحليلات",
-  "drawer_settings": "الإعدادات"
+  "drawer_settings": "الإعدادات",
+  "total_orders_today": "إجمالي الطلبات اليوم",
+  "trend_orders_today": "+12٪ مقارنة بالفترة السابقة",
+  "active_customers": "العملاء النشطون",
+  "trend_active_customers": "+50 مقارنة بالفترة السابقة",
+  "revenue_this_week": "الإيرادات هذا الأسبوع",
+  "trend_revenue": "+8.2٪ مقارنة بالفترة السابقة",
+  "top_selling_product": "المنتج الأكثر مبيعًا",
+  "trend_top_product": "الطراز #X-23 مقارنة بالفترة السابقة"
 }

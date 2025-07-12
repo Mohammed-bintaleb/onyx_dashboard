@@ -25,5 +25,13 @@
   "drawer_customer_orders": "Customer Orders",
   "drawer_products": "Products",
   "drawer_analytics": "Analytics",
-  "drawer_settings": "Settings"
+  "drawer_settings": "Settings",
+  "total_orders_today": "Total Orders Today",
+  "trend_orders_today": "+12% from last period",
+  "active_customers": "Active Customers",
+  "trend_active_customers": "+50 from last period",
+  "revenue_this_week": "Revenue This Week",
+  "trend_revenue": "+8.2% from last period",
+  "top_selling_product": "Top Selling Product",
+  "trend_top_product": "Model #X-23 from last period"
 }
