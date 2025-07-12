@@ -89,5 +89,7 @@
   "customer": "الزبون",
   "shipping_address": "عنوان الشحن",
   "products": "المنتجات",
-  "total": "الإجمالي"
+  "total": "الإجمالي",
+  "order_details": "تفاصيل الطلب",
+  "review": "مراجعة"
 }

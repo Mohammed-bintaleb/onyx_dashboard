@@ -89,5 +89,7 @@
   "customer": "Customer",
   "shipping_address": "Shipping Address",
   "products": "Products",
-  "total": "Total"
+  "total": "Total",
+  "order_details": "Order Details",
+  "review": "Review"
 }

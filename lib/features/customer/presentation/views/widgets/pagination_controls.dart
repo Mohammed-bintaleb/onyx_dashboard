@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/app_localizations.dart'; // استيراد الترجمة
+import '../../../../../core/utils/app_localizations.dart';
 import 'pagination_button.dart';
 
 class PaginationControls extends StatefulWidget {

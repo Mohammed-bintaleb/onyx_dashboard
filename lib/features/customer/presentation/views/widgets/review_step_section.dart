@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/app_localizations.dart'; // استيراد الترجمة
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/product_row_entity.dart';
 import 'review_step.dart';

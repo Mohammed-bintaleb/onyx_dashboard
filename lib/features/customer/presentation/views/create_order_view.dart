@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+import '../../../../core/utils/app_localizations.dart';
 import '../../domain/Entities/product_row_entity.dart';
 import 'widgets/order_details_step.dart';
 import 'widgets/review_step_section.dart';
@@ -17,7 +18,7 @@ class CreateOrderView extends StatefulWidget {
 class _CreateOrderViewState extends State<CreateOrderView> {
   final _formKey = GlobalKey<FormBuilderState>();
   int _currentStep = 0;
-  final _stepTitles = ["Order Details", "Review"];
+  final stepTitles = ["Order Details", "Review"];
   List<ProductRowEntity> _reviewProducts = [];
   double _reviewGrandTotal = 0.0;
 
@@ -47,6 +48,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDarkMode = theme.brightness == Brightness.dark;
 
@@ -54,6 +56,11 @@ class _CreateOrderViewState extends State<CreateOrderView> {
         ? const Color(0xFF1D1E33)
         : (Colors.grey[300] ?? Colors.grey);
     final textColor = isDarkMode ? Colors.white : Colors.black87;
+
+    final List<String> stepTitles = [
+      t.translate("order_details"),
+      t.translate("review"),
+    ];
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -65,7 +72,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
             const SizedBox(height: 20),
             StepperSection(
               containerColor: containerColor,
-              stepTitles: _stepTitles,
+              stepTitles: stepTitles,
               currentStep: _currentStep,
               onStepTapped: _onStepTapped,
             ),
