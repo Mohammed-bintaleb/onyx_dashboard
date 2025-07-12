@@ -14,8 +14,6 @@ class OrderTableHeaderText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     final screenWidth = MediaQuery.of(context).size.width;
     double baseFontSize = 16;
     if (screenWidth < 400) {

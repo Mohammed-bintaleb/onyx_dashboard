@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../domain/Entities/product_row_entity.dart';
 import '../../manger/product_cubit/product_cubit.dart';
 import '../../manger/product_cubit/product_state.dart';
@@ -22,6 +23,7 @@ class ProductTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ProductCubit>();
+    final t = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -49,9 +51,14 @@ class ProductTable extends StatelessWidget {
                 const SizedBox(height: 16),
                 AddRowButton(onPressed: cubit.addProduct),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: onContinue,
-                  child: const Text('Continue'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: onContinue,
+                      child: Text(t.translate('continue')),
+                    ),
+                  ],
                 ),
               ],
             );
