@@ -20,9 +20,9 @@ class OrderDetailsStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDarkMode = theme.brightness == Brightness.dark;
-    final containerColor = isDarkMode ? Color(0xFF1D1E33) : Colors.grey[300];
+    // final theme = Theme.of(context);
+    // final isDarkMode = theme.brightness == Brightness.dark;
+    // final containerColor = isDarkMode ? Color(0xFF1D1E33) : Colors.grey[300];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

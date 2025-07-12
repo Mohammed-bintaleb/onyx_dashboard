@@ -33,5 +33,10 @@
   "revenue_this_week": "Revenue This Week",
   "trend_revenue": "+8.2% from last period",
   "top_selling_product": "Top Selling Product",
-  "trend_top_product": "Model #X-23 from last period"
+  "trend_top_product": "Model #X-23 from last period",
+  "product_name": "Product Name",
+  "available": "Available",
+  "price": "Price",
+  "quantity": "Quantity",
+  "total": "Total"
 }

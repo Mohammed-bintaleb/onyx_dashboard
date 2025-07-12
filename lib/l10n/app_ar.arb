@@ -33,5 +33,10 @@
   "revenue_this_week": "الإيرادات هذا الأسبوع",
   "trend_revenue": "+8.2٪ مقارنة بالفترة السابقة",
   "top_selling_product": "المنتج الأكثر مبيعًا",
-  "trend_top_product": "الطراز #X-23 مقارنة بالفترة السابقة"
+  "trend_top_product": "الطراز #X-23 مقارنة بالفترة السابقة",
+  "product_name": "اسم المنتج",
+  "available": "المتوفر",
+  "price": "السعر",
+  "quantity": "الكمية",
+  "total": "الإجمالي"
 }

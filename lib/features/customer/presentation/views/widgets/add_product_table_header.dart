@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'table_header_cell.dart';
+import '../../../../../core/utils/app_localizations.dart';
 
 class AddProductTableHeader extends StatelessWidget {
   const AddProductTableHeader({super.key});
@@ -8,6 +8,7 @@ class AddProductTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final t = AppLocalizations.of(context)!;
 
     final screenWidth = MediaQuery.of(context).size.width;
     double baseFontSize = 16;
@@ -34,30 +35,30 @@ class AddProductTableHeader extends StatelessWidget {
       child: Row(
         children: [
           TableHeaderCell(
-            text: 'Product Name',
+            text: t.translate('product_name'),
             fontSize: baseFontSize,
             color: textColor,
             flex: 2,
           ),
           const SizedBox(width: 20),
           TableHeaderCell(
-            text: 'Available',
+            text: t.translate('available'),
             fontSize: baseFontSize,
             color: textColor,
             flex: 2,
           ),
           TableHeaderCell(
-            text: 'Price',
+            text: t.translate('price'),
             fontSize: baseFontSize,
             color: textColor,
           ),
           TableHeaderCell(
-            text: 'Quantity',
+            text: t.translate('quantity'),
             fontSize: baseFontSize,
             color: textColor,
           ),
           TableHeaderCell(
-            text: 'Total',
+            text: t.translate('total'),
             fontSize: baseFontSize,
             color: textColor,
           ),
