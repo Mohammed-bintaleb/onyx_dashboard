@@ -79,5 +79,6 @@
   "recent_orders_subtitle": "A list of all recent orders",
   "previous": "Previous",
   "next": "Next",
-  "page_of": "Page {0} of {1}"
+  "page_of": "Page {0} of {1}",
+  "search_hint": "Search by name or order ID..."
 }
