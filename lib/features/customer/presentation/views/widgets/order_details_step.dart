@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/product_row_entity.dart';
 import 'add_products_row.dart';
@@ -20,22 +21,20 @@ class OrderDetailsStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
-    // final isDarkMode = theme.brightness == Brightness.dark;
-    // final containerColor = isDarkMode ? Color(0xFF1D1E33) : Colors.grey[300];
+    final t = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ChartCustomContainer(
-          title: "Customer Details",
-          subtitle: "Enter the customer's information for the new order.",
+          title: t.translate("customer_details_title"),
+          subtitle: t.translate("customer_details_subtitle"),
           child: CustomerDetailsForm(formKey: formKey),
         ),
         const SizedBox(height: 25),
         ChartCustomContainer(
-          title: "Add Products",
-          subtitle: "Search for products and add them to the order.",
+          title: t.translate("add_products_title"),
+          subtitle: t.translate("add_products_subtitle"),
           child: AddProductsRow(
             onContinue: onContinue,
             onProductsUpdated: onProductsUpdated,

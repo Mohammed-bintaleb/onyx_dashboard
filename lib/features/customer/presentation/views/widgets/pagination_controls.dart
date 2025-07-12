@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/utils/app_localizations.dart'; // استيراد الترجمة
 import 'pagination_button.dart';
 
 class PaginationControls extends StatefulWidget {
@@ -44,18 +45,26 @@ class _PaginationControlsState extends State<PaginationControls> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Page ${widget.currentPage + 1} of ${widget.totalPages}',
+          t.translate(
+            "page_of",
+            args: [
+              (widget.currentPage + 1).toString(),
+              widget.totalPages.toString(),
+            ],
+          ),
           style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
         ),
         Row(
           children: [
             PaginationButton(
               icon: Icons.chevron_left,
-              label: 'Previous',
+              label: t.translate("previous"),
               isPressed: _isPreviousPressed,
               isEnabled: widget.onPrevious != null,
               onPressed: () => _handlePress(true),
@@ -63,7 +72,7 @@ class _PaginationControlsState extends State<PaginationControls> {
             const SizedBox(width: 8),
             PaginationButton(
               icon: Icons.chevron_right,
-              label: 'Next',
+              label: t.translate("next"),
               isPressed: _isNextPressed,
               isEnabled: widget.onNext != null,
               onPressed: () => _handlePress(false),

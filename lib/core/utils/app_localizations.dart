@@ -44,7 +44,17 @@ class AppLocalizations {
     }
   }
 
-  String translate(String key) => _localizedStrings[key] ?? key;
+  String translate(String key, {List<String>? args}) {
+    String? translation = _localizedStrings[key];
+
+    if (translation != null && args != null) {
+      for (int i = 0; i < args.length; i++) {
+        translation = translation!.replaceAll('{$i}', args[i]);
+      }
+    }
+
+    return translation ?? key;
+  }
 }
 
 class _AppLocalizationsDelegate

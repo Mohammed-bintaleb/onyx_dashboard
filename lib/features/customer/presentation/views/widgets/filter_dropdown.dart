@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/app_localizations.dart';
+
 class FilterDropdown extends StatelessWidget {
   final String selectedValue;
   final ValueChanged<String?> onChanged;
@@ -10,15 +12,18 @@ class FilterDropdown extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const List<String> statuses = [
+  static const List<String> statusKeys = [
     "All Statuses",
-    "Completed",
-    "Shipped",
-    "Canceled",
+    "completed",
+    "shipped",
+    "canceled",
+    "pending",
   ];
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -30,10 +35,10 @@ class FilterDropdown extends StatelessWidget {
           value: selectedValue,
           icon: const Icon(Icons.keyboard_arrow_down_rounded),
           isExpanded: true,
-          items: statuses
+          items: statusKeys
               .map(
-                (status) =>
-                    DropdownMenuItem(value: status, child: Text(status)),
+                (key) =>
+                    DropdownMenuItem(value: key, child: Text(t.translate(key))),
               )
               .toList(),
           onChanged: onChanged,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/order_entity.dart';
 import 'order_row.dart';
@@ -28,11 +29,13 @@ class _OrderTableSectionState extends State<OrderTableSection> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return ChartCustomContainer(
-      title: "All Customer Orders",
-      subtitle: "A list of all recent orders",
+      title: t.translate("all_customer_orders"),
+      subtitle: t.translate("recent_orders_subtitle"),
       child: Column(
         children: [
           SearchAndFilterBar(

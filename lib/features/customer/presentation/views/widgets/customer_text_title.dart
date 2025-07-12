@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../../../core/utils/app_styles.dart';
 
 class CustomTextTitle extends StatelessWidget {
@@ -7,6 +8,7 @@ class CustomTextTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final t = AppLocalizations.of(context)!;
 
     double titleFontSize = screenWidth < 400
         ? 20
@@ -21,7 +23,7 @@ class CustomTextTitle extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            'Customer Orders',
+            t.translate('customer_orders_title'),
             style: AppStyles.styleBold32(
               context,
             ).copyWith(fontSize: titleFontSize),
@@ -31,7 +33,7 @@ class CustomTextTitle extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            'View and manage all customer .',
+            t.translate('customer_orders_subtitle'),
             style: AppStyles.styleRegular14(
               context,
             ).copyWith(fontSize: subtitleFontSize),
