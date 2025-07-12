@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/app_styles.dart';
+import '../../../../../core/utils/app_localizations.dart';
 
 class CustomOrderButton extends StatelessWidget {
   const CustomOrderButton({super.key, required this.onPressed});
@@ -9,6 +10,7 @@ class CustomOrderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final t = AppLocalizations.of(context)!;
 
     double fontSize = screenWidth < 400 ? 12 : (screenWidth < 600 ? 14 : 16);
     double iconSize = screenWidth < 400 ? 16 : 20;
@@ -34,7 +36,7 @@ class CustomOrderButton extends StatelessWidget {
               Icon(Icons.add_circle_outline_outlined, size: iconSize),
               const SizedBox(width: 12),
               Text(
-                'Create New Order',
+                t.translate('create_new_order'),
                 style: AppStyles.styleBold16(
                   context,
                 ).copyWith(fontSize: fontSize, color: Colors.white),

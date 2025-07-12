@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import '../../../../../core/utils/app_localizations.dart';
 import '../../../data/data_source/customer_form_fields.dart';
 import 'customer_form_row.dart';
 
@@ -10,6 +11,7 @@ class CustomerDetailsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final fieldBgColor = isDarkMode
         ? const Color(0xFF2C2F4A)
@@ -21,7 +23,7 @@ class CustomerDetailsForm extends StatelessWidget {
 
     Widget buildField(Map<String, dynamic> field) => CustomerFormRow(
       name: field['name'],
-      label: field['label'],
+      label: t.translate(field['label']),
       initialValue: field['initial'],
       labelColor: labelColor,
       bgColor: fieldBgColor,
@@ -65,15 +67,15 @@ class CustomerDetailsForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildRow(customerFormFields.sublist(0, 2)), // Name + Email
+            buildRow(customerFormFields.sublist(0, 2)),
             const SizedBox(height: 24),
-            buildField(customerFormFields[2]), // Phone
+            buildField(customerFormFields[2]),
             const SizedBox(height: 24),
-            buildField(customerFormFields[3]), // Address
+            buildField(customerFormFields[3]),
             const SizedBox(height: 24),
-            buildRow(customerFormFields.sublist(4, 6)), // City + State
+            buildRow(customerFormFields.sublist(4, 6)),
             const SizedBox(height: 24),
-            buildField(customerFormFields[6]), // ZIP
+            buildField(customerFormFields[6]),
           ],
         ),
       ),

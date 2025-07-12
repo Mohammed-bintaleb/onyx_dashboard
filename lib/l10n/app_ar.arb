@@ -47,5 +47,16 @@
   "add_product": "إضافة منتج",
   "@add_product": {
     "description": "علامة زر لإضافة منتج"
-  }
+  },
+  "create_new_order": "إنشاء طلب جديد",
+  "@create_new_order": {
+    "description": "نص الزر لإنشاء طلب جديد"
+  },
+  "form_customer_name": "اسم العميل",
+  "form_customer_email": "البريد الإلكتروني",
+  "form_phone": "رقم الهاتف (اختياري)",
+  "form_address": "عنوان الشحن",
+  "form_city": "المدينة",
+  "form_state": "الولاية",
+  "form_zip": "الرمز البريدي"
 }

@@ -47,5 +47,16 @@
   "add_product": "Add Product",
   "@add_product": {
     "description": "Label for the button to add a product"
-  }
+  },
+  "create_new_order": "Create New Order",
+  "@create_new_order": {
+    "description": "Button text for creating a new order"
+  },
+  "form_customer_name": "Customer Name",
+  "form_customer_email": "Customer Email",
+  "form_phone": "Phone Number (Optional)",
+  "form_address": "Shipping Address",
+  "form_city": "City",
+  "form_state": "State",
+  "form_zip": "ZIP Code"
 }
