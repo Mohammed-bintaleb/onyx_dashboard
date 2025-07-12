@@ -1,45 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/app_localizations.dart';
 import '../../manger/language_cubit/language_cubit.dart';
 
-class LanguageButton extends StatelessWidget {
-  const LanguageButton({super.key});
+class LanguageSwitcher extends StatelessWidget {
+  const LanguageSwitcher({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.language, size: 24),
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(
-              AppLocalizations.of(context)!.translate('choose_language'),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  title: const Text('English'),
-                  onTap: () {
-                    context.read<LanguageCubit>().changeLanguage('en');
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  title: const Text('العربية'),
-                  onTap: () {
-                    context.read<LanguageCubit>().changeLanguage('ar');
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    final locale = Localizations.localeOf(context).languageCode;
+
+    return SizedBox(
+      width: 50,
+      child: DropdownButton<String>(
+        underline: const SizedBox(),
+        isDense: true,
+        icon: const SizedBox.shrink(),
+        value: locale,
+        items: const [
+          DropdownMenuItem(value: 'en', child: Text('English')),
+          DropdownMenuItem(value: 'ar', child: Text('العربية')),
+        ],
+        selectedItemBuilder: (context) => const [
+          Icon(Icons.language, size: 24),
+          Icon(Icons.language, size: 24),
+        ],
+        onChanged: (langCode) {
+          if (langCode != null) {
+            context.read<LanguageCubit>().changeLanguage(langCode);
+          }
+        },
+      ),
     );
   }
 }

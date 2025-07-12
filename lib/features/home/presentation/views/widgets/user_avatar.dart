@@ -6,8 +6,8 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: MediaQuery.of(context).size.width < 600 ? 16 : 20,
-      backgroundImage: const NetworkImage('https://i.pravatar.cc/150?img=47'),
+      radius: MediaQuery.of(context).size.width < 600 ? 16 : 25,
+      backgroundImage: const NetworkImage('https://picsum.photos/400'),
     );
   }
 }

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "chat-app-2-be319",
+    "staging": "onyx-hosting"
+  },
+  "targets": {},
+  "etags": {}
+}

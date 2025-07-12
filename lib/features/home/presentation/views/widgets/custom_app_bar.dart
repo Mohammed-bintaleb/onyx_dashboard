@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Flexible(child: SearchBox(isDarkMode: isDark)),
           NotificationButton(),
           const SizedBox(width: 12),
-          LanguageButton(),
+          LanguageSwitcher(),
           const SizedBox(width: 12),
           ThemeSwitcher(),
           const SizedBox(width: 16),
