@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onyx_dashboard/constants.dart';
 import 'core/utils/app_view.dart';
 import 'features/customer/domain/Entities/order_entity.dart';
 import 'features/customer/domain/Entities/product_data_entity.dart';
@@ -21,9 +22,9 @@ void main() async {
   Hive.registerAdapter(ProductDataEntityAdapter());
   Hive.registerAdapter(ProductRowEntityAdapter());
 
-  await Hive.openBox<OrderEntity>('ordersBox');
-  await Hive.openBox<ProductDataEntity>('productDataBox');
-  await Hive.openBox<ProductRowEntity>('productRowBox');
+  await Hive.openBox<OrderEntity>(kOrderBox);
+  await Hive.openBox<ProductDataEntity>(kProductDataBox);
+  await Hive.openBox<ProductRowEntity>(kProductRowBox);
 
   runApp(
     DevicePreview(enabled: false, builder: (context) => const OnyxDashboard()),
