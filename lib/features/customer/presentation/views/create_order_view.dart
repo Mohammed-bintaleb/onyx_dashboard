@@ -28,7 +28,6 @@ class _CreateOrderViewState extends State<CreateOrderView> {
   double _reviewGrandTotal = 0.0;
 
   void _submitForm() {
-    // تحقق أولاً أن البيانات موجودة
     if (_reviewFormData.isEmpty) {
       print("Review form data is empty. Cannot submit.");
       return;
