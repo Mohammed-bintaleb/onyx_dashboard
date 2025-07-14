@@ -1,19 +1,18 @@
-part of 'product_cubit.dart';
+import '../../../domain/Entities/product_row_entity.dart';
 
-abstract class ProductState {}
+class ProductState {
+  final List<ProductRowEntity> products;
+  final double grandTotal;
 
-class ProductInitial extends ProductState {}
+  ProductState({required this.products, required this.grandTotal});
 
-class ProductLoading extends ProductState {}
-
-class ProductLoaded extends ProductState {
-  final List<ProductDataEntity> productData;
-  final List<ProductRowEntity> productRows;
-
-  ProductLoaded(this.productData, this.productRows);
-}
-
-class ProductError extends ProductState {
-  final String message;
-  ProductError(this.message);
+  ProductState copyWith({
+    List<ProductRowEntity>? products,
+    double? grandTotal,
+  }) {
+    return ProductState(
+      products: products ?? this.products,
+      grandTotal: grandTotal ?? this.grandTotal,
+    );
+  }
 }

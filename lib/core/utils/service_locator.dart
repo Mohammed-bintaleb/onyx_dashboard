@@ -1,10 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
 import 'package:onyx_dashboard/features/customer/presentation/manger/order_cubit/order_cubit.dart';
-import 'package:onyx_dashboard/features/customer/presentation/manger/product_cubit/product_cubit.dart';
-
 import '../../features/customer/data/data_source/customer_local_data_source.dart';
 import '../../features/customer/data/data_source/customer_remote_data_source.dart';
 import '../../features/customer/data/data_source/customer_remote_data_source_impl.dart';
@@ -12,15 +9,10 @@ import '../../features/customer/data/data_source/customer_local_data_source_impl
 import '../../features/customer/data/repo/customer_repo_impl.dart';
 import '../../features/customer/domain/use_case/add_order_use_case.dart';
 import '../../features/customer/domain/use_case/delete_order_use_case.dart';
-import '../../features/customer/domain/use_case/fetch_product_data_use_case.dart';
-import '../../features/customer/domain/use_case/fetch_product_rows_use_case.dart';
 import '../../features/customer/domain/use_case/get_orders_use_case.dart';
-import '../../features/customer/domain/use_case/save_product_rows_use_case.dart';
 import '../../features/customer/domain/use_case/update_order_use_case.dart';
 import 'package:hive/hive.dart';
 import '../../features/customer/domain/Entities/order_entity.dart';
-import '../../features/customer/domain/Entities/product_data_entity.dart';
-import '../../features/customer/domain/Entities/product_row_entity.dart';
 
 final sl = GetIt.instance;
 
@@ -28,19 +20,13 @@ Future<void> setupServiceLocator() async {
   final firestoreInstance = FirebaseFirestore.instance;
 
   final orderBox = await Hive.openBox<OrderEntity>('orders');
-  final productDataBox = await Hive.openBox<ProductDataEntity>('productData');
-  final productRowBox = await Hive.openBox<ProductRowEntity>('productRows');
 
   sl.registerLazySingleton<CustomerRemoteDataSource>(
     () => CustomerRemoteDataSourceImpl(firestoreInstance),
   );
 
   sl.registerLazySingleton<CustomerLocalDataSource>(
-    () => CustomerLocalDataSourceImpl(
-      orderBox: orderBox,
-      productDataBox: productDataBox,
-      productRowBox: productRowBox,
-    ),
+    () => CustomerLocalDataSourceImpl(orderBox: orderBox),
   );
 
   sl.registerLazySingleton<CustomerRepo>(
@@ -52,24 +38,12 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton(() => UpdateOrderUseCase(sl()));
   sl.registerLazySingleton(() => DeleteOrderUseCase(sl()));
 
-  sl.registerLazySingleton(() => FetchProductDataUseCase(sl()));
-  sl.registerLazySingleton(() => FetchProductRowsUseCase(sl()));
-  sl.registerLazySingleton(() => SaveProductRowsUseCase(sl()));
-
   sl.registerFactory(
     () => OrderCubit(
       getOrdersUseCase: sl(),
       addOrderUseCase: sl(),
       updateOrderUseCase: sl(),
       deleteOrderUseCase: sl(),
-    ),
-  );
-
-  sl.registerFactory(
-    () => ProductCubit(
-      fetchProductDataUseCase: sl(),
-      fetchProductRowsUseCase: sl(),
-      saveProductRowsUseCase: sl(),
     ),
   );
 }

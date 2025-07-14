@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:onyx_dashboard/core/errors/failure.dart';
 import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.dart';
-import 'package:onyx_dashboard/features/customer/domain/Entities/product_data_entity.dart';
-import 'package:onyx_dashboard/features/customer/domain/Entities/product_row_entity.dart';
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
 
 import '../data_source/customer_local_data_source.dart';
@@ -67,50 +65,6 @@ class CustomerRepoImpl implements CustomerRepo {
       return const Right(unit);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<ProductDataEntity>>> fetchProductData() async {
-    try {
-      final data = await remote.fetchProductData();
-      await local.cacheProductData(data);
-      return Right(data);
-    } catch (e) {
-      try {
-        final localData = await local.getCachedProductData();
-        return Right(localData);
-      } catch (e2) {
-        return Left(ServerFailure(e2.toString()));
-      }
-    }
-  }
-
-  @override
-  Future<Either<Failure, Unit>> saveProductRows(
-    List<ProductRowEntity> productRows,
-  ) async {
-    try {
-      await remote.saveProductRows(productRows);
-      return const Right(unit);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<ProductRowEntity>>> fetchProductRows() async {
-    try {
-      final rows = await remote.fetchProductRows();
-      await local.cacheProductRows(rows);
-      return Right(rows);
-    } catch (e) {
-      try {
-        final localRows = await local.getCachedProductRows();
-        return Right(localRows);
-      } catch (e2) {
-        return Left(ServerFailure(e2.toString()));
-      }
     }
   }
 }
