@@ -2,7 +2,11 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'core/utils/app_view.dart';
+import 'features/customer/domain/Entities/order_entity.dart';
+import 'features/customer/domain/Entities/product_data_entity.dart';
+import 'features/customer/domain/Entities/product_row_entity.dart';
 import 'features/home/presentation/manger/language_cubit/language_cubit.dart';
 import 'features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 import 'features/customer/presentation/manger/product_cubit/product_cubit.dart';
@@ -11,6 +15,16 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(OrderEntityAdapter());
+  Hive.registerAdapter(ProductDataEntityAdapter());
+  Hive.registerAdapter(ProductRowEntityAdapter());
+
+  await Hive.openBox<OrderEntity>('ordersBox');
+  await Hive.openBox<ProductDataEntity>('productDataBox');
+  await Hive.openBox<ProductRowEntity>('productRowBox');
+
   runApp(
     DevicePreview(enabled: false, builder: (context) => const OnyxDashboard()),
   );

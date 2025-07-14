@@ -2,16 +2,13 @@ import 'package:hive/hive.dart';
 import '../../domain/Entities/order_entity.dart';
 import '../../domain/Entities/product_data_entity.dart';
 import '../../domain/Entities/product_row_entity.dart';
-import '../models/order_model.dart';
-import '../models/product_data_model.dart';
-import '../models/product_row_model.dart';
 
 import 'customer_local_data_source.dart';
 
 class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
-  final Box<OrderModel> orderBox;
-  final Box<ProductDataModel> productDataBox;
-  final Box<ProductRowModel> productRowBox;
+  final Box<OrderEntity> orderBox;
+  final Box<ProductDataEntity> productDataBox;
+  final Box<ProductRowEntity> productRowBox;
 
   CustomerLocalDataSourceImpl({
     required this.orderBox,
@@ -28,7 +25,7 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
   Future<void> cacheOrders(List<OrderEntity> orders) async {
     await orderBox.clear();
     for (var order in orders) {
-      await orderBox.put(order.id, order as OrderModel);
+      await orderBox.put(order.id, order);
     }
   }
 
@@ -41,7 +38,7 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
   Future<void> cacheProductData(List<ProductDataEntity> products) async {
     await productDataBox.clear();
     for (var product in products) {
-      await productDataBox.add(product as ProductDataModel);
+      await productDataBox.add(product);
     }
   }
 
@@ -54,7 +51,7 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
   Future<void> cacheProductRows(List<ProductRowEntity> rows) async {
     await productRowBox.clear();
     for (var row in rows) {
-      await productRowBox.add(row as ProductRowModel);
+      await productRowBox.add(row);
     }
   }
 }

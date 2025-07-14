@@ -38,7 +38,7 @@ class ProductRowWidget extends StatelessWidget {
           Expanded(
             flex: 2,
             child: ProductNameDropdown(
-              selectedName: product.name ?? "",
+              selectedName: product.name,
               productDatabase: productDatabase,
               onNameChanged: onNameChanged,
               isDarkMode: isDarkMode,
