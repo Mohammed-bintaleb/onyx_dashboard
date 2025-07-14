@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx_dashboard/constants.dart';
 import 'core/utils/app_view.dart';
+import 'core/utils/service_locator.dart';
 import 'features/customer/domain/Entities/order_entity.dart';
 import 'features/customer/domain/Entities/product_data_entity.dart';
 import 'features/customer/domain/Entities/product_row_entity.dart';
+import 'features/customer/presentation/manger/order_cubit/order_cubit.dart';
 import 'features/home/presentation/manger/language_cubit/language_cubit.dart';
 import 'features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 import 'features/customer/presentation/manger/product_cubit/product_cubit.dart';
@@ -15,9 +17,11 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await Hive.initFlutter();
+
   Hive.registerAdapter(OrderEntityAdapter());
   Hive.registerAdapter(ProductDataEntityAdapter());
   Hive.registerAdapter(ProductRowEntityAdapter());
@@ -25,6 +29,8 @@ void main() async {
   await Hive.openBox<OrderEntity>(kOrderBox);
   await Hive.openBox<ProductDataEntity>(kProductDataBox);
   await Hive.openBox<ProductRowEntity>(kProductRowBox);
+
+  await setupServiceLocator();
 
   runApp(
     DevicePreview(enabled: false, builder: (context) => const OnyxDashboard()),
@@ -40,7 +46,8 @@ class OnyxDashboard extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LanguageCubit()),
-        BlocProvider(create: (_) => ProductCubit()),
+        BlocProvider(create: (_) => sl<OrderCubit>()),
+        BlocProvider(create: (_) => sl<ProductCubit>()),
       ],
       child: const AppView(),
     );
