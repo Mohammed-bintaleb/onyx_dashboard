@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:onyx_dashboard/core/errors/failure.dart';
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
 import '../Entities/product_row_entity.dart';
 
@@ -6,7 +8,7 @@ class SaveProductRowsUseCase {
 
   SaveProductRowsUseCase(this.repository);
 
-  Future<void> execute(List<ProductRowEntity> productRows) {
+  Future<Either<Failure, Unit>> call(List<ProductRowEntity> productRows) {
     return repository.saveProductRows(productRows);
   }
 }

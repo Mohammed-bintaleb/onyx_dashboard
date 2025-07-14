@@ -8,7 +8,7 @@ class FetchProductRowsUseCase {
 
   FetchProductRowsUseCase(this.repository);
 
-  Future<Either<Failure, List<ProductRowEntity>>> execute() {
+  Future<Either<Failure, List<ProductRowEntity>>> call() {
     return repository.fetchProductRows();
   }
 }

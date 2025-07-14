@@ -8,7 +8,7 @@ class GetOrderByIdUseCase {
 
   GetOrderByIdUseCase(this.repository);
 
-  Future<Either<Failure, OrderEntity>> execute(String id) {
+  Future<Either<Failure, OrderEntity>> call(String id) {
     return repository.getOrderById(id);
   }
 }

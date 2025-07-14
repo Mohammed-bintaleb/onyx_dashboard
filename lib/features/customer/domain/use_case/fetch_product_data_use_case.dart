@@ -8,7 +8,7 @@ class FetchProductDataUseCase {
 
   FetchProductDataUseCase(this.repository);
 
-  Future<Either<Failure, List<ProductDataEntity>>> execute() {
+  Future<Either<Failure, List<ProductDataEntity>>> call() {
     return repository.fetchProductData();
   }
 }

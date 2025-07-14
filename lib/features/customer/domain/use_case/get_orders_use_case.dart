@@ -8,7 +8,7 @@ class GetOrdersUseCase {
 
   GetOrdersUseCase(this.repository);
 
-  Future<Either<Failure, List<OrderEntity>>> execute() {
+  Future<Either<Failure, List<OrderEntity>>> call() {
     return repository.getOrders();
   }
 }
