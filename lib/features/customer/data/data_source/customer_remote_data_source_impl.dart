@@ -6,6 +6,7 @@ import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.da
 import 'package:onyx_dashboard/features/customer/domain/Entities/product_data_entity.dart';
 import 'package:onyx_dashboard/features/customer/domain/Entities/product_row_entity.dart';
 
+import '../../../../constants.dart';
 import 'customer_remote_data_source.dart';
 
 class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
@@ -13,11 +14,11 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
 
   CustomerRemoteDataSourceImpl(this.firestore);
 
-  CollectionReference get ordersCollection => firestore.collection('orders');
+  CollectionReference get ordersCollection => firestore.collection(kOrderColl);
   CollectionReference get productsCollection =>
-      firestore.collection('products');
+      firestore.collection(kProductsColl);
   CollectionReference get productRowsCollection =>
-      firestore.collection('productRows');
+      firestore.collection(kProductRowsColl);
 
   @override
   Future<List<OrderEntity>> getOrders() async {
