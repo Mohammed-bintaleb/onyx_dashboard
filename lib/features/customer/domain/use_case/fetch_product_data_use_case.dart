@@ -1,5 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:onyx_dashboard/core/errors/failure.dart';
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
-
 import '../Entities/product_data_entity.dart';
 
 class FetchProductDataUseCase {
@@ -7,7 +8,7 @@ class FetchProductDataUseCase {
 
   FetchProductDataUseCase(this.repository);
 
-  Future<List<ProductDataEntity>> execute() {
+  Future<Either<Failure, List<ProductDataEntity>>> execute() {
     return repository.fetchProductData();
   }
 }
