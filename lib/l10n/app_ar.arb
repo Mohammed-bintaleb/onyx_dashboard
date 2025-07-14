@@ -91,5 +91,9 @@
   "products": "المنتجات",
   "total": "الإجمالي",
   "order_details": "تفاصيل الطلب",
-  "review": "مراجعة"
+  "review": "مراجعة",
+  "confirm": "تأكيد",
+  "are_you_sure_submit_order": "هل أنت متأكد من أنك تريد إنشاء الطلب؟",
+  "cancel": "إلغاء",
+  "yes_submit": "نعم، أنشئ الطلب"
 }

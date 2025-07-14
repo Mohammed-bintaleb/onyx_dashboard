@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onyx_dashboard/features/customer/data/models/order_model.dart';
 import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.dart';
@@ -34,7 +36,9 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
   @override
   Future<void> addOrder(OrderEntity order) async {
     final model = order as OrderModel;
+    print("🟢 RemoteDataSource: Saving order ${model.id}");
     await ordersCollection.doc(model.id).set(model.toMap());
+    print("✅ Order saved to Firestore: ${model.toMap()}");
   }
 
   @override

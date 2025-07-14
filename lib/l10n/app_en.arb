@@ -91,5 +91,9 @@
   "products": "Products",
   "total": "Total",
   "order_details": "Order Details",
-  "review": "Review"
+  "review": "Review",
+  "confirm": "Confirmation",
+  "are_you_sure_submit_order": "Are you sure you want to create the order?",
+  "cancel": "Cancel",
+  "yes_submit": "Yes, submit"
 }

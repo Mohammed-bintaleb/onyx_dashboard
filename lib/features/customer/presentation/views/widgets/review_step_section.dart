@@ -49,7 +49,28 @@ class ReviewStepSection extends StatelessWidget {
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: onSubmit,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text(t.translate("confirm")),
+                    content: Text(t.translate("are_you_sure_submit_order")),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(ctx).pop(),
+                        child: Text(t.translate("cancel")),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                          onSubmit();
+                        },
+                        child: Text(t.translate("yes_submit")),
+                      ),
+                    ],
+                  ),
+                );
+              },
               child: Text(t.translate("create_order")),
             ),
           ],

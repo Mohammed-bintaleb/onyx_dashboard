@@ -1,8 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import '../../../../core/utils/app_localizations.dart';
+import '../../data/models/order_model.dart';
 import '../../domain/Entities/product_row_entity.dart';
+import '../manger/order_cubit/order_cubit.dart';
 import 'widgets/order_details_step.dart';
 import 'widgets/review_step_section.dart';
 import 'widgets/stepper_section.dart';
@@ -23,17 +28,59 @@ class _CreateOrderViewState extends State<CreateOrderView> {
   double _reviewGrandTotal = 0.0;
 
   void _submitForm() {
-    if (_formKey.currentState?.saveAndValidate() ?? false) {
-      final formData = _formKey.currentState?.value ?? {};
-      print("Order Submitted: $formData");
+    // تحقق أولاً أن البيانات موجودة
+    if (_reviewFormData.isEmpty) {
+      print("Review form data is empty. Cannot submit.");
+      return;
     }
+
+    print("Submitting order with data: $_reviewFormData");
+
+    final id = UniqueKey().toString();
+    final customer = _reviewFormData['customer_name'] ?? '';
+    final date = DateTime.now().toString().split(' ').first;
+    const status = 'pending';
+    final amount = _reviewGrandTotal;
+
+    final order = OrderModel(
+      id: id,
+      customer: customer,
+      date: date,
+      status: status,
+      amount: amount,
+    );
+
+    context.read<OrderCubit>().addOrder(order);
+    print("Order submission complete");
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Order created successfully")));
+
+    setState(() {
+      _currentStep = 0;
+      _formKey.currentState?.reset();
+      _reviewProducts = [];
+      _reviewGrandTotal = 0.0;
+      _reviewFormData = {};
+    });
   }
 
   void _onContinue() {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      setState(() => _currentStep++);
+      final data = _formKey.currentState!.value;
+      print("Form data captured on continue: $data");
+
+      setState(() {
+        _currentStep++;
+        _reviewFormData = data;
+      });
+    } else {
+      print("Form is invalid");
     }
   }
+
+  Map<String, dynamic> _reviewFormData = {};
 
   void _onProductsUpdated(List<ProductRowEntity> products, double grandTotal) {
     setState(() {

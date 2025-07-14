@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
 import 'package:onyx_dashboard/features/customer/presentation/manger/order_cubit/order_cubit.dart';
+import '../../constants.dart';
 import '../../features/customer/data/data_source/customer_local_data_source.dart';
 import '../../features/customer/data/data_source/customer_remote_data_source.dart';
 import '../../features/customer/data/data_source/customer_remote_data_source_impl.dart';
@@ -19,7 +20,7 @@ final sl = GetIt.instance;
 Future<void> setupServiceLocator() async {
   final firestoreInstance = FirebaseFirestore.instance;
 
-  final orderBox = await Hive.openBox<OrderEntity>('orders');
+  final orderBox = await Hive.openBox<OrderEntity>(kOrderColl);
 
   sl.registerLazySingleton<CustomerRemoteDataSource>(
     () => CustomerRemoteDataSourceImpl(firestoreInstance),

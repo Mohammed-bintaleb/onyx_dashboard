@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/app_localizations.dart';
 import '../../../domain/Entities/product_row_entity.dart';
+import '../../../data/data_source/customer_form_fields.dart';
 
 class ReviewStep extends StatelessWidget {
   final Map<String, dynamic> formData;
@@ -26,19 +27,21 @@ class ReviewStep extends StatelessWidget {
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        _buildReviewItem(
-          t.translate("customer"),
-          formData['customer_name'] ?? '',
-        ),
-        _buildReviewItem(
-          t.translate("shipping_address"),
-          formData['address'] ?? '',
-        ),
+
+        ...customerFormFields.map((field) {
+          final name = field['name'];
+          final label = t.translate(field['label']);
+          final value = formData[name] ?? '';
+          return _buildReviewItem(label, value);
+        }),
+
         const Divider(height: 32),
+
         Text(
           t.translate("products"),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
+
         ...products.map(
           (product) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -53,7 +56,9 @@ class ReviewStep extends StatelessWidget {
             ),
           ),
         ),
+
         const Divider(height: 32),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
