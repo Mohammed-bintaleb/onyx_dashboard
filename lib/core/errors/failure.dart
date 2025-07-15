@@ -1,9 +1,13 @@
 import 'package:dio/dio.dart';
-
 abstract class Failure {
   final String message;
 
   Failure(this.message);
+}
+
+class OfflineFailure extends Failure {
+  OfflineFailure(super.message);
+  
 }
 
 class ServerFailure extends Failure {
@@ -32,6 +36,7 @@ class ServerFailure extends Failure {
         return ServerFailure("Unexpected Error, Please try later! ");
     }
   }
+
   factory ServerFailure.fromResponse(int statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return ServerFailure(

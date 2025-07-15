@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
 import 'package:onyx_dashboard/features/customer/presentation/manger/order_cubit/order_cubit.dart';
 import '../../constants.dart';
@@ -14,6 +15,8 @@ import '../../features/customer/domain/use_case/get_orders_use_case.dart';
 import '../../features/customer/domain/use_case/update_order_use_case.dart';
 import 'package:hive/hive.dart';
 import '../../features/customer/domain/Entities/order_entity.dart';
+import '../networking/internet_connection_checker.dart';
+import '../networking/networking.dart';
 
 final sl = GetIt.instance;
 
@@ -31,7 +34,7 @@ Future<void> setupServiceLocator() async {
   );
 
   sl.registerLazySingleton<CustomerRepo>(
-    () => CustomerRepoImpl(remote: sl(), local: sl()),
+    () => CustomerRepoImpl(remote: sl(), local: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton(() => GetOrdersUseCase(sl()));
@@ -47,4 +50,7 @@ Future<void> setupServiceLocator() async {
       deleteOrderUseCase: sl(),
     ),
   );
+
+  sl.registerLazySingleton(() => InternetConnectionChecker.instance);
+  sl.registerLazySingleton<Netwokinfo>(() => NetworkIfnoImpl(sl()));
 }

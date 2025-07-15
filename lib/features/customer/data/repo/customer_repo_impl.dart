@@ -1,29 +1,44 @@
+// ignore_for_file: avoid_print
+
 import 'package:dartz/dartz.dart';
 import 'package:onyx_dashboard/core/errors/failure.dart';
 import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.dart';
 import 'package:onyx_dashboard/features/customer/domain/repo/customer_repo.dart';
 
+import '../../../../core/networking/networking.dart';
 import '../data_source/customer_local_data_source.dart';
 import '../data_source/customer_remote_data_source.dart';
 
 class CustomerRepoImpl implements CustomerRepo {
   final CustomerRemoteDataSource remote;
   final CustomerLocalDataSource local;
+  final Netwokinfo networkInfo;
 
-  CustomerRepoImpl({required this.remote, required this.local});
+  CustomerRepoImpl({
+    required this.networkInfo,
+    required this.remote,
+    required this.local,
+  });
 
   @override
   Future<Either<Failure, List<OrderEntity>>> getOrders() async {
-    try {
-      final orders = await remote.getOrders();
-      await local.cacheOrders(orders);
-      return Right(orders);
-    } catch (e) {
+    if (await networkInfo.isConnected) {
+      try {
+        print("📡 Fetching orders from REMOTE");
+        final orders = await remote.getOrders();
+        await local.cacheOrders(orders);
+        return Right(orders);
+      } catch (e) {
+        print("⚠️ Failed to fetch from REMOTE, trying LOCAL");
+        return Left(ServerFailure("Remote Error: ${e.toString()}"));
+      }
+    } else {
+      print("📦 Offline - fetching orders from LOCAL");
       try {
         final localOrders = await local.getCachedOrders();
         return Right(localOrders);
       } catch (e2) {
-        return Left(ServerFailure(e2.toString()));
+        return Left(ServerFailure("Local Error: ${e2.toString()}"));
       }
     }
   }
