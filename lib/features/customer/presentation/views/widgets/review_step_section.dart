@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/app_localizations.dart';
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/product_row_entity.dart';
+import '../../manger/order_cubit/order_cubit.dart';
 import 'review_step.dart';
 
 class ReviewStepSection extends StatelessWidget {
@@ -40,38 +42,56 @@ class ReviewStepSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             OutlinedButton(
               onPressed: onBack,
               style: OutlinedButton.styleFrom(foregroundColor: textColor),
               child: Text(t.translate("back")),
             ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Text(t.translate("confirm")),
-                    content: Text(t.translate("are_you_sure_submit_order")),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(ctx).pop(),
-                        child: Text(t.translate("cancel")),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                          onSubmit();
+            const Spacer(),
+            BlocBuilder<OrderCubit, OrderState>(
+              builder: (context, state) {
+                final isSaving = state is OrderSaving;
+
+                return ElevatedButton(
+                  onPressed: isSaving
+                      ? null
+                      : () {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Text(t.translate("confirm")),
+                              content: Text(
+                                t.translate("are_you_sure_submit_order"),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(ctx).pop(),
+                                  child: Text(t.translate("cancel")),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                    onSubmit(); // هذا يستدعي _submitForm
+                                  },
+                                  child: Text(t.translate("yes_submit")),
+                                ),
+                              ],
+                            ),
+                          );
                         },
-                        child: Text(t.translate("yes_submit")),
-                      ),
-                    ],
-                  ),
+                  child: isSaving
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(t.translate("create_order")),
                 );
               },
-              child: Text(t.translate("create_order")),
             ),
           ],
         ),

@@ -35,7 +35,14 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
 
   @override
   Future<void> addOrder(OrderEntity order) async {
-    final model = order as OrderModel;
+    final model = OrderModel(
+      id: order.id,
+      customer: order.customer,
+      date: order.date,
+      status: order.status,
+      amount: order.amount,
+      isSynced: true,
+    );
     print("🟢 RemoteDataSource: Saving order ${model.id}");
     await ordersCollection.doc(model.id).set(model.toMap());
     print("✅ Order saved to Firestore: ${model.toMap()}");
@@ -43,7 +50,14 @@ class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
 
   @override
   Future<void> updateOrder(OrderEntity order) async {
-    final model = order as OrderModel;
+    final model = OrderModel(
+      id: order.id,
+      customer: order.customer,
+      date: order.date,
+      status: order.status,
+      amount: order.amount,
+      isSynced: order.isSynced,
+    );
     await ordersCollection.doc(model.id).update(model.toMap());
   }
 

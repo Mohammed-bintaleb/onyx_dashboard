@@ -27,7 +27,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
   List<ProductRowEntity> _reviewProducts = [];
   double _reviewGrandTotal = 0.0;
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_reviewFormData.isEmpty) {
       print("Review form data is empty. Cannot submit.");
       return;
@@ -49,20 +49,23 @@ class _CreateOrderViewState extends State<CreateOrderView> {
       amount: amount,
     );
 
-    context.read<OrderCubit>().addOrder(order);
+    // ننتظر حفظ الطلب بشكل كامل
+    await context.read<OrderCubit>().addOrder(order);
     print("Order submission complete");
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text("Order created successfully")));
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Order created successfully")),
+      );
 
-    setState(() {
-      _currentStep = 0;
-      _formKey.currentState?.reset();
-      _reviewProducts = [];
-      _reviewGrandTotal = 0.0;
-      _reviewFormData = {};
-    });
+      setState(() {
+        _currentStep = 0;
+        _formKey.currentState?.reset();
+        _reviewProducts = [];
+        _reviewGrandTotal = 0.0;
+        _reviewFormData = {};
+      });
+    }
   }
 
   void _onContinue() {

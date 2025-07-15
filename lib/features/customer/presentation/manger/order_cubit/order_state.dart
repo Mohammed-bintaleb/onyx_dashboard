@@ -6,6 +6,10 @@ class OrderInitial extends OrderState {}
 
 class OrderLoading extends OrderState {}
 
+class OrderSaving extends OrderState {}
+
+class OrderSaved extends OrderState {}
+
 class OrderLoaded extends OrderState {
   final List<OrderEntity> orders;
   OrderLoaded(this.orders);

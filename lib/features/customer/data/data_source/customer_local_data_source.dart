@@ -6,4 +6,5 @@ abstract class CustomerLocalDataSource {
   Future<void> saveOrderLocally(OrderEntity order);
   Future<List<OrderEntity>> getUnsyncedOrders();
   Future<void> updateOrderSyncStatus(String id, bool isSynced);
+  Future<void> deleteOrderLocally(String id);
 }

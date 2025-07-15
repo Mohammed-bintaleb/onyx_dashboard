@@ -24,13 +24,28 @@ class CustomerRepoImpl implements CustomerRepo {
   Future<Either<Failure, List<OrderEntity>>> getOrders() async {
     if (await networkInfo.isConnected) {
       try {
-        print("📡 Fetching orders from REMOTE");
-        final orders = await remote.getOrders();
-        await local.cacheOrders(orders);
-        return Right(orders);
+        final remoteOrders = await remote.getOrders();
+        await local.cacheOrders(remoteOrders);
+        //* جلب الطلبات غير المتزامنة المحفوظة محليًا
+        final unsyncedOrders = await local.getUnsyncedOrders();
+        //* دمج القائمتين بحيث الطلبات المحلية الغير متزامنة تظهر مع الطلبات المزامنة
+        final allOrders = [...remoteOrders];
+        //* تأكد أن الطلبات الغير متزامنة ليست مكررة في القائمة النهائية تجنب التكرار حسب id
+        for (var unsynced in unsyncedOrders) {
+          final exists = allOrders.any((o) => o.id == unsynced.id);
+          if (!exists) {
+            allOrders.add(unsynced);
+          }
+        }
+        return Right(allOrders);
       } catch (e) {
         print("⚠️ Failed to fetch from REMOTE, trying LOCAL");
-        return Left(ServerFailure("Remote Error: ${e.toString()}"));
+        try {
+          final localOrders = await local.getCachedOrders();
+          return Right(localOrders);
+        } catch (e2) {
+          return Left(ServerFailure("Local Error: ${e2.toString()}"));
+        }
       }
     } else {
       print("📦 Offline - fetching orders from LOCAL");
@@ -44,21 +59,15 @@ class CustomerRepoImpl implements CustomerRepo {
   }
 
   @override
-  Future<Either<Failure, OrderEntity>> getOrderById(String id) async {
-    try {
-      final order = await remote.getOrderById(id);
-      return Right(order);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
   Future<Either<Failure, Unit>> addOrder(OrderEntity order) async {
-    if (await networkInfo.isConnected) {
+    final isConnected = await networkInfo.isConnected;
+    print('🌐 isConnected = $isConnected');
+
+    if (isConnected) {
       try {
+        print('🚀 محاولة رفع الطلب إلى Firestore...');
         await remote.addOrder(order);
-        //* حفظه كمزامَن
+
         final syncedOrder = OrderEntity(
           order.id,
           order.customer,
@@ -68,9 +77,12 @@ class CustomerRepoImpl implements CustomerRepo {
           true,
         );
         await local.saveOrderLocally(syncedOrder);
+        print('✅ تم رفع الطلب وحفظه كمزامن: ${order.id}');
         return const Right(unit);
       } catch (e) {
-        //* في حال فشل الرفع نحفظه كغير متزامن
+        print(
+          '❌ فشل الرفع إلى Firestore، حفظه محليًا كـ غير متزامن: ${order.id}',
+        );
         final unsyncedOrder = OrderEntity(
           order.id,
           order.customer,
@@ -83,7 +95,9 @@ class CustomerRepoImpl implements CustomerRepo {
         return const Right(unit);
       }
     } else {
-      //* إذا مافي نت نحفظه كـ unsynced
+      print(
+        '📴 لا يوجد اتصال، سيتم حفظ الطلب محليًا كـ غير متزامن: ${order.id}',
+      );
       final unsyncedOrder = OrderEntity(
         order.id,
         order.customer,
@@ -98,33 +112,67 @@ class CustomerRepoImpl implements CustomerRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateOrder(OrderEntity updatedOrder) async {
+  Future<Either<Failure, Unit>> syncPendingOrders() async {
     try {
-      await remote.updateOrder(updatedOrder);
+      final unsyncedOrders = await local.getUnsyncedOrders();
+      for (var order in unsyncedOrders) {
+        try {
+          await remote.addOrder(order); //* رفع الطلب للـ Firestore
+          await local.updateOrderSyncStatus(
+            order.id,
+            true,
+          ); //* تحديث الحالة محليًا
+          print('✅ تم مزامنة الطلب ${order.id}');
+        } catch (e) {
+          print('❌ فشل مزامنة الطلب ${order.id}: $e');
+        }
+      }
       return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure("Sync Failed: ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OrderEntity>>> getUnsyncedOrders() async {
+    try {
+      final result = await local.getUnsyncedOrders();
+      return Right(result);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteOrder(String id) async {
+  Future<Either<Failure, void>> deleteOrderLocally(String id) async {
     try {
-      await remote.deleteOrder(id);
-      return const Right(unit);
+      await local.deleteOrderLocally(id);
+      return const Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
-  Future<void> syncPendingOrders() async {
-    final unsyncedOrders = await local.getUnsyncedOrders();
-    for (var order in unsyncedOrders) {
-      try {
-        await remote.addOrder(order);
-        await local.updateOrderSyncStatus(order.id, true);
-      } catch (e) {
-        print("Failed to sync order ${order.id}: $e");
-      }
+
+  @override
+  Future<Either<Failure, void>> updateOrderSyncStatus(
+    String id,
+    bool isSynced,
+  ) async {
+    try {
+      await local.updateOrderSyncStatus(id, isSynced);
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> saveOrderLocally(OrderEntity order) async {
+    try {
+      await local.saveOrderLocally(order);
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

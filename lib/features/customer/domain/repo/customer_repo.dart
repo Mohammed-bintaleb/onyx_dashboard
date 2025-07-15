@@ -4,9 +4,10 @@ import '../../../../core/errors/failure.dart';
 
 abstract class CustomerRepo {
   Future<Either<Failure, List<OrderEntity>>> getOrders();
-  Future<Either<Failure, OrderEntity>> getOrderById(String id);
   Future<Either<Failure, Unit>> addOrder(OrderEntity order);
-  Future<Either<Failure, Unit>> updateOrder(OrderEntity order);
-  Future<Either<Failure, Unit>> deleteOrder(String id);
-  Future<void> syncPendingOrders();
+  Future<Either<Failure, Unit>> syncPendingOrders();
+  Future<Either<Failure, List<OrderEntity>>> getUnsyncedOrders();
+  Future<Either<Failure, void>> deleteOrderLocally(String id);
+  Future<Either<Failure, void>> updateOrderSyncStatus(String id, bool isSynced);
+  Future<Either<Failure, void>> saveOrderLocally(OrderEntity order);
 }

@@ -13,21 +13,22 @@ import 'features/home/presentation/manger/language_cubit/language_cubit.dart';
 import 'features/home/presentation/manger/theme_cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 
+// main.dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await Hive.initFlutter();
-
   Hive.registerAdapter(OrderEntityAdapter());
 
-  await Hive.openBox<OrderEntity>(kOrderBox);
-  await setupServiceLocator();
+  final orderBox = await Hive.openBox<OrderEntity>(kOrderBox);
 
-  runApp(
-    DevicePreview(enabled: false, builder: (context) => const OnyxDashboard()),
-  );
+  print('📦 Hive box opened: ${orderBox.length} orders loaded');
+
+  await setupServiceLocator(orderBox);
+
+  runApp(DevicePreview(enabled: false, builder: (_) => const OnyxDashboard()));
 }
 
 class OnyxDashboard extends StatelessWidget {
@@ -39,7 +40,15 @@ class OnyxDashboard extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LanguageCubit()),
-        BlocProvider(create: (_) => sl<OrderCubit>()),
+        BlocProvider(
+          create: (_) {
+            final cubit = sl<OrderCubit>();
+            cubit.syncPendingOrders();
+            cubit.fetchOrders();
+            return cubit;
+          },
+        ),
+
         BlocProvider(create: (_) => ProductCubit()),
       ],
       child: const AppView(),
