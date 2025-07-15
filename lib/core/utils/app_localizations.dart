@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppLocalizations {
   final Locale locale;
-  Map<String, String> _localizedStrings = {}; // تمت إزالة late
+  Map<String, String> _localizedStrings = {};
 
   AppLocalizations(this.locale);
 

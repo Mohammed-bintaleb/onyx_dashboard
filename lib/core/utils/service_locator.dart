@@ -12,6 +12,7 @@ import '../../features/customer/data/repo/customer_repo_impl.dart';
 import '../../features/customer/domain/use_case/add_order_use_case.dart';
 import '../../features/customer/domain/use_case/delete_order_use_case.dart';
 import '../../features/customer/domain/use_case/get_orders_use_case.dart';
+import '../../features/customer/domain/use_case/sync_pending_orders_use_case.dart';
 import '../../features/customer/domain/use_case/update_order_use_case.dart';
 import 'package:hive/hive.dart';
 import '../../features/customer/domain/Entities/order_entity.dart';
@@ -36,6 +37,7 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<CustomerRepo>(
     () => CustomerRepoImpl(remote: sl(), local: sl(), networkInfo: sl()),
   );
+  sl.registerLazySingleton(() => SyncPendingOrdersUseCase(sl()));
 
   sl.registerLazySingleton(() => GetOrdersUseCase(sl()));
   sl.registerLazySingleton(() => AddOrderUseCase(sl()));
@@ -48,6 +50,7 @@ Future<void> setupServiceLocator() async {
       addOrderUseCase: sl(),
       updateOrderUseCase: sl(),
       deleteOrderUseCase: sl(),
+      syncPendingOrdersUseCase: sl(),
     ),
   );
 

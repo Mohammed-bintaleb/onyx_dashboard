@@ -4,6 +4,7 @@ import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.da
 import '../../../domain/use_case/add_order_use_case.dart';
 import '../../../domain/use_case/delete_order_use_case.dart';
 import '../../../domain/use_case/get_orders_use_case.dart';
+import '../../../domain/use_case/sync_pending_orders_use_case.dart';
 import '../../../domain/use_case/update_order_use_case.dart';
 
 part 'order_state.dart';
@@ -13,8 +14,10 @@ class OrderCubit extends Cubit<OrderState> {
   final AddOrderUseCase addOrderUseCase;
   final UpdateOrderUseCase updateOrderUseCase;
   final DeleteOrderUseCase deleteOrderUseCase;
+  final SyncPendingOrdersUseCase syncPendingOrdersUseCase;
 
   OrderCubit({
+    required this.syncPendingOrdersUseCase,
     required this.getOrdersUseCase,
     required this.addOrderUseCase,
     required this.updateOrderUseCase,
@@ -43,5 +46,15 @@ class OrderCubit extends Cubit<OrderState> {
   Future<void> deleteOrder(String id) async {
     await deleteOrderUseCase.call(id);
     fetchOrders();
+  }
+
+  Future<void> syncPendingOrders() async {
+    final result = await syncPendingOrdersUseCase.call();
+    result.fold(
+      (failure) => print('Sync Failed: ${failure.message}'),
+      (_) => print('Sync Successful'),
+    );
+    // بعد المزامنة، جلب الطلبات المحدثة
+    await fetchOrders();
   }
 }
