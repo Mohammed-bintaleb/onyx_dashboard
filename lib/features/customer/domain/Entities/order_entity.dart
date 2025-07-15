@@ -14,5 +14,14 @@ class OrderEntity {
   final String status;
   @HiveField(4)
   final double amount;
-  OrderEntity(this.id, this.customer, this.date, this.status, this.amount);
+  @HiveField(5)
+  final bool isSynced;
+  OrderEntity(
+    this.id,
+    this.customer,
+    this.date,
+    this.status,
+    this.amount, [
+    this.isSynced = true,
+  ]);
 }
