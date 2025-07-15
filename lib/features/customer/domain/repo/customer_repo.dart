@@ -8,4 +8,5 @@ abstract class CustomerRepo {
   Future<Either<Failure, Unit>> addOrder(OrderEntity order);
   Future<Either<Failure, Unit>> updateOrder(OrderEntity order);
   Future<Either<Failure, Unit>> deleteOrder(String id);
+  Future<void> syncPendingOrders();
 }

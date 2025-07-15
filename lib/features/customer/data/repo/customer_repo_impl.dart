@@ -55,11 +55,45 @@ class CustomerRepoImpl implements CustomerRepo {
 
   @override
   Future<Either<Failure, Unit>> addOrder(OrderEntity order) async {
-    try {
-      await remote.addOrder(order);
+    if (await networkInfo.isConnected) {
+      try {
+        await remote.addOrder(order);
+        //* حفظه كمزامَن
+        final syncedOrder = OrderEntity(
+          order.id,
+          order.customer,
+          order.date,
+          order.status,
+          order.amount,
+          true,
+        );
+        await local.saveOrderLocally(syncedOrder);
+        return const Right(unit);
+      } catch (e) {
+        //* في حال فشل الرفع نحفظه كغير متزامن
+        final unsyncedOrder = OrderEntity(
+          order.id,
+          order.customer,
+          order.date,
+          order.status,
+          order.amount,
+          false,
+        );
+        await local.saveOrderLocally(unsyncedOrder);
+        return const Right(unit);
+      }
+    } else {
+      //* إذا مافي نت نحفظه كـ unsynced
+      final unsyncedOrder = OrderEntity(
+        order.id,
+        order.customer,
+        order.date,
+        order.status,
+        order.amount,
+        false,
+      );
+      await local.saveOrderLocally(unsyncedOrder);
       return const Right(unit);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -80,6 +114,17 @@ class CustomerRepoImpl implements CustomerRepo {
       return const Right(unit);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+  Future<void> syncPendingOrders() async {
+    final unsyncedOrders = await local.getUnsyncedOrders();
+    for (var order in unsyncedOrders) {
+      try {
+        await remote.addOrder(order);
+        await local.updateOrderSyncStatus(order.id, true);
+      } catch (e) {
+        print("Failed to sync order ${order.id}: $e");
+      }
     }
   }
 }

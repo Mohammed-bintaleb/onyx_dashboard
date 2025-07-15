@@ -20,7 +20,7 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
     }
   }
 
-  ///* حفظ طلب مفرد محليًا
+  //* حفظ طلب مفرد محليًا
   Future<void> saveOrderLocally(OrderEntity order) async {
     await orderBox.put(order.id, order);
   }
