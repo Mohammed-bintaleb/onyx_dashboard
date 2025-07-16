@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/app_localizations.dart';
 import '../../../../../core/widgets/chart_custom_container.dart';
 import '../../../domain/Entities/order_entity.dart';
@@ -30,7 +31,11 @@ class _OrderTableSectionState extends State<OrderTableSection> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
+
+    final backgroundColor = isDark
+        ? AppColors.darkBackground
+        : AppColors.lightBackground;
 
     return ChartCustomContainer(
       title: t.translate("all_customer_orders"),
@@ -50,9 +55,7 @@ class _OrderTableSectionState extends State<OrderTableSection> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: isDarkMode
-                          ? const Color(0xFF1D1E33)
-                          : Colors.white,
+                      color: backgroundColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Column(
