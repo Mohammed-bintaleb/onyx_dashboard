@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
-import 'package:onyx_dashboard/core/theme/app_colors.dart'; // ✅ أضف هذا
+import 'package:onyx_dashboard/core/theme/app_colors.dart';
 import 'package:onyx_dashboard/features/home/presentation/views/widgets/dashboard_info_list_tile.dart';
 import 'package:onyx_dashboard/features/home/presentation/views/widgets/drawer_items_list_view.dart';
 
@@ -30,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
       child: Container(
         width: drawerWidth,
         decoration: BoxDecoration(
-          color: AppColors.darkBackground, 
+          color: AppColors.darkBackground,
           border: Border(
             right: isRTL
                 ? BorderSide.none

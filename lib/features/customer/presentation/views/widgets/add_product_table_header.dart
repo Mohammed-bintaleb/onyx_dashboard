@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
+import '../../../../../core/theme/app_colors.dart';
 import 'table_header_cell.dart';
 import '../../../../../core/utils/app_localizations.dart';
 
@@ -7,7 +9,7 @@ class AddProductTableHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
     final t = AppLocalizations.of(context)!;
 
     final screenWidth = MediaQuery.of(context).size.width;
@@ -18,18 +20,17 @@ class AddProductTableHeader extends StatelessWidget {
       baseFontSize = 14;
     }
 
-    final textColor = isDarkMode ? Colors.white : Colors.black;
-
+    final textColor = isDark ? AppColors.darkText : AppColors.lightText;
+    final backgroundColor = isDark ? AppColors.darkCard : AppColors.lightCard;
+    final borderColor = isDark ? AppColors.darkBorder : AppColors.lightBorder;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
-        color: isDarkMode ? const Color(0xFF1D1E33) : Colors.grey[100],
+        color: backgroundColor,
         border: Border(
-          top: BorderSide(color: isDarkMode ? Colors.grey[700]! : Colors.grey),
-          left: BorderSide(color: isDarkMode ? Colors.grey[700]! : Colors.grey),
-          right: BorderSide(
-            color: isDarkMode ? Colors.grey[700]! : Colors.grey,
-          ),
+          top: BorderSide(color: borderColor),
+          left: BorderSide(color: borderColor),
+          right: BorderSide(color: borderColor),
         ),
       ),
       child: Row(

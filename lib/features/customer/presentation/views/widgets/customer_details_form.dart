@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
 import '../../../../../core/utils/app_localizations.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../data/data_source/customer_form_fields.dart';
 import '../../manger/flutter_form_builder_cubit/flutter_form_builder_cubit.dart';
 import 'customer_form_row.dart';
@@ -14,13 +16,16 @@ class CustomerDetailsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final fieldBgColor = isDarkMode
-        ? const Color(0xFF2C2F4A)
-        : Colors.grey[200]!;
-    final fieldBorderColor = isDarkMode ? Colors.grey[700]! : Colors.grey[400]!;
-    final labelColor = isDarkMode ? Colors.grey[400]! : Colors.grey;
-    final inputTextColor = isDarkMode ? Colors.white : Colors.black87;
+    final isDark = context.isDarkMode;
+    final fieldBgColor = isDark
+        ? AppColors.darkFieldBg
+        : AppColors.lightFieldBg;
+    final fieldBorderColor = isDark
+        ? AppColors.darkBorder
+        : AppColors.lightBorder;
+    final labelColor = isDark ? AppColors.darkLabel : AppColors.lightLabel;
+    final inputTextColor = isDark ? AppColors.darkText : AppColors.lightText;
+
     final isSmallScreen = MediaQuery.of(context).size.width < 600;
 
     Widget buildField(Map<String, dynamic> field) {
@@ -48,6 +53,7 @@ class CustomerDetailsForm extends StatelessWidget {
         },
       );
     }
+
     Widget buildRow(List<Map<String, dynamic>> fields) {
       if (isSmallScreen) {
         return Column(
@@ -75,6 +81,7 @@ class CustomerDetailsForm extends StatelessWidget {
         );
       }
     }
+
     return Container(
       padding: const EdgeInsets.all(16),
       child: FormBuilder(
