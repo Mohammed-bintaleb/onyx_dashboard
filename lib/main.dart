@@ -7,6 +7,7 @@ import 'package:onyx_dashboard/constants.dart';
 import 'core/utils/app_view.dart';
 import 'core/utils/service_locator.dart';
 import 'features/customer/domain/Entities/order_entity.dart';
+import 'features/customer/presentation/manger/flutter_form_builder_cubit/flutter_form_builder_cubit.dart';
 import 'features/customer/presentation/manger/order_cubit/order_cubit.dart';
 import 'features/customer/presentation/manger/product_cubit/product_cubit.dart';
 import 'features/home/presentation/manger/language_cubit/language_cubit.dart';
@@ -38,6 +39,7 @@ class OnyxDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => FlutterFormBuilderCubit()),
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LanguageCubit()),
         BlocProvider(

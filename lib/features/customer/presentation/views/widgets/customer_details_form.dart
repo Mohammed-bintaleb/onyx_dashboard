@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import '../../../../../core/utils/app_localizations.dart';
 import '../../../data/data_source/customer_form_fields.dart';
+import '../../manger/flutter_form_builder_cubit/flutter_form_builder_cubit.dart';
 import 'customer_form_row.dart';
 
 class CustomerDetailsForm extends StatelessWidget {
@@ -21,16 +23,31 @@ class CustomerDetailsForm extends StatelessWidget {
     final inputTextColor = isDarkMode ? Colors.white : Colors.black87;
     final isSmallScreen = MediaQuery.of(context).size.width < 600;
 
-    Widget buildField(Map<String, dynamic> field) => CustomerFormRow(
-      name: field['name'],
-      label: t.translate(field['label']),
-      initialValue: field['initial'],
-      labelColor: labelColor,
-      bgColor: fieldBgColor,
-      borderColor: fieldBorderColor,
-      inputColor: inputTextColor,
-      required: field['required'],
-    );
+    Widget buildField(Map<String, dynamic> field) {
+      return BlocBuilder<FlutterFormBuilderCubit, FlutterFormBuilderState>(
+        builder: (context, formState) {
+          final currentValue =
+              formState.fields[field['name']]?.toString() ?? '';
+          return CustomerFormRow(
+            name: field['name'],
+            label: t.translate(field['label']),
+            hintText: field['hint'],
+            labelColor: labelColor,
+            bgColor: fieldBgColor,
+            borderColor: fieldBorderColor,
+            inputColor: inputTextColor,
+            required: field['required'],
+            initialValue: currentValue,
+            onChanged: (value) {
+              context.read<FlutterFormBuilderCubit>().updateField(
+                field['name'],
+                value,
+              );
+            },
+          );
+        },
+      );
+    }
 
     Widget buildRow(List<Map<String, dynamic>> fields) {
       if (isSmallScreen) {

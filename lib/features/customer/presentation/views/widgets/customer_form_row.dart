@@ -4,23 +4,27 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 class CustomerFormRow extends StatelessWidget {
   final String name;
   final String label;
-  final String initialValue;
+  final String hintText;
   final Color labelColor;
   final Color bgColor;
   final Color borderColor;
   final Color inputColor;
   final bool required;
+  final String initialValue; // جديد
+  final ValueChanged<String?>? onChanged; // جديد
 
   const CustomerFormRow({
     super.key,
     required this.name,
     required this.label,
-    required this.initialValue,
+    required this.hintText,
     required this.labelColor,
     required this.bgColor,
     required this.borderColor,
     required this.inputColor,
     this.required = true,
+    this.initialValue = '',
+    this.onChanged,
   });
 
   @override
@@ -45,12 +49,14 @@ class CustomerFormRow extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: inputColor,
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               isDense: true,
-              contentPadding: EdgeInsets.symmetric(vertical: 12),
+              contentPadding: const EdgeInsets.symmetric(vertical: 12),
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
+              hintText: hintText,
+              hintStyle: TextStyle(color: inputColor.withOpacity(0.5)),
             ),
             validator: required
                 ? (value) {
@@ -60,6 +66,7 @@ class CustomerFormRow extends StatelessWidget {
                     return null;
                   }
                 : null,
+            onChanged: onChanged,
           ),
         ),
       ],
