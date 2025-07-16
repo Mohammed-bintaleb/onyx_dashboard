@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/app_styles.dart';
 import '../../../domain/Entities/order_entity.dart';
 import 'order_info_text.dart';
@@ -19,7 +20,7 @@ class _OrderRowState extends State<OrderRow> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
 
     final screenWidth = MediaQuery.of(context).size.width;
     double baseFontSize = 16;
@@ -33,20 +34,20 @@ class _OrderRowState extends State<OrderRow> {
       context,
     ).copyWith(fontSize: baseFontSize);
 
+    final bgColor = _isHovered
+        ? (isDark ? AppColors.darkHover : AppColors.lightHover)
+        : (isDark ? AppColors.darkBackground : AppColors.lightBackground);
+
+    final borderColor = isDark ? AppColors.darkBorder : AppColors.lightBorder;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         decoration: BoxDecoration(
-          color: _isHovered
-              ? Colors.grey.withOpacity(0.1)
-              : isDarkMode
-              ? const Color(0xFF1D1E33)
-              : Colors.white,
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200, width: 1),
-          ),
+          color: bgColor,
+          border: Border(bottom: BorderSide(color: borderColor, width: 1)),
         ),
         child: Row(
           children: [
@@ -72,9 +73,9 @@ class _OrderRowState extends State<OrderRow> {
               flex: 2,
             ),
             const SizedBox(width: 30),
-            const SizedBox(
+            SizedBox(
               width: 30,
-              child: Icon(Icons.more_vert, color: Colors.grey),
+              child: Icon(Icons.more_vert, color: AppColors.iconGrey),
             ),
           ],
         ),

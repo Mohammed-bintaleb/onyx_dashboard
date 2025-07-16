@@ -25,4 +25,8 @@ class AppColors {
 
   // Common Colors
   static const Color iconGrey = Color(0xFF757575);
+
+  //hover Colors
+  static const lightHover = Color(0xFFF5F5F5);
+  static const darkHover = Color(0xFF2C2F4A);
 }
