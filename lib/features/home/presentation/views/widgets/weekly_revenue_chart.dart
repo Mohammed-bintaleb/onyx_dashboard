@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:onyx_dashboard/core/utils/app_localizations.dart'; // استيراد الترجمة
+import 'package:onyx_dashboard/core/utils/app_localizations.dart'; 
 
 class WeeklyRevenueChart extends StatelessWidget {
   const WeeklyRevenueChart({super.key});

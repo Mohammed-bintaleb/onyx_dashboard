@@ -10,12 +10,12 @@ class CustomTextTitle extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final t = AppLocalizations.of(context)!;
 
-    double titleFontSize = screenWidth < 400
+    double titleFontSize = screenWidth < 500
         ? 20
-        : (screenWidth < 600 ? 26 : 32);
-    double subtitleFontSize = screenWidth < 400
+        : (screenWidth < 500 ? 20 : 25);
+    double subtitleFontSize = screenWidth < 500
         ? 12
-        : (screenWidth < 600 ? 14 : 16);
+        : (screenWidth < 500 ? 14 : 14);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +34,7 @@ class CustomTextTitle extends StatelessWidget {
           fit: BoxFit.scaleDown,
           child: Text(
             t.translate('customer_orders_subtitle'),
-            style: AppStyles.styleRegular14(
+            style: AppStyles.style16(
               context,
             ).copyWith(fontSize: subtitleFontSize),
           ),

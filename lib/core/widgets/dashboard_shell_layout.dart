@@ -6,59 +6,52 @@ import '../../features/home/presentation/views/widgets/custom_drawer.dart';
 
 class DashboardShellLayout extends StatelessWidget {
   final Widget child;
-  const DashboardShellLayout({super.key, required this.child});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  DashboardShellLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isTablet = screenWidth >= 800;
+    final isTablet = screenWidth >= 700;
+    final showMenuButton = !isTablet;
 
-    if (isTablet) {
-      return Scaffold(
-        body: Row(
-          children: [
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: showMenuButton
+          ? CustomDrawer(
+              currentIndex: _getCurrentIndex(context),
+              onItemSelected: (index) {
+                _navigateByIndex(context, index);
+                Navigator.of(context).pop();
+              },
+            )
+          : null,
+      body: Row(
+        children: [
+          if (!showMenuButton)
             CustomDrawer(
               currentIndex: _getCurrentIndex(context),
               onItemSelected: (index) => _navigateByIndex(context, index),
             ),
-            Expanded(
-              child: Column(
-                children: [
-                  const CustomAppBar(),
-                  Expanded(child: child),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu, color: Colors.black),
-              onPressed: () => Scaffold.of(context).openDrawer(),
+
+          Expanded(
+            child: Column(
+              children: [
+                CustomAppBar(
+                  showMenuButton: showMenuButton,
+                  onMenuPressed: () {
+                    _scaffoldKey.currentState?.openDrawer();
+                  },
+                ),
+                Expanded(child: child),
+              ],
             ),
           ),
-        ),
-        drawer: CustomDrawer(
-          currentIndex: _getCurrentIndex(context),
-          onItemSelected: (index) {
-            _navigateByIndex(context, index);
-            Navigator.of(context).pop();
-          },
-        ),
-        body: Column(
-          children: [
-            const CustomAppBar(),
-            Expanded(child: child),
-          ],
-        ),
-      );
-    }
+        ],
+      ),
+    );
   }
 
   int _getCurrentIndex(BuildContext context) {

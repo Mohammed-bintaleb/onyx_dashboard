@@ -42,7 +42,7 @@ class ChartCustomContainer extends StatelessWidget {
           FittedBox(
             alignment: Alignment.centerLeft,
             fit: BoxFit.scaleDown,
-            child: Text(subtitle, style: AppStyles.styleRegular14(context)),
+            child: Text(subtitle, style: AppStyles.style16(context)),
           ),
 
           const SizedBox(height: 12),

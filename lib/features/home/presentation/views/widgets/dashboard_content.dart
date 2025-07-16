@@ -9,7 +9,7 @@ class DashboardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isLargeScreen = screenWidth >= 800;
+    final isLargeScreen = screenWidth >= 700;
 
     return CustomScrollView(
       slivers: [

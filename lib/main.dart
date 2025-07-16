@@ -48,7 +48,6 @@ class OnyxDashboard extends StatelessWidget {
             return cubit;
           },
         ),
-
         BlocProvider(create: (_) => ProductCubit()),
       ],
       child: const AppView(),

@@ -33,9 +33,7 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is OrderLoaded) {
             final totalItems = state.orders.length;
-
             if (totalItems == 0) {
-              // الحالة إذا ما في طلبات
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
@@ -67,13 +65,11 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
                 ),
               );
             }
-
             final totalPages = (totalItems / itemsPerPage).ceil();
             final visibleOrders = state.orders.sublist(
               currentPage * itemsPerPage,
               (currentPage * itemsPerPage + itemsPerPage).clamp(0, totalItems),
             );
-
             return SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: Column(

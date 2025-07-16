@@ -10,7 +10,7 @@ class CustomContainerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final screenWidth = MediaQuery.of(context).size.width;
-    final isLargeScreen = screenWidth >= 800;
+    final isLargeScreen = screenWidth >= 700;
 
     final items = [
       CustomContainerModel(

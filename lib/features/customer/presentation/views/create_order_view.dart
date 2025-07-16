@@ -49,7 +49,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
       amount: amount,
     );
 
-    // ننتظر حفظ الطلب بشكل كامل
+    //* ننتظر حفظ الطلب بشكل كامل
     await context.read<OrderCubit>().addOrder(order);
     print("Order submission complete");
 
