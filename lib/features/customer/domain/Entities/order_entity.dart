@@ -24,4 +24,21 @@ class OrderEntity {
     this.amount, [
     this.isSynced = true,
   ]);
+  OrderEntity copyWith({
+    String? id,
+    String? customer,
+    String? date,
+    String? status,
+    double? amount,
+    bool? isSynced,
+  }) {
+    return OrderEntity(
+      id ?? this.id,
+      customer ?? this.customer,
+      date ?? this.date,
+      status ?? this.status,
+      amount ?? this.amount,
+      isSynced ?? this.isSynced,
+    );
+  }
 }

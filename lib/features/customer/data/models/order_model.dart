@@ -32,7 +32,7 @@ class OrderModel extends OrderEntity {
     };
   }
 
-  //* نسخ الكائن مع تغيير بعض القيم
+  @override
   OrderModel copyWith({
     String? id,
     String? customer,
@@ -48,6 +48,30 @@ class OrderModel extends OrderEntity {
       status: status ?? this.status,
       amount: amount ?? this.amount,
       isSynced: isSynced ?? this.isSynced,
+    );
+  }
+
+  // طريقة لتحويل من OrderEntity إلى OrderModel (اختياري لكنها مفيدة)
+  factory OrderModel.fromEntity(OrderEntity entity) {
+    return OrderModel(
+      id: entity.id,
+      customer: entity.customer,
+      date: entity.date,
+      status: entity.status,
+      amount: entity.amount,
+      isSynced: entity.isSynced,
+    );
+  }
+
+  // لتحويل العكس
+  OrderEntity toEntity() {
+    return OrderEntity(
+      id,
+      customer,
+      date,
+      status,
+      amount,
+      isSynced,
     );
   }
 }

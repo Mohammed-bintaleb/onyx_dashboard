@@ -68,14 +68,7 @@ class CustomerRepoImpl implements CustomerRepo {
         print('🚀 محاولة رفع الطلب إلى Firestore...');
         await remote.addOrder(order);
 
-        final syncedOrder = OrderEntity(
-          order.id,
-          order.customer,
-          order.date,
-          order.status,
-          order.amount,
-          true,
-        );
+        final syncedOrder = order.copyWith(isSynced: true);
         await local.saveOrderLocally(syncedOrder);
         print('✅ تم رفع الطلب وحفظه كمزامن: ${order.id}');
         return const Right(unit);
@@ -83,14 +76,7 @@ class CustomerRepoImpl implements CustomerRepo {
         print(
           '❌ فشل الرفع إلى Firestore، حفظه محليًا كـ غير متزامن: ${order.id}',
         );
-        final unsyncedOrder = OrderEntity(
-          order.id,
-          order.customer,
-          order.date,
-          order.status,
-          order.amount,
-          false,
-        );
+        final unsyncedOrder = order.copyWith(isSynced: false);
         await local.saveOrderLocally(unsyncedOrder);
         return const Right(unit);
       }
@@ -98,14 +84,7 @@ class CustomerRepoImpl implements CustomerRepo {
       print(
         '📴 لا يوجد اتصال، سيتم حفظ الطلب محليًا كـ غير متزامن: ${order.id}',
       );
-      final unsyncedOrder = OrderEntity(
-        order.id,
-        order.customer,
-        order.date,
-        order.status,
-        order.amount,
-        false,
-      );
+      final unsyncedOrder = order.copyWith(isSynced: false);
       await local.saveOrderLocally(unsyncedOrder);
       return const Right(unit);
     }
