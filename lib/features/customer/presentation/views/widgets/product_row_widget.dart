@@ -14,6 +14,7 @@ class ProductRowWidget extends StatelessWidget {
   final Map<String, ProductDataEntity> productDatabase;
   final Function(String) onNameChanged;
   final Function(int) onQuantityChanged;
+  final VoidCallback onDelete;
 
   const ProductRowWidget({
     super.key,
@@ -21,6 +22,7 @@ class ProductRowWidget extends StatelessWidget {
     required this.productDatabase,
     required this.onNameChanged,
     required this.onQuantityChanged,
+    required this.onDelete,
   });
 
   @override
@@ -78,6 +80,12 @@ class ProductRowWidget extends StatelessWidget {
               totalPrice: productData.price * product.quantity,
               isDarkMode: isDark,
             ),
+          ),
+          const SizedBox(width: 10),
+          IconButton(
+            icon: Icon(Icons.delete_outline,),
+            onPressed: onDelete,
+            tooltip: 'Delete Product',
           ),
         ],
       ),

@@ -46,4 +46,16 @@ class ProductCubit extends Cubit<ProductState> {
   void clearProducts() {
     emit(ProductState(products: [], grandTotal: 0.0));
   }
+
+  void deleteProduct(int index) {
+    final updatedProducts = List<ProductRowEntity>.from(state.products)
+      ..removeAt(index);
+
+    final newGrandTotal = updatedProducts.fold<double>(0, (sum, p) {
+      final productData = productDatabase[p.name];
+      return sum + (productData?.price ?? 0) * p.quantity;
+    });
+
+    emit(state.copyWith(products: updatedProducts, grandTotal: newGrandTotal));
+  }
 }
