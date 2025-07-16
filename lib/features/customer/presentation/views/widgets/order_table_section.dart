@@ -30,7 +30,6 @@ class _OrderTableSectionState extends State<OrderTableSection> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return ChartCustomContainer(
@@ -43,22 +42,50 @@ class _OrderTableSectionState extends State<OrderTableSection> {
             onFilterChanged: onFilterChanged,
           ),
           const SizedBox(height: 16),
-          Container(
-            decoration: BoxDecoration(
-              color: isDarkMode ? const Color(0xFF1D1E33) : Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Column(
-              children: [OrderTableHeader(), Divider(height: 1)],
-            ),
-          ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.orders.length,
-            separatorBuilder: (context, index) => const Divider(height: 1),
-            itemBuilder: (context, index) =>
-                OrderRow(order: widget.orders[index]),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final isSmallScreen = constraints.maxWidth < 700;
+
+              Widget table = Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isDarkMode
+                          ? const Color(0xFF1D1E33)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Column(
+                      children: [OrderTableHeader(), Divider(height: 1)],
+                    ),
+                  ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget.orders.length,
+                    separatorBuilder: (context, index) =>
+                        const Divider(height: 1),
+                    itemBuilder: (context, index) =>
+                        OrderRow(order: widget.orders[index]),
+                  ),
+                ],
+              );
+
+              if (isSmallScreen) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: 700,
+                      maxWidth: 900,
+                    ),
+                    child: table,
+                  ),
+                );
+              } else {
+                return table;
+              }
+            },
           ),
         ],
       ),
