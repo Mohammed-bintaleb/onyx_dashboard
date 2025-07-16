@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:developer';
+
 import 'package:hive/hive.dart';
 import '../../../../constants.dart';
 import '../../domain/Entities/order_entity.dart';
@@ -26,18 +28,23 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
   @override
   Future<void> cacheOrders(List<OrderEntity> orders) async {
     //* احصل على الطلبات غير المتزامنة
+    final unsyncedOrders1 = orderBox.values;
+    log("${unsyncedOrders1.length} ============== unsyncedOrders1.length");
     final unsyncedOrders = orderBox.values
         .where((order) => !order.isSynced)
         .toList();
-
+    log("${unsyncedOrders.length} ============== unsyncedOrders.length");
     //* احصل على مفاتيح الطلبات المتزامنة فقط
     final syncedKeys = orderBox.keys.where((key) {
       final order = orderBox.get(key);
       return order != null && order.isSynced == true;
     }).toList();
 
+    log("$syncedKeys ============== syncedKeys");
     //* احذف الطلبات المتزامنة فقط
     await orderBox.deleteAll(syncedKeys);
+    final unsyncedOrders2 = orderBox.values;
+    log("${unsyncedOrders2.length} ============== unsyncedOrders2.length");
 
     //* أضف الطلبات الجديدة من Firestore بشرط ألا يكون موجود لها id في الطلبات غير المتزامنة
     final unsyncedIds = unsyncedOrders.map((e) => e.id).toSet();
@@ -63,7 +70,7 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
   Future<void> saveOrderLocally(OrderEntity order) async {
     await orderBox.put(order.id, order);
     await orderBox.flush();
-    await orderBox.compact();
+    // await orderBox.compact();
     final box = Hive.box<OrderEntity>(kOrderBox);
     print('📦 بعد الحفظ: ${box.length}');
     print('💾 حفظ الطلب محلياً: ${order.id}, isSynced: ${order.isSynced}');
@@ -94,7 +101,7 @@ class CustomerLocalDataSourceImpl implements CustomerLocalDataSource {
     }
   }
 
-  //* حذف الطلب من local
+  ///* حذف الطلب من local
   @override
   Future<void> deleteOrderLocally(String id) async {
     await orderBox.delete(id);
