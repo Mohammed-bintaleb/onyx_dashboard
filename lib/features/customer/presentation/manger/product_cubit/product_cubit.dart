@@ -42,4 +42,8 @@ class ProductCubit extends Cubit<ProductState> {
 
     emit(state.copyWith(products: updatedProducts, grandTotal: total));
   }
+
+  void clearProducts() {
+    emit(ProductState(products: [], grandTotal: 0.0));
+  }
 }

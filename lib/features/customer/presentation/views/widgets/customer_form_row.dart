@@ -10,8 +10,8 @@ class CustomerFormRow extends StatelessWidget {
   final Color borderColor;
   final Color inputColor;
   final bool required;
-  final String initialValue; // جديد
-  final ValueChanged<String?>? onChanged; // جديد
+  final String initialValue;
+  final ValueChanged<String?>? onChanged;
 
   const CustomerFormRow({
     super.key,

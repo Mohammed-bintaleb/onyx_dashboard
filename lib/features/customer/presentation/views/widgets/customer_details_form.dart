@@ -48,7 +48,6 @@ class CustomerDetailsForm extends StatelessWidget {
         },
       );
     }
-
     Widget buildRow(List<Map<String, dynamic>> fields) {
       if (isSmallScreen) {
         return Column(
@@ -76,7 +75,6 @@ class CustomerDetailsForm extends StatelessWidget {
         );
       }
     }
-
     return Container(
       padding: const EdgeInsets.all(16),
       child: FormBuilder(

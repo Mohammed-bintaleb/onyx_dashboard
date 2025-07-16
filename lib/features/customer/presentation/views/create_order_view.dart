@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +7,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import '../../../../core/utils/app_localizations.dart';
 import '../../data/models/order_model.dart';
 import '../../domain/Entities/product_row_entity.dart';
+import '../manger/flutter_form_builder_cubit/flutter_form_builder_cubit.dart';
 import '../manger/order_cubit/order_cubit.dart';
+import '../manger/product_cubit/product_cubit.dart';
 import 'widgets/order_details_step.dart';
 import 'widgets/review_step_section.dart';
 import 'widgets/stepper_section.dart';
@@ -49,11 +51,13 @@ class _CreateOrderViewState extends State<CreateOrderView> {
       amount: amount,
     );
 
-    //* ننتظر حفظ الطلب بشكل كامل
     await context.read<OrderCubit>().addOrder(order);
     print("Order submission complete");
 
     if (context.mounted) {
+      context.read<FlutterFormBuilderCubit>().clearFields();
+      context.read<ProductCubit>().clearProducts();
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Order created successfully")),
       );
