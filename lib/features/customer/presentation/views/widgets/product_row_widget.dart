@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../domain/Entities/product_data_entity.dart';
 import '../../../domain/Entities/product_row_entity.dart';
 import 'product_available_text.dart';
@@ -24,14 +25,19 @@ class ProductRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
     final productData = productDatabase[product.name]!;
+
+    final backgroundColor = isDark
+        ? AppColors.darkBackground
+        : AppColors.grey100;
+    final borderColor = isDark ? AppColors.darkBorder : AppColors.lightBorder;
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
-        color: isDarkMode ? const Color(0xFF1D1E33) : Colors.grey[100],
-        border: Border.all(color: isDarkMode ? Colors.grey[700]! : Colors.grey),
+        color: backgroundColor,
+        border: Border.all(color: borderColor),
       ),
       child: Row(
         children: [
@@ -41,7 +47,7 @@ class ProductRowWidget extends StatelessWidget {
               selectedName: product.name,
               productDatabase: productDatabase,
               onNameChanged: onNameChanged,
-              isDarkMode: isDarkMode,
+              isDarkMode: isDark,
             ),
           ),
           const SizedBox(width: 10),
@@ -49,13 +55,13 @@ class ProductRowWidget extends StatelessWidget {
             flex: 2,
             child: ProductAvailableText(
               available: productData.available,
-              isDarkMode: isDarkMode,
+              isDarkMode: isDark,
             ),
           ),
           Expanded(
             child: ProductPriceText(
               price: productData.price,
-              isDarkMode: isDarkMode,
+              isDarkMode: isDark,
             ),
           ),
           Expanded(
@@ -63,14 +69,14 @@ class ProductRowWidget extends StatelessWidget {
               quantity: product.quantity,
               maxAvailable: productData.available,
               onQuantityChanged: onQuantityChanged,
-              isDarkMode: isDarkMode,
+              isDarkMode: isDark,
             ),
           ),
           const SizedBox(width: 15),
           Expanded(
             child: ProductTotalPriceText(
               totalPrice: productData.price * product.quantity,
-              isDarkMode: isDarkMode,
+              isDarkMode: isDark,
             ),
           ),
         ],

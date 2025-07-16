@@ -25,8 +25,13 @@ class AppColors {
 
   // Common Colors
   static const Color iconGrey = Color(0xFF757575);
+  static const Color grey100 = Color(0xFFF5F5F5);
 
   //hover Colors
   static const lightHover = Color(0xFFF5F5F5);
   static const darkHover = Color(0xFF2C2F4A);
+
+  //field Colors
+  static const Color lightFieldBackground = Color(0xFFF5F8FA);
+  static const Color darkFieldBackground = Color(0xFF2C2F4A);
 }
