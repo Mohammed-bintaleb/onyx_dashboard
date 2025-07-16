@@ -19,6 +19,8 @@ class OrderTableSection extends StatefulWidget {
 
 class _OrderTableSectionState extends State<OrderTableSection> {
   String selectedFilter = "All Statuses";
+  String searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
 
   void onFilterChanged(String? value) {
     if (value != null) {
@@ -26,6 +28,20 @@ class _OrderTableSectionState extends State<OrderTableSection> {
         selectedFilter = value;
       });
     }
+  }
+
+  List<OrderEntity> get filteredOrders {
+    return widget.orders.where((order) {
+      final matchesStatus =
+          selectedFilter == "All Statuses" ||
+          order.status.toLowerCase() == selectedFilter.toLowerCase();
+
+      final matchesSearch =
+          order.id.toLowerCase().contains(searchQuery) ||
+          order.customer.toLowerCase().contains(searchQuery);
+
+      return matchesStatus && matchesSearch;
+    }).toList();
   }
 
   @override
@@ -43,6 +59,12 @@ class _OrderTableSectionState extends State<OrderTableSection> {
       child: Column(
         children: [
           SearchAndFilterBar(
+            searchController: _searchController,
+            onSearchChanged: (value) {
+              setState(() {
+                searchQuery = value.toLowerCase();
+              });
+            },
             selectedFilter: selectedFilter,
             onFilterChanged: onFilterChanged,
           ),
@@ -65,11 +87,11 @@ class _OrderTableSectionState extends State<OrderTableSection> {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.orders.length,
+                    itemCount: filteredOrders.length,
                     separatorBuilder: (context, index) =>
                         const Divider(height: 1),
                     itemBuilder: (context, index) =>
-                        OrderRow(order: widget.orders[index]),
+                        OrderRow(order: filteredOrders[index]),
                   ),
                 ],
               );
