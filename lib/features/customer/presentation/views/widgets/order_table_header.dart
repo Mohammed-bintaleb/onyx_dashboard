@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/app_localizations.dart';
 import 'order_table_header_text.dart';
 
@@ -8,16 +9,19 @@ class OrderTableHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
     final t = AppLocalizations.of(context)!;
+
+    final bgColor = isDark
+        ? AppColors.darkBackground
+        : AppColors.lightBackground;
+    final borderColor = isDark ? AppColors.darkBorder : AppColors.lightBorder;
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
-        color: isDarkMode ? const Color(0xFF1D1E33) : Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.shade300, width: 1),
-        ),
+        color: bgColor,
+        border: Border(bottom: BorderSide(color: borderColor, width: 1)),
       ),
       child: Row(
         children: [

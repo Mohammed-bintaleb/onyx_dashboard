@@ -8,8 +8,7 @@ class AppColors {
   static const Color darkLabel = Color(0xFFB0BEC5);
 
   //Border Colors
-  static const Color darkBackground = Color(0xFF0A0E21);
-  static const Color darkBorder = Color(0xFF4C4F5E);
+  static const Color darkBorder = Color(0xFF444654);
   static const Color lightBorder = Color(0xFFE0E0E0);
 
   // card Colors
@@ -21,7 +20,8 @@ class AppColors {
   // Background
   static const Color darkFieldBg = Color(0xFF2C2F4A);
   static final Color lightFieldBg = Colors.grey[200]!;
-  static const Color lightBackground = Color(0xFFF5F8FA);
+  static const Color lightBackground = Colors.white;
+  static const Color darkBackground = Color(0xFF0A0E21);
 
   // Common Colors
   static const Color iconGrey = Color(0xFF757575);
