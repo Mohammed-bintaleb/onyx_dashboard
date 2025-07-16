@@ -1,8 +1,7 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
 import 'package:onyx_dashboard/core/utils/app_styles.dart';
-
+import 'package:onyx_dashboard/core/theme/app_colors.dart';
 import '../../../../customer/data/models/custom_container_model.dart';
 
 class CustomContainer extends StatelessWidget {
@@ -12,20 +11,15 @@ class CustomContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
+
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? Theme.of(context).scaffoldBackgroundColor
-            : Colors.white,
+        color: isDark ? AppColors.darkCard : AppColors.lightCard,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: Border.all(
+          color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -40,7 +34,7 @@ class CustomContainer extends StatelessWidget {
                     style: AppStyles.styleMedium16(context),
                   ),
                 ),
-                Icon(model.titleIcon, color: Colors.grey[600], size: 20),
+                Icon(model.titleIcon, color: AppColors.iconGrey, size: 20),
               ],
             ),
             const SizedBox(height: 12),

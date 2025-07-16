@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 
@@ -7,7 +8,7 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
 
     return Container(
       height: 40,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
 import '../../../../../core/theme/app_colors.dart';
-import 'aearch_box.dart';
+import 'saearch_box.dart';
 import 'language_button.dart';
 import 'menu_button.dart';
 import 'notification_button.dart';
@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
 
     return Container(
       decoration: BoxDecoration(
@@ -41,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           const SizedBox(width: 8),
           const Expanded(child: TitleSection()),
           const Spacer(),
-          const Flexible(child: SearchBox()), // ما يحتاج isDarkMode بعد الآن
+          const Flexible(child: SearchBox()),
           NotificationButton(),
           const SizedBox(width: 12),
           LanguageSwitcher(),
