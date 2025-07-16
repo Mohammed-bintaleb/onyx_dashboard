@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme/app_colors.dart';
 import 'aearch_box.dart';
 import 'language_button.dart';
 import 'menu_button.dart';
@@ -24,12 +25,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark
-            ? Theme.of(context).scaffoldBackgroundColor
-            : const Color(0xFFF5F8FA),
+        color: isDark ? AppColors.darkBackground : AppColors.lightBackground,
         border: Border(
           bottom: BorderSide(
-            color: isDark ? Colors.white24 : Colors.grey.shade300,
+            color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
             width: 1,
           ),
         ),
@@ -42,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           const SizedBox(width: 8),
           const Expanded(child: TitleSection()),
           const Spacer(),
-          Flexible(child: SearchBox(isDarkMode: isDark)),
+          const Flexible(child: SearchBox()), // ما يحتاج isDarkMode بعد الآن
           NotificationButton(),
           const SizedBox(width: 12),
           LanguageSwitcher(),

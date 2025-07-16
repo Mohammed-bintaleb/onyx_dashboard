@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme/app_colors.dart';
+
 class SearchBox extends StatelessWidget {
-  final bool isDarkMode;
-  const SearchBox({super.key, required this.isDarkMode});
+  const SearchBox({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       height: 40,
       width: 400,
       decoration: BoxDecoration(
-        color: isDarkMode ? Theme.of(context).scaffoldBackgroundColor : null,
+        color: isDark ? AppColors.darkBackground : AppColors.lightCard,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(
+          color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
