@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/drawer_item_model.dart';
 import 'drawer_item.dart';
-import '../../../../../core/utils/app_localizations.dart'; // استيراد الترجمة
+import '../../../../../core/utils/app_localizations.dart'; 
 
 class DrawerItemsListView extends StatelessWidget {
   final int currentIndex;

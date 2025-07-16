@@ -4,7 +4,7 @@ class AppColors {
   // Light Theme Colors
   static const Color lightBackground = Color(0xFFF5F8FA);
   static const Color lightCard = Colors.white;
-  static const Color lightBorder = Color(0xFFDADADA);
+  static const Color lightBorder = Color(0xFFE0E0E0);
   static const Color lightText = Colors.black87;
   static const Color cardShadowlight = Colors.grey;
 

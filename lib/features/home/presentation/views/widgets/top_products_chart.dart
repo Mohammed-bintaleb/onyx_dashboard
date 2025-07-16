@@ -19,12 +19,12 @@ class TopProductsChart extends StatelessWidget {
       ProductDataMode(t.translate('product_mega_gear'), 200),
     ];
 
-    // نعكس ترتيب البيانات لو كانت اللغة RTL
+    //* نعكس ترتيب البيانات لو كانت اللغة RTL
     final List<ProductDataMode> displayedData = isRTL
         ? data.reversed.toList()
         : data;
 
-    // حساب أقصى قيمة Y
+    //* حساب أقصى قيمة Y
     final maxY =
         (displayedData.map((d) => d.orders).reduce((a, b) => a > b ? a : b) *
                 1.2)

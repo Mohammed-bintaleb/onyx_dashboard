@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onyx_dashboard/core/extensions/context_extensions.dart';
+import 'package:onyx_dashboard/core/theme/app_colors.dart'; // ✅ أضف هذا
 import 'package:onyx_dashboard/features/home/presentation/views/widgets/dashboard_info_list_tile.dart';
 import 'package:onyx_dashboard/features/home/presentation/views/widgets/drawer_items_list_view.dart';
 
@@ -16,26 +18,25 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
     final isRTL = Directionality.of(context) == TextDirection.rtl;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final double drawerWidth = (screenWidth * 0.2).clamp(250, 300);
+
+    final borderColor = isDark ? AppColors.darkBorder : AppColors.lightBorder;
+
     return Align(
       alignment: isRTL ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         width: drawerWidth,
         decoration: BoxDecoration(
-          color: const Color(0xFF0A0E21),
+          color: AppColors.darkBackground, 
           border: Border(
             right: isRTL
                 ? BorderSide.none
-                : (isDark
-                      ? BorderSide(color: Colors.white24, width: 1)
-                      : BorderSide(color: Colors.grey.shade300, width: 1)),
+                : BorderSide(color: borderColor, width: 1),
             left: isRTL
-                ? (isDark
-                      ? BorderSide(color: Colors.white24, width: 1)
-                      : BorderSide(color: Colors.grey.shade300, width: 1))
+                ? BorderSide(color: borderColor, width: 1)
                 : BorderSide.none,
           ),
         ),
