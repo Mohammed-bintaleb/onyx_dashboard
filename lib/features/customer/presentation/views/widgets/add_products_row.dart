@@ -12,7 +12,7 @@ import 'product_row_widget.dart';
 class AddProductsRow extends StatelessWidget {
   final VoidCallback onContinue;
   final Function(List<ProductRowEntity> products, double grandTotal)
-      onProductsUpdated;
+  onProductsUpdated;
 
   const AddProductsRow({
     super.key,

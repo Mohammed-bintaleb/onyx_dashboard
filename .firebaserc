@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "staging": "onyx-customer-order-e8b2c",
+    "default": "onyx-customer-order-e8b2c"
+  },
+  "targets": {},
+  "etags": {}
+}
