@@ -22,7 +22,9 @@ class DrawerItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: isActive ? Colors.white.withOpacity(0.1) : Colors.transparent,
+        color: isActive
+            ? Colors.white.withAlpha((0.1 * 255).toInt())
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(

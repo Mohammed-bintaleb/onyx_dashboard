@@ -56,7 +56,9 @@ class CustomerFormRow extends StatelessWidget {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               hintText: hintText,
-              hintStyle: TextStyle(color: inputColor.withOpacity(0.5)),
+              hintStyle: TextStyle(
+                color: inputColor.withAlpha((0.5 * 255).toInt()),
+              ),
             ),
             validator: required
                 ? (value) {

@@ -45,7 +45,7 @@ class _CustomerOrdersViewState extends State<CustomerOrdersView> {
                         size: 80,
                         color: Theme.of(
                           context,
-                        ).colorScheme.primary.withOpacity(0.6),
+                        ).colorScheme.primary.withAlpha((0.5 * 255).toInt()),
                       ),
                       const SizedBox(height: 20),
                       Text(

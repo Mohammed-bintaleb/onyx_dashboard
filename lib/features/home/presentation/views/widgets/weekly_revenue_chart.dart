@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:onyx_dashboard/core/utils/app_localizations.dart'; 
+import 'package:onyx_dashboard/core/utils/app_localizations.dart';
 
 class WeeklyRevenueChart extends StatelessWidget {
   const WeeklyRevenueChart({super.key});
@@ -80,7 +80,7 @@ class WeeklyRevenueChart extends StatelessWidget {
                 borderData: FlBorderData(
                   show: true,
                   border: Border.all(
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withAlpha((0.3 * 255).toInt()),
                     width: 1,
                   ),
                 ),
