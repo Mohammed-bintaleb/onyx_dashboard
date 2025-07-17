@@ -34,26 +34,44 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (showMenuButton) MenuButton(onPressed: onMenuPressed),
-          const SizedBox(width: 8),
-          const Expanded(child: TitleSection()),
-          const Spacer(),
-          const Flexible(child: SearchBox()),
-          const NotificationButton(),
-          const SizedBox(width: 12),
-          const LanguageSwitcher(),
-          const SizedBox(width: 12),
-          const ThemeSwitcher(),
-          const SizedBox(width: 16),
-          const UserAvatar(),
-        ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isSmall = constraints.maxWidth < 700;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (showMenuButton) MenuButton(onPressed: onMenuPressed),
+                  const SizedBox(width: 8),
+                  const Expanded(child: TitleSection()),
+                  const Spacer(),
+                  if (!isSmall) ...[
+                    const Spacer(),
+                    const Flexible(child: SearchBox()),
+                  ],
+
+                  const SizedBox(width: 12),
+                  const NotificationButton(),
+                  const SizedBox(width: 12),
+                  const LanguageSwitcher(),
+                  const SizedBox(width: 8),
+                  const ThemeSwitcher(),
+                  const SizedBox(width: 16),
+                  const UserAvatar(),
+                ],
+              ),
+
+              if (isSmall) ...[const SizedBox(height: 12), const SearchBox()],
+            ],
+          );
+        },
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(72);
+  Size get preferredSize => const Size.fromHeight(100);
 }
