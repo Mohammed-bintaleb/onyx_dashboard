@@ -25,7 +25,7 @@ void main() async {
 
   final orderBox = await Hive.openBox<OrderEntity>(kOrderBox);
 
-  print('📦 Hive box opened: ${orderBox.length} orders loaded');
+  debugPrint('📦 Hive box opened: ${orderBox.length} orders loaded');
 
   await setupServiceLocator(orderBox);
 
