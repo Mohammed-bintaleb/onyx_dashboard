@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.dart';
 
-import '../../../../../constants.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../../core/networking/networking.dart';
 import '../../../../../core/utils/service_locator.dart';
 import '../../../data/models/order_model.dart';
@@ -42,7 +42,7 @@ class OrderCubit extends Cubit<OrderState> {
   }
 
   Future<void> addOrder(OrderEntity order) async {
-    emit(OrderSaving()); // ✅ إعلام الواجهة إننا بنحفظ
+    emit(OrderSaving());
 
     final networkInfo = sl<Netwokinfo>();
     final isConnected = await networkInfo.isConnected;
@@ -67,13 +67,11 @@ class OrderCubit extends Cubit<OrderState> {
 
       await sl<CustomerRepo>().saveOrderLocally(unsyncedOrder);
       await Hive.box<OrderEntity>(kOrderBox).flush();
-      // ✅ flush يضمن الكتابة للقرص
 
       print('📦 تم حفظ الطلب محليًا كغير متزامن: ${unsyncedOrder.id}');
     }
-
-    emit(OrderSaved()); // ✅ إعلام الواجهة بنجاح الحفظ
-    fetchOrders(); // تحديث الطلبات
+    emit(OrderSaved());
+    fetchOrders();
   }
 
   Future<void> syncPendingOrders() async {

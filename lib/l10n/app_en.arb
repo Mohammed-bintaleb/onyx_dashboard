@@ -95,5 +95,6 @@
   "confirm": "Confirmation",
   "are_you_sure_submit_order": "Are you sure you want to create the order?",
   "cancel": "Cancel",
-  "yes_submit": "Yes, submit"
+  "yes_submit": "Yes, submit",
+  "create_order_subtitle": "Fill out the form below to create a new customer order"
 }

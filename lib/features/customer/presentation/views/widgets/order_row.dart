@@ -72,8 +72,8 @@ class _OrderRowState extends State<OrderRow> {
               style: textStyle,
               flex: 2,
             ),
-            const SizedBox(width: 30),
-            SizedBox(
+            const SizedBox(width: 15),
+            const SizedBox(
               width: 30,
               child: Icon(Icons.more_vert, color: AppColors.iconGrey),
             ),

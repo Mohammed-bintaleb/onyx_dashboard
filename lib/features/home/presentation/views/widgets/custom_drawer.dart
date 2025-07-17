@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
         ),
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: DashboardInfoListTile(
                 dashboardInfoModel: DashboardInfoModel(
                   image: "assets/images/avatar_3.svg",

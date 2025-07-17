@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:onyx_dashboard/constants.dart';
+import 'package:onyx_dashboard/core/utils/constants.dart';
 import 'core/utils/app_view.dart';
 import 'core/utils/service_locator.dart';
 import 'features/customer/domain/Entities/order_entity.dart';
@@ -42,14 +42,7 @@ class OnyxDashboard extends StatelessWidget {
         BlocProvider(create: (_) => FlutterFormBuilderCubit()),
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LanguageCubit()),
-        BlocProvider(
-          create: (_) {
-            final cubit = sl<OrderCubit>();
-            cubit.syncPendingOrders();
-            cubit.fetchOrders();
-            return cubit;
-          },
-        ),
+        BlocProvider(create: (_) => sl<OrderCubit>()..syncPendingOrders()),
         BlocProvider(create: (_) => ProductCubit()),
       ],
       child: const AppView(),

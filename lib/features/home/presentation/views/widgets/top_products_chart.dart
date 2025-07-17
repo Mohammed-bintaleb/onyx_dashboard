@@ -108,7 +108,7 @@ class TopProductsChart extends StatelessWidget {
           minimum: 0,
           maximum: maxY.toDouble(),
           interval: maxY / 5,
-          majorGridLines: MajorGridLines(width: 0),
+          majorGridLines: const MajorGridLines(width: 0),
           labelStyle: const TextStyle(color: Colors.transparent),
         ),
         series: [

@@ -20,15 +20,15 @@ class DashboardContent extends StatelessWidget {
               const CustomContainerListView(),
               const SizedBox(height: 40),
               isLargeScreen
-                  ? Row(
-                      children: const [
+                  ? const Row(
+                      children: [
                         Expanded(child: RevenueChartDetailsCard()),
                         SizedBox(width: 15),
                         Expanded(child: ProductsChartDetailsCard()),
                       ],
                     )
-                  : Column(
-                      children: const [
+                  : const Column(
+                      children: [
                         RevenueChartDetailsCard(),
                         SizedBox(height: 15),
                         ProductsChartDetailsCard(),

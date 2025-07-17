@@ -3,7 +3,7 @@
 import 'dart:developer';
 
 import 'package:hive/hive.dart';
-import '../../../../constants.dart';
+import '../../../../core/utils/constants.dart';
 import '../../domain/Entities/order_entity.dart';
 import 'customer_local_data_source.dart';
 

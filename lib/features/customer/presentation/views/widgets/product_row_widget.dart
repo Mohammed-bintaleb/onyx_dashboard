@@ -83,7 +83,7 @@ class ProductRowWidget extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           IconButton(
-            icon: Icon(Icons.delete_outline,),
+            icon: const Icon(Icons.delete_outline),
             onPressed: onDelete,
             tooltip: 'Delete Product',
           ),

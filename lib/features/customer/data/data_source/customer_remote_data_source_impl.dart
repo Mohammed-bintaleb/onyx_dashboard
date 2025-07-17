@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onyx_dashboard/features/customer/data/models/order_model.dart';
 import 'package:onyx_dashboard/features/customer/domain/Entities/order_entity.dart';
 
-import '../../../../constants.dart';
+import '../../../../core/utils/constants.dart';
 import 'customer_remote_data_source.dart';
 
 class CustomerRemoteDataSourceImpl implements CustomerRemoteDataSource {
